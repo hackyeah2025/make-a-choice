@@ -15,14 +15,25 @@ export default class ApiService {
     static async generateEvent(category: string, options: OptionNoText[], stats: Stats) : Promise<Event> {
         const response = await fetch(`${API_URL}/generate-event`, {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json', // Tell server it's JSON
+            },
+
             body: JSON.stringify({
                 category: category,
                 options: options,
                 stats: stats
             })
         });
+        console.log(
+            JSON.stringify({
+                category: category,
+                options: options,
+                stats: stats
+            })
+        )
         const data = await response.json() as EventResponse;
-
+        // console.log(data.options)
         return {
             title: data.title,
             text: data.text,

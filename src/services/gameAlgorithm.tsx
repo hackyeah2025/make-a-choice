@@ -1,5 +1,7 @@
+import { OptionNoText } from "../types/Event";
+
 export class GameAlgorithm {
-  private events = [
+  private events: string[] = [
     "home",
     "job/school",
     "night accident",
@@ -12,7 +14,8 @@ export class GameAlgorithm {
     "evening",
   ];
 
-  private impacts = ["happiness", "relations", "money", "health"];
+  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "relations", "money"
+];
 
   public generateEvent(): string {
     const index = Math.floor(Math.random() * this.events.length);
@@ -22,11 +25,13 @@ export class GameAlgorithm {
     public generateConsequences(
         outerLength: number = 3,
         innerLength: number = 3
-    ): Record<string, any>[][] {
-        const consequences: Record<string, any>[][] = [];
+    ): OptionNoText[] {
+        const consequences: OptionNoText[] = [];
 
         for (let i = 0; i < outerLength; i++) {
-            const innerList: Record<string, any>[] = [];
+            const innerList: OptionNoText = {
+              consequences: []
+            };
 
             for (let j = 0; j < innerLength; j++) {
             const impacted = this.impacts[Math.floor(Math.random() * this.impacts.length)];
@@ -36,7 +41,7 @@ export class GameAlgorithm {
                 value = Math.floor(Math.random() * 21) - 10;
             }
 
-            innerList.push({
+            innerList.consequences.push({
                 impacted,
                 value,
             });
@@ -48,10 +53,13 @@ export class GameAlgorithm {
         return consequences;
     }
 
-  public generateScenario() {
+  public generateScenario() : { category: string; consequences: OptionNoText[] } {
     return {
-      event: this.generateEvent(),
+      category: this.generateEvent(),
       consequences: this.generateConsequences(),
     };
   }
 }
+
+const gameAlgorithm = new GameAlgorithm();
+export default gameAlgorithm;

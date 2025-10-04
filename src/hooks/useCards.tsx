@@ -4,7 +4,7 @@ import { Option } from "../types/Event";
 import useStats from "./useStats";
 
 import useHistory from "./useHistory";
-import gameAlgorithm from "../services/game_algorithm";
+import gameAlgorithm from "../services/gameAlgorithm";
 import ApiService from "../services/api";
 
 type UseCardsProps = {
