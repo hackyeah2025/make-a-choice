@@ -5,7 +5,7 @@ export default function CardStack() {
     const { currentCard, answerCard, isLoadingCard } = useCards({ cardsQueueSize: 3 })
 
     return <div>
-        {currentCard && <Card event={currentCard} onCardAnswered={answerCard} />}
+        {currentCard && <Card event={currentCard} onCardAnswered={answerCard} iconName="bag" />}
         {isLoadingCard && <div>Loading...</div>}
     </div>
 }
