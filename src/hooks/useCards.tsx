@@ -4,6 +4,7 @@ import { Option } from "../types/Event";
 import useStats from "./useStats";
 
 import useHistory from "./useHistory";
+import { getRegularAction } from "../services/api";
 
 type UseCardsProps = {
     cardsQueueSize: number
@@ -37,7 +38,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const fetchNewCard = async () => {
         setIsLoadingCard(true);
 
-        
+        // {title, question, options} = await getRegularAction('job/school', [], stats);
         // TODO: Implement fetching a new card
         // If last card is core, don't fetch. Once it gets answered, fetch again up to a limit
         setIsLoadingCard(false)
