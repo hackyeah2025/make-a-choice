@@ -6,7 +6,7 @@ export type Event = {
 export type Option = {
     text: string;
     consequences: {
-        impacted: "happiness" | "social-life" | "money";
+        impacted: "happiness" | "relations" | "money" | "relations";
         value: number;
     }[]
 };
