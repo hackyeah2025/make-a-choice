@@ -29,16 +29,12 @@ export function HistoryProvider({ children }: { children: ReactNode }) {
     const addToHistory = (item: StateElement) => {
         const newHistory = [...history, item];
         setHistory(newHistory);
-        if (typeof window !== "undefined") {
-            window.localStorage.setItem(HISTORY_KEY, JSON.stringify(newHistory));
-        }
+        window.localStorage.setItem(HISTORY_KEY, JSON.stringify(newHistory));
     };
 
     const clearHistory = () => {
         setHistory([]);
-        if (typeof window !== "undefined") {
-            window.localStorage.removeItem(HISTORY_KEY);
-        }
+        window.localStorage.removeItem(HISTORY_KEY);
     };
 
     return (
