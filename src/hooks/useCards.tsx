@@ -47,7 +47,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
         addToHistory({
             stats,
             event: cardsQueue[0], // TODO: maybe add shallow/deep copy
-            choice: 1
+            choice: option
         });
 
         setStats({
