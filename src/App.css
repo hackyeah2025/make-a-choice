@@ -33,7 +33,65 @@
   border-bottom-right-radius: 25px;
 }
 
-.event-card--option-carouselle {}
+.event-card--option-carouselle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.option-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  position: relative;
+}
+
+.event-card--option {
+  padding: 20px 30px;
+  margin: 0 10px;
+  border-radius: 15px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  min-width: 200px;
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  user-select: none;
+}
+
+.event-card--option-current {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+  opacity: 1;
+}
+
+.event-card--option-previous,
+.event-card--option-next {
+  opacity: 0.5;
+  transform: scale(0.9);
+  z-index: 1;
+}
+
+.event-card--option-previous:hover,
+.event-card--option-next:hover {
+  opacity: 0.7;
+  transform: scale(0.95);
+}
+
+.event-card--option-current:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+}
 
 .expandable-stats-header--toggle {
   position: absolute;
@@ -45,11 +103,27 @@
   user-select: none;
 }
 
+.progress-indicator--progress {
+  background-color: white;
+  height: 2vh;
+  border-radius: 0px 10px 10px 0px;
+}
+
+.progress-indicator--progressbar {
+  height: 2vh;
+  width: 75%;
+  overflow: hidden;
+  background-color: rgb(20, 20, 20);
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 1vh;
+}
+
 .progress-indicator {
   height: 8vh;
   background-color: rgb(43, 43, 43);
   padding: 1vh;
-  border-radius: 10px 10px 0px 0px;
+  border-radius: 25px 25px 0px 0px;
   margin: auto;
   width: 50vw;
 }
@@ -60,4 +134,122 @@
   font-size: 2.5vh;
 }
 
-.progress-indicator--container {}
+.event-card--icon {
+  font-size: 50vh;
+  color: rgba(200, 200, 200, 0.3);
+}
+
+/* Carousel Animations */
+.carousel-viewport {
+  position: relative;
+  width: 60%;
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carousel-item {
+  position: absolute;
+  max-width: 100%;
+  padding: 16px 24px;
+  border-radius: 14px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Entering from right when going next */
+@keyframes enterNext {
+  0% {
+    transform: translateX(40%) scale(0.96);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateX(4%) scale(1.02);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes exitNext {
+  0% {
+    transform: translateX(0%) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(-40%) scale(0.96);
+    opacity: 0;
+  }
+}
+
+/* Entering from left when going prev */
+@keyframes enterPrev {
+  0% {
+    transform: translateX(-40%) scale(0.96);
+    opacity: 0;
+  }
+
+  60% {
+    transform: translateX(-4%) scale(1.02);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(0%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes exitPrev {
+  0% {
+    transform: translateX(0%) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateX(40%) scale(0.96);
+    opacity: 0;
+  }
+}
+
+.enter.enter-next {
+  animation: enterNext 260ms ease forwards;
+}
+
+.exit.exit-next {
+  animation: exitNext 260ms ease forwards;
+}
+
+.enter.enter-prev {
+  animation: enterPrev 260ms ease forwards;
+}
+
+.exit.exit-prev {
+  animation: exitPrev 260ms ease forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .option-container {
+    width: 95%;
+  }
+
+  .event-card--option {
+    min-width: 150px;
+    font-size: 16px;
+    padding: 15px 20px;
+    margin: 0 5px;
+  }
+}

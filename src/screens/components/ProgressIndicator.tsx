@@ -1,3 +1,4 @@
+
 export default function ProgressIndicator() {
     return <div className="progress-indicator">
         <div className="progress-indicator--header">Tomek, 42 lata</div>
