@@ -48,7 +48,6 @@ function getInitialStats(): Stats {
 
 export function StatsProvider({ children }: { children: ReactNode }) {
   const [stats, setStats] = useState<Stats>(getInitialStats);
-
   return (
     <StatsContext.Provider value={{ stats, setStats }}>
       {children}
