@@ -46,17 +46,26 @@ export default function Card({ event, onCardAnswered, iconName }: Props) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "1vh",
+            gap: "2.1rem",
             borderRadius: "25px",
-            boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)",
-            padding: "5vh",
+            // boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)",
+            padding: "2rem",
+            paddingLeft: "2.5rem",
+            paddingRight: "2.5rem",
             backgroundColor: "white",
-            border: "2px solid #007834",
-            color: "#007834"
+            // border: "2px solid #007834",
+            color: "#007834",
+            boxShadow: "rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px",
         }}>
-            <h2 style={{ color: "#007834", margin: 0 }}>{event.title}</h2>
-            <div className="event-card--content" style={{ color: "#333" }}>
-                {event.text}
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "1.3rem",
+            }}>
+                <h2 style={{ color: "#222", margin: 0 }}>{event.title}</h2>
+                <div className="event-card--content" style={{ color: "#333" }}>
+                    {event.text}
+                </div>
             </div>
 
             <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} />
