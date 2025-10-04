@@ -25,9 +25,9 @@
 }
 
 .expandable-stats-header {
-
   height: 10vh;
-  width: 100vw;
+  width: 75vw;
+  margin: auto;
   background-color: rgb(43, 43, 43);
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;

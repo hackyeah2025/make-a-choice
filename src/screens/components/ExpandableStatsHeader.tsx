@@ -4,7 +4,7 @@ export default function ExpandableStatsHeader() {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return <div style={{
-        height: "100vh", overflow: "hidden", width: "100vw", backdropFilter: `blur(${isExpanded ? 5 : 0}px)`, position: "absolute",
+        height: isExpanded ? "100vh" : "10vh", overflow: "hidden", width: "100vw", backdropFilter: `blur(${isExpanded ? 5 : 0}px)`, position: "absolute",
         top: 0,
         transition: "backdrop-filter 0.3s",
         zIndex: 1000

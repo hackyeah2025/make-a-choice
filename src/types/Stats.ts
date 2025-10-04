@@ -1,7 +1,10 @@
 
 
 export interface Stats {
+    name: string
     age: Number
+
+    priorities: ("health" | "relations" | "happiness" | "money")[]
 
     health: Number // 0-100
     relations: Number // 0-100

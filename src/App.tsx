@@ -5,6 +5,7 @@ import { StatsProvider } from "./hooks/useStats";
 
 import "./App.css";
 import GameScreen from "./screens/GameScreen";
+import InitialFormScreen from "./screens/InitialFormScreen";
 
 function App() {
   const [showInstructionsModal, setShowInstructionsModal] = useState(true);
@@ -12,6 +13,7 @@ function App() {
     <HistoryProvider>
       <StatsProvider>
         <div className="App">
+          <InitialFormScreen />
           <GameScreen />
         </div>
       </StatsProvider>
