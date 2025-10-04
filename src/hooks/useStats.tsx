@@ -13,14 +13,18 @@ const initialStats: Stats = {
 
   income: 0,
   expenses: 0,
-
-  education: 0,
-  job_experience: 0,
   savings: 0,
   ZUS: 0,
-  job: "low_paid_job",
+
+  education: "primary_school",
+  job_experience: 0,
+
+  job: "unemployed", 
+  job_name: "",
+
   has_serious_health_issues: false,
-  wife: "",
+  relationship: "single",
+  children: 0,
 };
 
 type StatsContextType = {
