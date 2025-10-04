@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { Event, Option } from "../../types/Event"
 import CardOptionCarouselle from "./CardOptionsCarouselle"
 
@@ -31,15 +32,14 @@ function generateVibrantColor(iconName: string): string {
 }
 
 export default function Card({ event, onCardAnswered, iconName }: Props) {
-    const iconColor = generateVibrantColor(iconName);
-    const iconColorAlt = generateVibrantColor(iconName + "abc");
+    const iconColor = generateVibrantColor(event.title);
+    const iconColorAlt = generateVibrantColor(event.title + "abc");
 
-    // Compose animated blob background with two vibrant colors
-    const blobBg = `radial-gradient(35% 35% at 12% 22%, ${toHSLA(iconColor, 0.5)} 0%, transparent 60%),
-                    radial-gradient(45% 45% at 82% 28%, ${toHSLA(iconColorAlt, 0.5)} 0%, transparent 60%),
-                    radial-gradient(55% 55% at 50% 82%, ${toHSLA(iconColor, 0.25)} 0%, transparent 75%)`;
+    useEffect(() => {
+        document.body.style.background = `radial-gradient(circle at top left, ${toHSLA(iconColor, 1)}, transparent 70%), radial-gradient(circle at bottom right, ${toHSLA(iconColorAlt, 1)}, transparent 70%)`;
+    }, [event])
 
-    return <div className="event-card animated-blob-bg" style={{ backgroundImage: blobBg }}>
+    return <div className="event-card animated-blob-bg" style={{}}>
         <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1vh", borderRadius: "25px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", padding: "5vh", backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
             <div className="event-card--icon" style={{ backgroundColor: iconColor }}>
                 {/** @ts-ignore */}

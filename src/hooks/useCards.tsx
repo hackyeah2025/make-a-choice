@@ -32,6 +32,24 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
                     }]
                 }
             ]
+        },
+        {
+            title: "Mysterious box 2",
+            text: 'You find a mysterious box on the ground. What do you do?',
+            options: [
+                {
+                    text: 'Open it', consequences: [{
+                        impacted: 'happiness',
+                        value: 10
+                    }]
+                },
+                {
+                    text: 'Leave it alone', consequences: [{
+                        impacted: 'happiness',
+                        value: -5
+                    }]
+                }
+            ]
         }
     ]);
 

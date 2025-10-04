@@ -125,7 +125,8 @@
   padding: 1vh;
   border-radius: 25px 25px 0px 0px;
   margin: auto;
-  width: 50vw;
+  max-width: 50vw;
+  min-width: 300px;
 }
 
 .progress-indicator--header {
@@ -240,14 +241,7 @@
   animation: exitPrev 260ms ease forwards;
 }
 
-/* Animated Blob Background */
-.animated-blob-bg {
-  position: relative;
-  background-color: #0e0e0e;
-  background-repeat: no-repeat;
-  background-size: 140% 140%;
-  animation: blobShift 16s ease-in-out infinite alternate;
-}
+
 
 @keyframes blobShift {
   0% {
