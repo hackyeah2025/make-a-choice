@@ -4,6 +4,13 @@ export type Event = {
     options: Option[];
 };
 
+export type OptionNoText = {
+    consequences: {
+        impacted: "happiness" | "relations" | "money" | "relations";
+        value: number;
+    }[]
+};
+
 export type Option = {
     text: string;
     consequences: {

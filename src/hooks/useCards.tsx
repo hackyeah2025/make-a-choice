@@ -4,7 +4,8 @@ import { Option } from "../types/Event";
 import useStats from "./useStats";
 
 import useHistory from "./useHistory";
-import { getRegularAction } from "../services/api";
+import gameAlgorithm from "../services/game_algorithm";
+import ApiService from "../services/api";
 
 type UseCardsProps = {
     cardsQueueSize: number
@@ -40,6 +41,10 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
         setIsLoadingCard(true);
 
         // {title, question, options} = await getRegularAction('job/school', [], stats);
+        const { category, consequences } = await gameAlgorithm.generateScenario();
+        const event = await ApiService.generateEvent(category, consequences, stats);
+
+        setCardsQueue((prev) => [...prev, event]);
 
         // TODO: Implement fetching a new card
         // If last card is core, don't fetch. Once it gets answered, fetch again up to a limit

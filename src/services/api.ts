@@ -1,4 +1,4 @@
-import { Option, Event } from "../types/Event";
+import { OptionNoText, Event } from "../types/Event";
 import { Stats } from "../types/Stats";
 
 
@@ -12,7 +12,7 @@ export interface EventResponse {
 
 
 export default class ApiService {
-    static async generateEvent(category: string, options: Option[], stats: Stats) : Promise<Event> {
+    static async generateEvent(category: string, options: OptionNoText[], stats: Stats) : Promise<Event> {
         const response = await fetch(`${API_URL}/generate-event`, {
             method: "POST",
             body: JSON.stringify({
@@ -33,7 +33,7 @@ export default class ApiService {
         };
     }
 
-    static async generateCoreEvent(prompt: string, options: Option[], stats: Stats) : Promise<Event> {
+    static async generateCoreEvent(prompt: string, options: OptionNoText[], stats: Stats) : Promise<Event> {
         const response = await fetch(`${API_URL}/generate-core-event`, {
             method: "POST",
             body: JSON.stringify({
