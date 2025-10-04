@@ -1,6 +1,11 @@
 import { Event, Option } from "../../types/Event"
 import CardOptionCarouselle from "./CardOptionsCarouselle"
 
+// Helper to turn "hsl(H, S%, L%)" into "hsla(H, S%, L%, A)"
+function toHSLA(hsl: string, alpha: number): string {
+    return hsl.replace("hsl(", "hsla(").replace(")", `, ${alpha})`)
+}
+
 type Props = {
     event: Event
     onCardAnswered: (option: Option) => void
@@ -27,15 +32,27 @@ function generateVibrantColor(iconName: string): string {
 
 export default function Card({ event, onCardAnswered, iconName }: Props) {
     const iconColor = generateVibrantColor(iconName);
+    const iconColorAlt = generateVibrantColor(iconName + "abc");
 
-    return <div className="event-card">
-        <div className="event-card--icon" style={{ backgroundColor: iconColor }}>
-            {/** @ts-ignore */}
-            <ion-icon name={iconName}></ion-icon>
+    // Compose animated blob background with two vibrant colors
+    const blobBg = `radial-gradient(35% 35% at 12% 22%, ${toHSLA(iconColor, 0.5)} 0%, transparent 60%),
+                    radial-gradient(45% 45% at 82% 28%, ${toHSLA(iconColorAlt, 0.5)} 0%, transparent 60%),
+                    radial-gradient(55% 55% at 50% 82%, ${toHSLA(iconColor, 0.25)} 0%, transparent 75%)`;
+
+    return <div className="event-card animated-blob-bg" style={{ backgroundImage: blobBg }}>
+        <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1vh", borderRadius: "25px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", padding: "5vh", backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
+            <div className="event-card--icon" style={{ backgroundColor: iconColor }}>
+                {/** @ts-ignore */}
+                <ion-icon name={iconName}></ion-icon>
+            </div>
+
+            <h2>{event.title}</h2>
+            <div className="event-card--content">
+                {event.text}
+            </div>
+
+
+            <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} />
         </div>
-        <div className="event-card--content">
-            {event.text}
-        </div>
-        <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} />
-    </div>
+    </div >
 }

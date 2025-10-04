@@ -16,6 +16,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
 
     const [cardsQueue, setCardsQueue] = useState<Event[]>([
         {
+            title: "Mysterious box",
             text: 'You find a mysterious box on the ground. What do you do?',
             options: [
                 {
@@ -37,7 +38,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const fetchNewCard = async () => {
         setIsLoadingCard(true);
 
-        
+
         // TODO: Implement fetching a new card
         // If last card is core, don't fetch. Once it gets answered, fetch again up to a limit
         setIsLoadingCard(false)

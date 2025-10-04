@@ -13,15 +13,15 @@
 }
 
 .event-card--content {
-  width: 50%;
+
   text-align: center;
 }
 
 .event-card--icon {
-  height: 50vh;
-  width: 50vh;
+  height: 10vh;
+  width: 10vh;
   background-color: green;
-  border-radius: 5vh;
+  border-radius: 1vh;
 }
 
 .expandable-stats-header {
@@ -135,8 +135,8 @@
 }
 
 .event-card--icon {
-  font-size: 50vh;
-  color: rgba(200, 200, 200, 0.3);
+  font-size: 10vh;
+  color: rgba(200, 200, 200, 0.5);
 }
 
 /* Carousel Animations */
@@ -238,6 +238,29 @@
 
 .exit.exit-prev {
   animation: exitPrev 260ms ease forwards;
+}
+
+/* Animated Blob Background */
+.animated-blob-bg {
+  position: relative;
+  background-color: #0e0e0e;
+  background-repeat: no-repeat;
+  background-size: 140% 140%;
+  animation: blobShift 16s ease-in-out infinite alternate;
+}
+
+@keyframes blobShift {
+  0% {
+    background-position: 0% 0%, 100% 30%, 50% 100%;
+  }
+
+  50% {
+    background-position: 10% 20%, 90% 10%, 48% 85%;
+  }
+
+  100% {
+    background-position: 0% 30%, 80% 0%, 52% 90%;
+  }
 }
 
 /* Responsive adjustments */
