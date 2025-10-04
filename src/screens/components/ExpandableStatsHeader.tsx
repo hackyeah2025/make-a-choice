@@ -1,4 +1,9 @@
-export default function ExpandableStatsHeader() {
+import { useState } from "react";
 
-    return <div></div>
+export default function ExpandableStatsHeader() {
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    return <div className="expandable-stats-header">
+
+    </div>
 }
