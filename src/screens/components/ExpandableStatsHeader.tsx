@@ -68,13 +68,30 @@ function GenderIcon() {
 
 function Table({ entries }: { entries: [string, any][] }) {
     return (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", color: "white", padding: "25px 50px" }}>
+      <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end", marginBottom: "25px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", color: "white", padding: "25px 25px" }}>
             {entries.map(([key, value], index) => (
                 <div key={index} style={{ display: "contents" }}>
-                    <div style={{ padding: "8px", borderBottom: index < entries.length - 1 ? "2px solid white" : "none", display: "flex", alignItems: "center", justifyContent: "center" }}>{key}</div>
-                    <div style={{ padding: "8px", borderBottom: index < entries.length - 1 ? "2px solid white" : "none", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
-                        <span style={{ position: "absolute", left: "0%", top: "25%", width: "2px", height: "50%", backgroundColor: "white" }}></span>
+                    <div style={{ padding: "15px", borderBottom: index < entries.length - 1 ? "2px solid hsl(0, 0.00%, 85%)" : "none", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: "bold" }}>{key}</div>
+                    <div style={{ color: "hsl(0, 0.00%, 95%)", padding: "15px", borderBottom: index < entries.length - 1 ? "2px solid hsl(0, 0.00%, 85%)" : "none", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+                        <span style={{ position: "absolute", left: "0%", top: "25%", width: "2px", height: "50%", backgroundColor: "hsl(0, 0.00%, 85%)" }}></span>
                         {value}
+                    </div>
+                </div>
+            ))}
+        </div>
+      </div>
+    )
+}
+
+function StatusIndicator({ entries }: { entries: [string, any][] }) {
+    return (
+        <div style={{ display: "grid", gridTemplateColumns: "fit-content(100%) 1fr", color: "white", padding: "25px 50px", gap: "20px" }}>
+            {entries.map(([key, value], index) => (
+                <div key={index} style={{ display: "contents"}}>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>{key}</div>
+                    <div style={{ width: "100%", backgroundColor: "#444", borderRadius: "5px", height: "20px" }}>
+                      <div style={{ width: `${value}%`, backgroundColor: "white", height: "100%", borderRadius: "5px"}}></div>
                     </div>
                 </div>
             ))}
