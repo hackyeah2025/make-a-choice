@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Event } from "../types/Event";
+import useStats from "./useStats";
+import useHistory from "./useHistory";
 
 type UseCardsProps = {
     cardsQueueSize: number
@@ -7,6 +9,8 @@ type UseCardsProps = {
 
 export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const [isLoadingCard, setIsLoadingCard] = useState(false);
+    const { stats, setStats } = useStats();
+    const { history, addToHistory } = useHistory();
 
     const [cardsQueue, setCardsQueue] = useState<Event[]>([
         {
@@ -38,6 +42,11 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const answerCard = () => {
         setCardsQueue((prev) => prev.slice(1));
         // TODO: Here handle the answer logic, update stats, etc.
+        addToHistory({
+            stats,
+            event: cardsQueue[0], // TODO: maybe add shallow/deep copy
+            choice: 1
+        });
 
         fetchNewCard();
     }
