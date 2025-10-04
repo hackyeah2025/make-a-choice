@@ -1,8 +1,15 @@
+
+
 export interface Stats {
+    age: Number 
+
     health: Number
     relations: Number
     happiness: Number
     money: Number
+
+    income: Number
+    expenses: Number
 
     education: Number
     job_experience: Number

@@ -8,6 +8,10 @@ const initialStats: Stats = {
   relations: 100,
   happiness: 100,
   money: 100,
+
+  income: 0,
+  expenses: 0,
+
   education: 0,
   job_experience: 0,
   savings: 0,
