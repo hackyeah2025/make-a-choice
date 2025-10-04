@@ -1,7 +1,10 @@
 
 
 export interface Stats {
-    age: Number 
+    name: string
+    age: Number
+
+    priorities: ("health" | "relations" | "happiness" | "money")[]
 
     health: Number // 0-100
     relations: Number // 0-100
@@ -23,4 +26,22 @@ export interface Stats {
 
     relationship: "single" | "in_a_relationship" | "married" | "divorced"
     children: Number // 0 - 10
+}
+
+export const StatsToIcons = {
+    health: "heart",
+    relations: "people",
+    happiness: "happy",
+    money: "cash",
+    age: "calendar",
+    income: "trending-up",
+    expenses: "trending-down",
+    savings: "wallet",
+    ZUS: "business",
+    education: "school",
+    job_experience: "briefcase",
+    job: "laptop",
+    has_serious_health_issues: "medkit",
+    relationship: "heart-half",
+    children: "baby"
 }

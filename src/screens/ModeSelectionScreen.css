@@ -1,0 +1,130 @@
+/* Mode Selection Screen Styles */
+.mode-selection-container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    padding: 32px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.mode-selection-content {
+    width: 100%;
+    max-width: 900px;
+    text-align: center;
+}
+
+.mode-selection-title {
+    color: #007834;
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 48px;
+    text-shadow: 0 2px 10px rgba(0, 120, 52, 0.1);
+}
+
+.mode-selection-options {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.mode-option {
+    flex: 1;
+    max-width: 320px;
+    background: white;
+    border: 3px solid #007834;
+    border-radius: 25px;
+    padding: 48px 32px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #007834;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 120, 52, 0.1);
+}
+
+.mode-option:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: #007834;
+    color: white;
+    box-shadow: 0 16px 48px rgba(0, 120, 52, 0.2);
+}
+
+.mode-option-icon {
+    margin-bottom: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+}
+
+.mode-option-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: white;
+}
+
+.mode-option-description {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .mode-selection-container {
+        padding: 24px;
+    }
+
+    .mode-selection-title {
+        font-size: 2rem;
+        margin-bottom: 32px;
+    }
+
+    .mode-selection-options {
+        flex-direction: column;
+        gap: 24px;
+        align-items: center;
+    }
+
+    .mode-option {
+        max-width: 100%;
+        width: 100%;
+        padding: 32px 24px;
+    }
+
+    .mode-option-icon {
+        height: 80px;
+        margin-bottom: 20px;
+    }
+
+    .mode-option-title {
+        font-size: 1.25rem;
+    }
+
+    .mode-option-description {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .mode-selection-title {
+        font-size: 1.75rem;
+    }
+
+    .mode-option {
+        padding: 24px 20px;
+    }
+
+    .mode-option-icon {
+        height: 70px;
+        margin-bottom: 16px;
+    }
+}

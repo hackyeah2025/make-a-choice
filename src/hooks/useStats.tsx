@@ -1,31 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { Stats } from "../types/Stats";
-
-const STATS_KEY = "stats";
-
-const initialStats: Stats = {
-
-  age: 20,
-  health: 100,
-  relations: 100,
-  happiness: 100,
-  money: 100,
-
-  income: 0,
-  expenses: 0,
-  savings: 0,
-  ZUS: 0,
-
-  education: "primary_school",
-  job_experience: 0,
-
-  job: "unemployed", 
-  job_name: "",
-
-  has_serious_health_issues: false,
-  relationship: "single",
-  children: 0,
-};
+import { statsStorage, applyInferences } from "../Storage";
 
 type StatsContextType = {
   stats: Stats;
@@ -34,22 +9,18 @@ type StatsContextType = {
 
 const StatsContext = createContext<StatsContextType | undefined>(undefined);
 
-function getInitialStats(): Stats {
-    const stored = window.localStorage.getItem(STATS_KEY);
-    if (stored) {
-        try {
-            return JSON.parse(stored);
-        } catch {
-            return initialStats;
-        }
-    }
-    return initialStats;
-}
-
 export function StatsProvider({ children }: { children: ReactNode }) {
-  const [stats, setStats] = useState<Stats>(getInitialStats);
+  const [stats, setStats] = useState<Stats>(() => statsStorage.get());
+
+  // Enhanced setStats that applies inferences
+  const setStatsWithInferences = (newStats: Stats) => {
+    const inferredStats = applyInferences(newStats);
+    setStats(inferredStats);
+    statsStorage.set(inferredStats);
+  };
+
   return (
-    <StatsContext.Provider value={{ stats, setStats }}>
+    <StatsContext.Provider value={{ stats, setStats: setStatsWithInferences }}>
       {children}
     </StatsContext.Provider>
   );

@@ -20,7 +20,25 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
 
     const [cardsQueue, setCardsQueue] = useState<Event[]>([
         {
-            title: 'You find a mysterious box on the ground. What do you do?',
+            title: "Mysterious box",
+            text: 'You find a mysterious box on the ground. What do you do?',
+            options: [
+                {
+                    text: 'Open it', consequences: [{
+                        impacted: 'happiness',
+                        value: 10
+                    }]
+                },
+                {
+                    text: 'Leave it alone', consequences: [{
+                        impacted: 'happiness',
+                        value: -5
+                    }]
+                }
+            ]
+        },
+        {
+            title: "Mysterious box 2",
             text: 'You find a mysterious box on the ground. What do you do?',
             options: [
                 {
