@@ -4,6 +4,8 @@ import { Stats } from "../types/Stats";
 const STATS_KEY = "stats";
 
 const initialStats: Stats = {
+
+  age: 20,
   health: 100,
   relations: 100,
   happiness: 100,
