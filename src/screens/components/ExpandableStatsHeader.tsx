@@ -83,7 +83,7 @@ function Table({ entries }: { entries: [string, any][] }) {
 }
 
 export default function ExpandableStatsHeader() {
-  const [isExpanded, setIsExpanded] = useState(true); // TODO: change to false
+  const [isExpanded, setIsExpanded] = useState(false);
   const { stats } = useStats();
 
   return (

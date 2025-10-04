@@ -1,4 +1,3 @@
-import { RichPresenceAssets } from "discord.js";
 import { OptionNoText } from "../types/Event";
 import { Stats } from "../types/Stats";
 
