@@ -53,13 +53,33 @@ export class GameAlgorithm {
         return consequences;
     }
 
-  public generateScenario() : { category: string; consequences: OptionNoText[] } {
+  public generateScenario() : { description: string; consequences: OptionNoText[]; isCoreEvent: boolean } {
+    if (Math.random() < .5) {
+      return {
+        description: "Generate event about finding new job opportunity. Describe the job. One consequence coresponds to accepting the job, second to rejecting it. Display the exact salary (value of impacted money, given in PLN per month (brutto, don't write about netto or any bonuses), so if consequence for money is 10 write 10 PLN per month) in the description.",
+        consequences: [
+          {
+            consequences: [
+                {
+                    impacted: 'money',
+                    value: 20
+                },
+            ]
+
+          },
+        {
+            consequences: []
+        }],
+        isCoreEvent: true
+      };
+    } else {
     return {
-      category: this.generateEvent(),
+      description: this.generateEvent(),
       consequences: this.generateConsequences(),
+      isCoreEvent: false
     };
   }
-}
+}}
 
 const gameAlgorithm = new GameAlgorithm();
 export default gameAlgorithm;

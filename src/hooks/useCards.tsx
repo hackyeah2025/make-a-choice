@@ -41,8 +41,16 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
         setIsLoadingCard(true);
 
         // {title, question, options} = await getRegularAction('job/school', [], stats);
-        const { category, consequences } = await gameAlgorithm.generateScenario();
-        const event = await ApiService.generateEvent(category, consequences, stats);
+        const { description, consequences, isCoreEvent } = await gameAlgorithm.generateScenario();
+
+        // if core event generateCoreEvent
+        let event: Event;
+        if (isCoreEvent) {
+            event = await ApiService.generateCoreEvent(description, consequences, stats);
+        } else {
+            event = await ApiService.generateEvent(description, consequences, stats);
+        }
+
 
         setCardsQueue((prev) => [...prev, event]);
 

@@ -34,6 +34,14 @@ export default class ApiService {
         )
         const data = await response.json() as EventResponse;
         // console.log(data.options)
+        console.log({
+            title: data.title,
+            text: data.text,
+            options: data.options.map((optionText, idx) => ({
+                text: optionText,
+                consequences: options[idx]?.consequences ?? []
+            }))
+        })
         return {
             title: data.title,
             text: data.text,
@@ -47,6 +55,9 @@ export default class ApiService {
     static async generateCoreEvent(prompt: string, options: OptionNoText[], stats: Stats) : Promise<Event> {
         const response = await fetch(`${API_URL}/generate-core-event`, {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json', // Tell server it's JSON
+            },
             body: JSON.stringify({
                 prompt: prompt,
                 options: options,
