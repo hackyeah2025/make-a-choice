@@ -1,13 +1,13 @@
-import { Event } from "../../types/Event"
+import { Event, Option } from "../../types/Event"
 import CardOptionCarouselle from "./CardOptionsCarouselle"
 
 type Props = {
     event: Event
-    onCardAnswered: (optionIndex: number) => void
+    onCardAnswered: (option: Option) => void
 }
 
 export default function Card({ event, onCardAnswered }: Props) {
-    return <div>
+    return <div className="event-card">
         <div className="event-card--icon">
 
         </div>
