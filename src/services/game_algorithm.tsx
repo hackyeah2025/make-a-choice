@@ -19,23 +19,34 @@ export class GameAlgorithm {
     return this.events[index];
   }
 
-  public generateConsequences(count: number = 3): Record<string, any>[] {
-    const consequences: Record<string, any>[] = [];
-    for (let i = 0; i < count; i++) {
-      const impacted = this.impacts[Math.floor(Math.random() * this.impacts.length)];
+    public generateConsequences(
+        outerLength: number = 3,
+        innerLength: number = 3
+    ): Record<string, any>[][] {
+        const consequences: Record<string, any>[][] = [];
 
-      let value = 0;
-      while (value === 0) {
-        value = Math.floor(Math.random() * 21) - 10;
-      }
+        for (let i = 0; i < outerLength; i++) {
+            const innerList: Record<string, any>[] = [];
 
-      consequences.push({
-        impacted: impacted,
-        value: value,
-      });
+            for (let j = 0; j < innerLength; j++) {
+            const impacted = this.impacts[Math.floor(Math.random() * this.impacts.length)];
+
+            let value = 0;
+            while (value === 0) {
+                value = Math.floor(Math.random() * 21) - 10;
+            }
+
+            innerList.push({
+                impacted,
+                value,
+            });
+            }
+
+            consequences.push(innerList);
+        }
+
+        return consequences;
     }
-    return consequences;
-  }
 
   public generateScenario() {
     return {
