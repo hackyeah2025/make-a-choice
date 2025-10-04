@@ -41,11 +41,6 @@ export default function Card({ event, onCardAnswered, iconName }: Props) {
 
     return <div className="event-card animated-blob-bg" style={{}}>
         <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1vh", borderRadius: "25px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", padding: "5vh", backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
-            <div className="event-card--icon" style={{ backgroundColor: iconColor }}>
-                {/** @ts-ignore */}
-                <ion-icon name={iconName}></ion-icon>
-            </div>
-
             <h2>{event.title}</h2>
             <div className="event-card--content">
                 {event.text}
