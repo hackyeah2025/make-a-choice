@@ -7,7 +7,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 90vh;
+  height: 80vh;
   margin-top: 10vh;
   width: 100vw;
 }
@@ -25,8 +25,7 @@
 }
 
 .expandable-stats-header {
-  position: absolute;
-  top: 0;
+
   height: 10vh;
   width: 100vw;
   background-color: rgb(43, 43, 43);
@@ -35,3 +34,30 @@
 }
 
 .event-card--option-carouselle {}
+
+.expandable-stats-header--toggle {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.progress-indicator {
+  height: 8vh;
+  background-color: rgb(43, 43, 43);
+  padding: 1vh;
+  border-radius: 10px 10px 0px 0px;
+  margin: auto;
+  width: 50vw;
+}
+
+.progress-indicator--header {
+  text-align: center;
+  color: white;
+  font-size: 2.5vh;
+}
+
+.progress-indicator--container {}
