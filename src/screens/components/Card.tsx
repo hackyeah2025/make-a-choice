@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { Event, Option } from "../../types/Event"
 import CardOptionCarouselle from "./CardOptionsCarouselle"
+import GeneratedText from "../../components/GeneratedText"
 
 // Helper to turn "hsl(H, S%, L%)" into "hsla(H, S%, L%, A)"
 function toHSLA(hsl: string, alpha: number): string {
@@ -62,9 +63,9 @@ export default function Card({ event, onCardAnswered, iconName }: Props) {
                 flexDirection: "column",
                 gap: "1.3rem",
             }}>
-                <h2 style={{ color: "#222", margin: 0 }}>{event.title}</h2>
+                <h2 style={{ color: "#222", margin: 0 }}><GeneratedText wordDelay={0.3}>{event.title}</GeneratedText></h2>
                 <div className="event-card--content" style={{ color: "#333" }}>
-                    {event.text}
+                    <GeneratedText>{event.text}</GeneratedText>
                 </div>
             </div>
 

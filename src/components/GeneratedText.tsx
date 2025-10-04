@@ -1,25 +1,50 @@
-import React from 'react'
-import "./GeneratedText.css"
+import React from "react";
+import "./GeneratedText.css";
 
-const GeneratedText = ({ text, wordDelay = 0.1 }: { text: string, wordDelay?: number, [key: string]: any }) => {
+const Word = ({ children, delay}: { children: string; delay: number }) => {
   return (
-    <>{text.split(" ").map((word, index) => {
+    <span
+      style={{
+        display: "inline-block",
+        opacity: 0,
+        transform: "translateY(20px)",
+        animation: "fadeIn 0.3s forwards",
+        animationDelay: `${delay}s`,
+      }}
+    >
+      {children}{" "}
+    </span>
+  );
+};
 
+const GeneratedText = ({
+  children,
+  wordDelay = 0.1,
+}: {
+  children: string;
+  wordDelay?: number;
+  [key: string]: any;
+}) => {
+  const [counter, setCounter] = React.useState(0);
 
+  React.useEffect(() => {
+    setCounter((prev) => prev + 1);
+  }, [children]);
+
+  return (
+    <span key={counter} className="generated-text">
+      {children.split(" ").map((word, index) => {
         return (
-            <>
-                <span key={index} style={{
-                    display: "inline-block",
-                    opacity: 0,
-                    transform: "translateY(20px)",
-                    animation: "fadeIn 0.3s forwards",
-                    animationDelay: `${index * wordDelay}s`,
-                }}>{word}</span>
-                {" "}
-            </>
+          <span key={index}>
+            <Word delay={index * wordDelay}>
+              {word}
+            </Word>
+            {" "}
+          </span>
         );
-    })}</>
-  )
-}
+      })}
+    </span>
+  );
+};
 
-export default GeneratedText
+export default GeneratedText;
