@@ -36,6 +36,8 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
 
     const fetchNewCard = async () => {
         setIsLoadingCard(true);
+
+        
         // TODO: Implement fetching a new card
         // If last card is core, don't fetch. Once it gets answered, fetch again up to a limit
         setIsLoadingCard(false)
@@ -52,6 +54,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
 
         setStats({
             ...stats,
+            age: (stats.age as number) + 1,
             ...option.consequences.reduce((acc, curr) => {
                 if (typeof stats[curr.impacted] === "number") {
                     acc[curr.impacted] = (stats[curr.impacted] as number) + curr.value;
