@@ -6,7 +6,7 @@ import CustomCheckbox from "../components/CustomCheckbox";
 import "./InitialFormScreen.css";
 
 // Prosty kreator: jedno pytanie na krok, pytania po polsku
-export default function InitialFormScreen() {
+export default function InitialFormScreen({ onComplete }: { onComplete?: () => void }) {
     const { stats, setStats } = useStats();
     const [step, setStep] = useState(0);
     const [completed, setCompleted] = useState(false);
@@ -133,6 +133,10 @@ export default function InitialFormScreen() {
             setStep((s) => s + 1);
         } else {
             setCompleted(true);
+            // Call onComplete callback after a short delay to show completion message
+            setTimeout(() => {
+                onComplete?.();
+            }, 1500);
         }
     }
 
