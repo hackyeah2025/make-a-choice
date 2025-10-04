@@ -97,6 +97,7 @@ export default function ExpandableStatsHeader() {
         top: 0,
         transition: "backdrop-filter 0.3s",
         zIndex: 1000,
+        pointerEvents: "none",
       }}
     >
       <div
@@ -105,6 +106,7 @@ export default function ExpandableStatsHeader() {
           height: isExpanded ? "80vh" : "10vh",
           transition: "height 0.3s",
           position: "relative",
+          pointerEvents: "all",
         }}
       >
         <div style={{ display: "flex", height: "100%", width: "100%", flexDirection: "column-reverse" }}>
