@@ -1,3 +1,5 @@
+import { Stats } from "../types/Stats";
+
 export type Event = {
     title: string;
     text: string;
@@ -6,15 +8,15 @@ export type Event = {
 
 export type OptionNoText = {
     consequences: {
-        impacted: "happiness" | "relations" | "money" | "relations";
-        value: number;
+        impacted: keyof Stats;
+        value: number | string;
     }[]
 };
 
 export type Option = {
     text: string;
     consequences: {
-        impacted: "happiness" | "relations" | "money" | "relations";
-        value: number;
+        impacted: keyof Stats;
+        value: number | string;
     }[]
 };
