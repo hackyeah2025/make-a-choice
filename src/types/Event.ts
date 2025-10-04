@@ -8,5 +8,5 @@ export type Option = {
     consequences: {
         impacted: "happiness" | "social-life" | "money";
         value: number;
-    }
+    }[]
 };

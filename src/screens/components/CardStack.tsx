@@ -1,7 +1,11 @@
 import useCards from "../../hooks/useCards"
+import Card from "./Card"
 
 export default function CardStack() {
-    const { currentCard, answerCard } = useCards({ cardsQueueSize: 3 })
+    const { currentCard, answerCard, isLoadingCard } = useCards({ cardsQueueSize: 3 })
 
-    return <div></div>
+    return <div>
+        {currentCard && <Card event={currentCard} onCardAnswered={answerCard} />}
+        {isLoadingCard && <div>Loading...</div>}
+    </div>
 }
