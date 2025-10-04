@@ -4,7 +4,7 @@ import ProgressIndicator from "./components/ProgressIndicator";
 
 export default function GameScreen() {
 
-    return <div style={{ backgroundColor: "white", minHeight: "100vh" }}>
+    return <div style={{ backgroundColor: "white" }}>
         <ExpandableStatsHeader />
         <CardStack />
         <ProgressIndicator />
