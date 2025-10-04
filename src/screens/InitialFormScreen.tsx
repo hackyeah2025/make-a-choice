@@ -157,14 +157,7 @@ export default function InitialFormScreen({ onComplete }: { onComplete?: () => v
     }, [step, total]);
 
     if (completed) {
-        return (
-            <div className="initial-form-container">
-                <div className="initial-form-card">
-                    <h2>Dziękujemy!</h2>
-                    <p>Twoje odpowiedzi zostały zapisane w pamięci przeglądarki.</p>
-                </div>
-            </div>
-        );
+        onComplete?.();
     }
 
     return (

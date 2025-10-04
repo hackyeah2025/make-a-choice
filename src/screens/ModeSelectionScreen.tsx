@@ -38,7 +38,7 @@ export default function ModeSelectionScreen({ onStartGame, onShowForm }: ModeSel
                         onClick={handleQuickStart}
                     >
                         <div className="mode-option-icon">
-                            <Icon name="play-circle-outline" size={80} color="white" />
+                            <Icon name="play-circle-outline" size={80} color="#007834" />
                         </div>
                         <h3 className="mode-option-title">Zacznij od początku</h3>
                         <p className="mode-option-description">
@@ -51,7 +51,7 @@ export default function ModeSelectionScreen({ onStartGame, onShowForm }: ModeSel
                         onClick={handleCustomStart}
                     >
                         <div className="mode-option-icon">
-                            <Icon name="person-circle-outline" size={80} color="white" />
+                            <Icon name="person-circle-outline" size={80} color="#007834" />
                         </div>
                         <h3 className="mode-option-title">Spersonalizowana rozgrywka</h3>
                         <p className="mode-option-description">

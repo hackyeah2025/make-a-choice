@@ -2,6 +2,11 @@
 785 503 604 -- Bartek numer do blika
 */
 
+.App {
+  background-color: white;
+  min-height: 100vh;
+}
+
 .event-card {
   display: flex;
   flex-direction: column;
@@ -10,17 +15,17 @@
   height: 80vh;
   margin-top: 10vh;
   width: 100vw;
+  background-color: white;
 }
 
 .event-card--content {
-
   text-align: center;
 }
 
 .event-card--icon {
   height: 10vh;
   width: 10vh;
-  background-color: green;
+  background-color: #007834;
   border-radius: 1vh;
 }
 
@@ -28,7 +33,7 @@
   height: 10vh;
   width: 75vw;
   margin: auto;
-  background-color: rgb(43, 43, 43);
+  background-color: #007834;
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
 }
@@ -53,9 +58,9 @@
   padding: 20px 30px;
   margin: 0 10px;
   border-radius: 15px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 2px solid #007834;
+  color: #007834;
   text-align: center;
   font-size: 18px;
   font-weight: 500;
@@ -68,9 +73,10 @@
 
 .event-card--option-current {
   transform: scale(1.1);
-  background-color: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  background-color: #007834;
+  color: white;
+  border-color: #007834;
+  box-shadow: 0 8px 32px rgba(0, 120, 52, 0.3);
   z-index: 2;
   opacity: 1;
 }
@@ -89,8 +95,9 @@
 }
 
 .event-card--option-current:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.5);
+  background-color: #005a28;
+  border-color: #005a28;
+  color: white;
 }
 
 .expandable-stats-header--toggle {
@@ -104,7 +111,7 @@
 }
 
 .progress-indicator--progress {
-  background-color: white;
+  background-color: #007834;
   height: 2vh;
   border-radius: 0px 10px 10px 0px;
 }
@@ -113,7 +120,7 @@
   height: 2vh;
   width: 75%;
   overflow: hidden;
-  background-color: rgb(20, 20, 20);
+  background-color: rgba(0, 120, 52, 0.1);
   border-radius: 10px;
   margin: auto;
   margin-top: 1vh;
@@ -121,7 +128,8 @@
 
 .progress-indicator {
   height: 8vh;
-  background-color: rgb(43, 43, 43);
+  background-color: white;
+  border: 2px solid #007834;
   padding: 1vh;
   border-radius: 25px 25px 0px 0px;
   margin: auto;
@@ -131,13 +139,14 @@
 
 .progress-indicator--header {
   text-align: center;
-  color: white;
+  color: #007834;
   font-size: 2.5vh;
+  font-weight: 600;
 }
 
 .event-card--icon {
   font-size: 10vh;
-  color: rgba(200, 200, 200, 0.5);
+  color: #007834;
 }
 
 /* Carousel Animations */
@@ -157,12 +166,13 @@
   padding: 16px 24px;
   border-radius: 14px;
 
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #007834;
   backdrop-filter: blur(6px);
   text-align: center;
   font-size: 18px;
   font-weight: 600;
+  color: #007834;
 }
 
 /* Entering from right when going next */

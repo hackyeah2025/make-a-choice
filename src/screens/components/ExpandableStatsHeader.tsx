@@ -4,15 +4,21 @@ export default function ExpandableStatsHeader() {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return <div style={{
-        height: isExpanded ? "100vh" : "10vh", overflow: "hidden", width: "100vw", backdropFilter: `blur(${isExpanded ? 5 : 0}px)`, position: "absolute",
+        height: isExpanded ? "100vh" : "10vh",
+        overflow: "hidden",
+        width: "100vw",
+        backdropFilter: `blur(${isExpanded ? 5 : 0}px)`,
+        position: "absolute",
         top: 0,
         transition: "backdrop-filter 0.3s",
-        zIndex: 1000
+        zIndex: 1000,
+        backgroundColor: isExpanded ? "rgba(255, 255, 255, 0.9)" : "transparent"
     }}>
         <div className="expandable-stats-header" style={{
             height: isExpanded ? "80vh" : "10vh",
             transition: "height 0.3s",
-            position: "relative"
+            position: "relative",
+            backgroundColor: "#007834"
         }}>
             <div className="expandable-stats-header--toggle" onClick={() => setIsExpanded(!isExpanded)}>
                 {/**@ts-ignore */}
