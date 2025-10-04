@@ -1,4 +1,5 @@
 export type Event = {
+    title: string;
     text: string;
     options: Option[];
 };
