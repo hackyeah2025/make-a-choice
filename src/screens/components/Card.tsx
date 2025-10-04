@@ -36,16 +36,28 @@ export default function Card({ event, onCardAnswered, iconName }: Props) {
     const iconColorAlt = generateVibrantColor(event.title + "abc");
 
     useEffect(() => {
-        document.body.style.background = `radial-gradient(circle at top left, ${toHSLA(iconColor, 1)}, transparent 70%), radial-gradient(circle at bottom right, ${toHSLA(iconColorAlt, 1)}, transparent 70%)`;
+        document.body.style.background = `white`;
     }, [event])
 
-    return <div className="event-card animated-blob-bg" style={{}}>
-        <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1vh", borderRadius: "25px", boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", padding: "5vh", backgroundColor: "rgba(255, 255, 255, 0.8)" }}>
-            <h2>{event.title}</h2>
-            <div className="event-card--content">
+    return <div className="event-card" style={{}}>
+        <div style={{
+            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "1vh",
+            borderRadius: "25px",
+            boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)",
+            padding: "5vh",
+            backgroundColor: "white",
+            border: "2px solid #007834",
+            color: "#007834"
+        }}>
+            <h2 style={{ color: "#007834", margin: 0 }}>{event.title}</h2>
+            <div className="event-card--content" style={{ color: "#333" }}>
                 {event.text}
             </div>
-
 
             <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} />
         </div>

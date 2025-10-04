@@ -86,10 +86,8 @@ export default function ExpandableStatsHeader() {
   const [isExpanded, setIsExpanded] = useState(true); // TODO: change to false
   const { stats } = useStats();
 
-  return (
-    <div
-      style={{
-        height: "100vh",
+    return <div style={{
+        height: isExpanded ? "100vh" : "10vh",
         overflow: "hidden",
         width: "100vw",
         backdropFilter: `blur(${isExpanded ? 5 : 0}px)`,
@@ -97,30 +95,17 @@ export default function ExpandableStatsHeader() {
         top: 0,
         transition: "backdrop-filter 0.3s",
         zIndex: 1000,
-      }}
-    >
-      <div
-        className="expandable-stats-header"
-        style={{
-          height: isExpanded ? "80vh" : "10vh",
-          transition: "height 0.3s",
-          position: "relative",
-        }}
-      >
-        <div style={{ display: "flex", height: "100%", width: "100%", flexDirection: "column-reverse" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "8px",
-            }}
-          >
-            <Table entries={[["Zdrowie", stats.health], ["Relacje", stats.relations], ["Szczęście", stats.happiness], ["Pieniądze", stats.money]]} />
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-around" }}>
-                <GenderIcon />
-                <h2 style={{ color: "white", marginTop: "2rem", fontSize: "2rem" }}>
-                Tomek Jabłkoński
-                </h2>
+        backgroundColor: isExpanded ? "rgba(255, 255, 255, 0.9)" : "transparent"
+    }}>
+        <div className="expandable-stats-header" style={{
+            height: isExpanded ? "80vh" : "10vh",
+            transition: "height 0.3s",
+            position: "relative",
+            backgroundColor: "#007834"
+        }}>
+            <div className="expandable-stats-header--toggle" onClick={() => setIsExpanded(!isExpanded)}>
+                {/**@ts-ignore */}
+                {isExpanded ? <ion-icon name="chevron-up-outline"></ion-icon> : <ion-icon name="chevron-down-outline"></ion-icon>}
             </div>
             <Table entries={[["Wiek", stats.age], ["Edukacja", stats.education], ["Doświadczenie", stats.job_experience], ["Zawód", stats.job], ["Nazwa zawodu", stats.job_name]]} />
           </div>
