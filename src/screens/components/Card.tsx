@@ -13,6 +13,7 @@ interface Props {
   event: Event;
   onCardAnswered: (option: Option) => void;
   iconName: string;
+  setScore: (score: number) => void;
 }
 
 // Function to generate vibrant colors based on icon name
@@ -33,10 +34,12 @@ function generateVibrantColor(iconName: string): string {
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
-export default function Card({ event, onCardAnswered, iconName }: Props) {
+export default function Card({ event, onCardAnswered, iconName, setScore }: Props,) {
     const iconColor = generateVibrantColor(event?.title + "a");
     const iconColorAlt = generateVibrantColor(event?.title + "abc");
     const { stats } = useStats();
+
+    setScore(stats.health + stats.relations + stats.happiness + stats.money);
 
     return <div style={{ flex: 1, width: "min(100%, 720px)", background: '#fff', padding: "0 32px" }} className="event-card" >
         {!event && <h2>Loading...</h2>

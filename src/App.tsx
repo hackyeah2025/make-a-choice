@@ -5,11 +5,13 @@ import "./App.css";
 import GameScreen from "./screens/GameScreen";
 import InitialFormScreen from "./screens/InitialFormScreen";
 import ModeSelectionScreen from "./screens/ModeSelectionScreen";
+import FinishGameScreen from "./screens/FinishGameScreen";
 
-type AppScreen = "mode-selection" | "initial-form" | "game";
+type AppScreen = "mode-selection" | "initial-form" | "game" | "final";
 
 function App() {
   const [currentScreen, setCurrentScreen] = useState<AppScreen>("mode-selection");
+  const [score, setScore] = useState(0);
 
   const handleStartGame = () => {
     setCurrentScreen("game");
@@ -21,6 +23,11 @@ function App() {
 
   const handleFormComplete = () => {
     setCurrentScreen("game");
+  };
+
+  const handleGameFinished = () => {
+    localStorage.clear();
+    setCurrentScreen("final");
   };
 
   return (
@@ -36,7 +43,12 @@ function App() {
           {currentScreen === "initial-form" && (
             <InitialFormScreen onComplete={handleFormComplete} />
           )}
-          {currentScreen === "game" && <GameScreen />}
+          {currentScreen === "game" && (<GameScreen setScore={setScore} onGameFinished={handleGameFinished}/>)}
+          {currentScreen === "final" && (
+            <FinishGameScreen
+              score={score}
+            />
+          )}
         </div>
       </StatsProvider>
     </HistoryProvider>
