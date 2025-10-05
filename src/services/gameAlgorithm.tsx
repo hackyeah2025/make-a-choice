@@ -113,22 +113,20 @@ export class GameAlgorithm {
   }
 
   private generateFamilyScenario(stats: Stats, events: any): { description: string; consequences: OptionNoText[]; extraField?: string; eventType?: string } {
-    return {
-      description: 'Your partner asks you about having a child. What do you say?',
-      consequences: [{
-        consequences: [
-          { impacted: 'children', value: 1 },
-          { impacted: 'relations', value: 10 },
-          { impacted: 'happiness', value: 5 }
-        ]
-      },
-      {
-        consequences: [
-          { impacted: 'relations', value: -10 }
-        ]
-      }
-    ],
-    };
+    const rng = Math.random();
+    
+    if (stats.children === 0 && stats.age > 25 && stats.age < 40) {
+      return events.child_decision;
+    }
+    else if (stats.age > 20 && stats.age < 35 && rng < 0.3) {
+      return events.marriage_proposal;
+    }
+    else if (rng < 0.4) {
+      return events.family_emergency;
+    }
+    else {
+      return events.family_reunion;
+    }
   }
 
 
