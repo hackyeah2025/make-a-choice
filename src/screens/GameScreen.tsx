@@ -35,7 +35,7 @@ export default function GameScreen({ onGameFinished }: GameScreenProps) {
       }}
     >
       <ExpandableStatsHeader years={years} name={stats.name} />
-      <CardStack onProgressChange={handleProgressUpdate} setScore={setScore} />
+      <CardStack onProgressChange={handleProgressUpdate}/>
 
     </div>
   );
