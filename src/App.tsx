@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { HistoryProvider } from "./hooks/useHistory";
 import { StatsProvider } from "./hooks/useStats";
+import useHistory from "./hooks/useHistory";
 import "./App.css";
 import GameScreen from "./screens/GameScreen";
 import InitialFormScreen from "./screens/InitialFormScreen";
@@ -64,6 +65,7 @@ function InnerApp({
   onGameFinished: () => void;
 }) {
   const { stats } = useStats();
+  const { history, addToHistory, clearHistory } = useHistory();
 
   useEffect(() => {
     if (
@@ -94,6 +96,7 @@ function InnerApp({
       {currentScreen === "final" && (
         <FinishGameScreen
           stats={stats}
+          history={history}
           score={
             stats.health + stats.relations + stats.happiness + stats.money
           }
