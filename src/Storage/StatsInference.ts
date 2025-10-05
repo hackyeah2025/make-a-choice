@@ -18,7 +18,7 @@ export function inferFinancialSituation(stats: Stats): number {
         return -1;
     }
 
-    const score = ((savings + 20000) / 120000) * 100;
+    const score = ((savings + 100000) / 200000) * 100;
 
     return Math.round(Math.max(0, Math.min(100, score)));
 }
