@@ -2,6 +2,7 @@ import { useEffect } from "react"
 import { Event, Option } from "../../types/Event"
 import CardOptionCarouselle from "./CardOptionsCarouselle"
 import GeneratedText from "../../components/GeneratedText"
+import Loading from "../../components/Loading"
 import useStats from "../../hooks/useStats"
 import QuickStats from "./QuickStats"
 
@@ -36,7 +37,7 @@ export default function Card({ event, onCardAnswered, iconName, setScore }: Prop
     setScore(stats.health + stats.relations + stats.happiness + stats.money);
 
     return <div style={{ flex: 1, width: "70vw", background: '#fff', padding: "0 2.5vw" }} className="event-card" >
-        {!event && <h2>Loading...</h2>
+        {!event && <Loading message="Generowanie scenariusza..." />
         }
         {
             event && <div style={{ height: "80vh", display: "flex", justifyContent: "space-between", flexDirection: "column", alignItems: "center" }}><div style={{
