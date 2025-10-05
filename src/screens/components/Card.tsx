@@ -6,10 +6,10 @@ import useStats from "../../hooks/useStats"
 import QuickStats from "./QuickStats"
 
 interface Props {
-  event: Event;
-  onCardAnswered: (option: Option) => void;
-  iconName: string;
-  setScore: (score: number) => void;
+    event: Event;
+    onCardAnswered: (option: Option) => void;
+    iconName: string;
+    setScore: (score: number) => void;
 }
 
 // Function to generate vibrant colors based on icon name
@@ -35,11 +35,11 @@ export default function Card({ event, onCardAnswered, iconName, setScore }: Prop
 
     setScore(stats.health + stats.relations + stats.happiness + stats.money);
 
-    return <div style={{ flex: 1, width: "min(100%, 720px)", background: '#fff', padding: "0 32px" }} className="event-card" >
+    return <div style={{ flex: 1, width: "70vw", background: '#fff', padding: "0 2.5vw" }} className="event-card" >
         {!event && <h2>Loading...</h2>
         }
         {
-            event && <div style={{ height: "100%", display: "flex", justifyContent: "space-between", flexDirection: "column", alignItems: "center" }}><div style={{
+            event && <div style={{ height: "80vh", display: "flex", justifyContent: "space-between", flexDirection: "column", alignItems: "center" }}><div style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",

@@ -34,6 +34,13 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
         }
     }, [cardsQueueSize]);
 
+
+    useEffect(() => {
+        if (cardsQueue.length < cardsQueueSize) {
+            fetchNewCard();
+        }
+    }, [cardsQueue, cardsQueueSize]);
+
     const fetchNewCard = async () => {
         if (cardsQueue.length >= cardsQueueSize) return;
 

@@ -34,7 +34,6 @@ export default function GameScreen({ setScore, onGameFinished }: GameScreenProps
     >
       <ExpandableStatsHeader />
       <CardStack onProgressChange={handleProgressUpdate} setScore={setScore} />
-      <ProgressIndicator percent={percent} years={years} />
     </div>
   );
 }
