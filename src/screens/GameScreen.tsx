@@ -25,18 +25,25 @@ export default function GameScreen({ onGameFinished }: GameScreenProps) {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        minHeight: "100vh",
-        background: "#ebebeb",
-      }}
-    >
-      <ExpandableStatsHeader years={years} name={stats.name} />
-      <CardStack onProgressChange={handleProgressUpdate}/>
+    <div style={{
+      backgroundImage: 'url("background.png")',
+      backgroundSize: "cover",
+      backgroundPosition: "-1900px 0px",
+    }} >
+      <div
+        style={{
+          backgroundColor: "#10884442",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          minHeight: "100vh",
 
+        }}
+      >
+        <ExpandableStatsHeader years={years} name={stats.name} />
+        <CardStack onProgressChange={handleProgressUpdate} />
+
+      </div>
     </div>
   );
 }
