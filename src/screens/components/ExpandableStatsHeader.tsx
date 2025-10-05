@@ -358,13 +358,12 @@ export default function ExpandableStatsHeader({ years }: { years?: number }) {
                     background: "white",
                 }}
             >
-
                 <div style={{
-                    height: isExpanded ? "95vh" : "0vh",
+                    height: isExpanded ? "90vh" : "0vh",
                     transition: "height 0.3s",
                     width: "90%",
                     padding: "0 5%",
-                    paddingTop: "5%",
+                    paddingTop: "10vh",
                     overflowY: "auto",
                     background: "white"
                 }}>
