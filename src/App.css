@@ -13,8 +13,8 @@
   justify-content: center;
   gap: 5vh;
   height: 80vh;
-  margin-top: 10vh;
   width: 100vw;
+
   background-color: white;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .expandable-stats-header {
-  height: 10vh;
+  height: 2vh;
   width: 75vw;
   margin: auto;
   background-color: #007834;
@@ -107,7 +107,6 @@
 
 .expandable-stats-header--toggle {
   position: absolute;
-  bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
   color: white;

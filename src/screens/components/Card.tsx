@@ -4,11 +4,6 @@ import CardOptionCarouselle from "./CardOptionsCarouselle"
 import GeneratedText from "../../components/GeneratedText"
 import useStats from "../../hooks/useStats"
 
-// Helper to turn "hsl(H, S%, L%)" into "hsla(H, S%, L%, A)"
-function toHSLA(hsl: string, alpha: number): string {
-    return hsl.replace("hsl(", "hsla(").replace(")", `, ${alpha})`)
-}
-
 interface Props {
   event: Event;
   onCardAnswered: (option: Option) => void;
@@ -74,50 +69,50 @@ export default function Card({ event, onCardAnswered, iconName, setScore }: Prop
 
             </div>
 
-            <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} />
-            
-            <div style={{ display: 'flex', gap: 32, color: "#333", marginTop: 12 }}>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                    {/** @ts-ignore */}
-                    <ion-icon style={{ fontSize: 64 }} name="heart-outline"></ion-icon>
-                    <p><GeneratedText>{stats.health.toString()}</GeneratedText></p>
+                <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} />
+
+                <div style={{ display: 'flex', gap: 32, color: "#333", marginTop: 12 }}>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}>
+                        {/** @ts-ignore */}
+                        <ion-icon style={{ fontSize: 64 }} name="heart-outline"></ion-icon>
+                        <p><GeneratedText>{stats.health.toString()}</GeneratedText></p>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}>
+                        {/** @ts-ignore */}
+                        <ion-icon style={{ fontSize: 64 }} name="people-outline"></ion-icon>
+                        <p><GeneratedText>{stats.relations.toString()}</GeneratedText></p>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}>
+                        {/** @ts-ignore */}
+                        <ion-icon style={{ fontSize: 64 }} name="happy-outline"></ion-icon>
+                        <p><GeneratedText>{stats.happiness.toString()}</GeneratedText></p>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}>
+                        {/** @ts-ignore */}
+                        <ion-icon style={{ fontSize: 64 }} name="cash-outline"></ion-icon>
+                        <p><GeneratedText>{stats.money.toString()}</GeneratedText></p>
+                    </div>
                 </div>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                    {/** @ts-ignore */}
-                    <ion-icon style={{ fontSize: 64 }} name="people-outline"></ion-icon>
-                    <p><GeneratedText>{stats.relations.toString()}</GeneratedText></p>
-                </div>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                    {/** @ts-ignore */}
-                    <ion-icon style={{ fontSize: 64 }} name="happy-outline"></ion-icon>
-                    <p><GeneratedText>{stats.happiness.toString()}</GeneratedText></p>
-                </div>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}>
-                    {/** @ts-ignore */}
-                    <ion-icon style={{ fontSize: 64 }} name="cash-outline"></ion-icon>
-                    <p><GeneratedText>{stats.money.toString()}</GeneratedText></p>
-                </div>
-            </div>
             </>
         }
     </div >

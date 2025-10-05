@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Event } from "../types/Event";
 import { Option } from "../types/Event";
 import useStats from "./useStats";
@@ -17,26 +17,26 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const [isLoadingCard, setIsLoadingCard] = useState(false);
     const { stats, setStats } = useStats();
     const { history, addToHistory } = useHistory();
+    const hasInitialized = useRef(false);
 
     const [cardsQueue, setCardsQueue] = useState<Event[]>([]);
 
-    //LOG
     useEffect(() => {
-        console.log("Cards Queue:", cardsQueue);
-    }, [cardsQueue]);
-
-    useEffect(() => {
-        // Initial fill of the cards queue
-        const initializeQueue = async () => {
-            for (let i = 0; i < cardsQueueSize; i++) {
-                await fetchNewCard();
-            }
-        };
-        initializeQueue();
-    }, []); // Empty dependency array to run only once on mount
+        if (!hasInitialized.current && cardsQueue.length === 0) {
+            hasInitialized.current = true;
+            const initializeQueue = async () => {
+                for (let i = 0; i < cardsQueueSize; i++) {
+                    await fetchNewCard();
+                    console.log("Initialized card", i);
+                }
+            };
+            initializeQueue();
+        }
+    }, [cardsQueueSize]);
 
     const fetchNewCard = async () => {
         if (cardsQueue.length >= cardsQueueSize) return;
+
         setIsLoadingCard(true);
 
         // {title, question, options} = await getRegularAction('job/school', [], stats);
@@ -70,7 +70,10 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
             ...stats,
             age: (stats.age as number) + 1,
             ...option.consequences.reduce((acc, curr) => {
-                if (curr.impacted === "children") {
+                if (curr.impacted === "income") {
+                    acc["income"] = curr.value as number;
+                }
+                else if (curr.impacted === "children") {
                     acc["children"] = curr.value as number;
                 }
 
