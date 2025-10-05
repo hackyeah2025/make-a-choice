@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import Icon from "../components/Icon";
 import "./ModeSelectionScreen.css"; // reuse same styles for consistent design
 import { Stats } from "./../types/Stats";
+import StatsDisplay from "./components/StatsDisplay";
 import { StateElement } from "../types/History";
 import ApiService from "../services/api";
+
 
 interface FinishGameScreenProps {
   score: number;
@@ -35,24 +37,28 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
   }, [stats, history]);
 
   return (
-    <div className="mode-selection-container">
-      <div className="mode-selection-content">
-        <h1 className="mode-selection-title">Gra zakończona!</h1>
+    <div style={{ overflowY: "scroll", height: "100vh", overflowX: "hidden" }}>
+      <div className="mode-selection-container">
+        <div className="mode-selection-content">
+          <h1 className="mode-selection-title">Gra zakończona!</h1>
 
-        <div className="mode-selection-score">
-          <h2>Twój wynik:</h2>
-          <p className="score-value">{score}</p>
-        </div>
+          <div className="mode-selection-score">
+            <h2>Twój wynik:</h2>
+            <p className="score-value">{score}</p>
+          </div>
 
-        <div className="mode-selection-score">
-          <h2>Podsumowanie poniżej - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
-          {loading ? (
-            <p className="score-value">Ładowanie...</p>
-          ) : error ? (
-            <p className="score-value error">{error}</p>
-          ) : (
-            <p className="score-value">{summary}</p>
-          )}
+          <StatsDisplay stats={stats} />
+
+          <div className="mode-selection-score">
+            <h2>Podsumowanie poniżej - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
+            {loading ? (
+              <p className="score-value">Ładowanie...</p>
+            ) : error ? (
+              <p className="score-value error">{error}</p>
+            ) : (
+              <p className="score-value">{summary}</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
