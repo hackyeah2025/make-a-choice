@@ -5,6 +5,8 @@ import useStats from "./useStats";
 import useHistory from "./useHistory";
 import gameAlgorithm from "../services/gameAlgorithm";
 import ApiService from "../services/api";
+import { generateAvatar } from "../Storage/StatsStorage";
+import { Stats } from "../types/Stats";
 
 type UseCardsProps = {
   cardsQueueSize: number;
@@ -148,11 +150,21 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
       {}
     );
 
-    const newStats = {
+    const avatar = generateAvatar((baseStats.age as number) + 1, {
+      stage: baseStats.avatar_life_stage,
+      sex: baseStats.avatar_sex,
+      variant: baseStats.avatar_variant,
+    });
+
+    let newStats: Stats = {
       ...baseStats,
       age: (baseStats.age as number) + 1,
       ...consequencePatch,
+      avatar_life_stage: avatar.stage,
+      avatar_sex: avatar.sex, 
+      avatar_variant: avatar.variant,
     };
+    newStats.savings = newStats.savings + (newStats.income - newStats.expenses);
 
     // apply job_name change if the answered event was a job event
     if (currentCard.eventType === "job") {

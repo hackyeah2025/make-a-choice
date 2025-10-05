@@ -1,17 +1,40 @@
 // FinishGameScreen.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "../components/Icon";
 import "./ModeSelectionScreen.css"; // reuse same styles for consistent design
 import { Stats } from "./../types/Stats";
 import StatsDisplay from "./components/StatsDisplay";
-import useStats from "../hooks/useStats";
+import { StateElement } from "../types/History";
+import ApiService from "../services/api";
+
 
 interface FinishGameScreenProps {
   score: number;
   stats: Stats;
+  history: StateElement[];
 }
 
-export default function FinishGameScreen({ stats, score }: FinishGameScreenProps) {
+export default function FinishGameScreen({ stats, score, history }: FinishGameScreenProps) {
+  const [summary, setSummary] = useState<string>(""); // state to store summary
+  const [loading, setLoading] = useState<boolean>(true); // optional: for a loading indicator
+  const [error, setError] = useState<string | null>(null); // optional: for error handling
+
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const result = await ApiService.generateSummary(stats, history);
+        console.log(result)
+        setSummary(result);
+      } catch (err) {
+        console.error("Error generating summary:", err);
+        setError("Nie udało się wygenerować podsumowania.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSummary();
+  }, [stats, history]);
 
   return (
     <div style={{ overflowY: "scroll", height: "100vh", overflowX: "hidden" }}>
@@ -26,23 +49,17 @@ export default function FinishGameScreen({ stats, score }: FinishGameScreenProps
 
           <StatsDisplay stats={stats} />
 
-          <div className="mode-selection-options">
-            {/* <div
-            className="mode-option"
-            onClick={onRestart}
-          >
-            <div className="mode-option-icon">
-              <Icon name="refresh-circle-outline" size={80} color="#007834" />
-            </div>
-            <h3 className="mode-option-title">Zagraj ponownie</h3>
-            <p className="mode-option-description">
-              Rozpocznij nową rozgrywkę od początku
-            </p>
-          </div> */}
-          </div>
+        <div className="mode-selection-score">
+          <h2>Podsumowanie poniżej - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
+          {loading ? (
+            <p className="score-value">Ładowanie...</p>
+          ) : error ? (
+            <p className="score-value error">{error}</p>
+          ) : (
+            <p className="score-value">{summary}</p>
+          )}
         </div>
       </div>
     </div>
   );
 }
-

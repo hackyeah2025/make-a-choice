@@ -1,20 +1,55 @@
 import { Stats } from "../types/Stats";
 import { LocalStorageManager } from "./LocalStorageManager";
 
+export function generateAvatar(age: number, options?: { stage: "children" | "adults" | "seniors"; sex: "male" | "female"; variant: number }): { stage: "children" | "adults" | "seniors"; sex: "male" | "female"; variant: number } {
+    const data = {
+        children: {
+            male: 6,
+            female: 4
+        },
+        adults: {
+            male: 10,
+            female: 10
+        },
+        seniors: {
+            male: 4,
+            female: 5
+        }
+    }
+
+    const currentStage = age < 18 ? "children" : age < 55 ? "adults" : "seniors";
+
+    if (!options) {
+        const sex = Math.random() < 0.5 ? "male" : "female";
+        const variant = Math.floor(Math.random() * data[currentStage][sex]);
+
+        return { stage: currentStage, sex, variant };
+    }
+
+    if (currentStage !== options.stage) {
+        const sex = options.sex;
+        const variant = Math.floor(Math.random() * (data[currentStage][sex]) - 1) + 1;
+
+        return { stage: currentStage, sex, variant };
+    }
+
+    return options;
+}
+
 const STATS_KEY = "stats";
 
 export const initialStats: Stats = {
     name: "Player",
-    age: 20,
+    age: 15,
     health: 50,
     relations: 50,
     happiness: 50,
-    money: 50,
+    money: 100,
     priorities: [],
 
     income: 0,
-    expenses: 0,
-    savings: 0,
+    expenses: 18000,
+    savings: 110000,
     ZUS: 0,
 
     education: "primary_school",
@@ -26,6 +61,10 @@ export const initialStats: Stats = {
     has_serious_health_issues: false,
     relationship: "single",
     children: 0,
+
+    avatar_life_stage: "children",
+    avatar_sex: "male",
+    avatar_variant: 1
 };
 
 /**

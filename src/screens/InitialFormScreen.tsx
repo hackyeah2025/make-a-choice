@@ -4,6 +4,7 @@ import { Stats } from "../types/Stats";
 import CustomDropdown from "../components/CustomDropdown";
 import CustomCheckbox from "../components/CustomCheckbox";
 import "./InitialFormScreen.css";
+import { generateAvatar } from "../Storage/StatsStorage";
 
 // Prosty kreator: jedno pytanie na krok, pytania po polsku
 export default function InitialFormScreen({ onComplete }: { onComplete?: () => void }) {
@@ -54,8 +55,8 @@ export default function InitialFormScreen({ onComplete }: { onComplete?: () => v
             { key: "job_name", label: "Jaki jest Twój zawód / stanowisko? (jeśli dotyczy)", type: "text", placeholder: "Np. Programista" },
             { key: "job_experience", label: "Ile masz lat doświadczenia zawodowego?", type: "number", min: 0, max: 100 },
 
-            { key: "income", label: "Miesięczny dochód (PLN)", type: "number", min: 0, max: 1_000_000 },
-            { key: "expenses", label: "Miesięczne wydatki (PLN)", type: "number", min: 0, max: 1_000_000 },
+            { key: "income", label: "Roczny przychód (PLN)", type: "number", min: 0, max: 1_000_000 },
+            { key: "expenses", label: "Roczne wydatki (PLN)", type: "number", min: 0, max: 1_000_000 },
             {
                 key: "savings",
                 label: "Oszczędności",
@@ -125,7 +126,9 @@ export default function InitialFormScreen({ onComplete }: { onComplete?: () => v
         }
 
         const newStats = { ...(stats as Stats), [key]: next } as Stats;
-        setStats(newStats);
+        const avatar = generateAvatar(newStats?.age ?? 20);
+        const newStatsWithAvatar = { ...newStats, avatar_life_stage: avatar.stage, avatar_sex: avatar.sex, avatar_variant: avatar.variant } as Stats;
+        setStats(newStatsWithAvatar);
     }
 
     function handleNext() {

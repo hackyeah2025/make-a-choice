@@ -23,21 +23,35 @@ export class GameAlgorithm {
     "evening",
   ];
 
-  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "health", "savings", "relations"];
+  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "health", "savings", "relations", "expenses"];
 
   private getEventTypeWeights(stats: Stats): Record<string, number> {
-    return {
-      "random": 0,
-      "education": 1,
-      "job": 1,
-      "family": 0,
-    }
-    let weights = {
-      "random": 1,
+    let weights =  {
       "education": 1,
       "job": 1,
       "family": 1,
     }
+
+    if (stats.age == 15 || stats.age == 18) {
+      return {
+        "education": 1.0,
+        "job": 0.0,
+        "family": 0.0,
+      }
+    }
+
+    if (stats.income == 0 && stats.age == 21) {
+      return {
+        "education": 0.0,
+        "job": 1.0,
+        "family": 0.0,
+      }
+    }
+
+    if (stats.income) {
+      weights.job *= 5;
+    }
+
     if (stats.age > 45) {
       weights.family = 0.4;
     }
@@ -66,8 +80,21 @@ export class GameAlgorithm {
       let otherStats = this.impacts.filter(s => s !== impactedStat);
       const decreasedStat = otherStats[Math.floor(Math.random() * otherStats.length)];
 
-      const increaseValue = Math.floor(Math.random() * 21) + 10;
-      const decreaseValue = Math.floor(Math.random() * 21) + 10;
+      let increaseValue = Math.floor(Math.random() * 5) + 5;
+      let decreaseValue = Math.floor(Math.random() * 5) + 5;
+      if (impactedStat === "savings") {
+        increaseValue *= 1000;
+      }
+      if (decreasedStat === "savings") {
+        decreaseValue *= 1000;
+      }
+
+      if (impactedStat === "expenses") {
+        increaseValue *= 500;
+      }
+      if (decreasedStat === "expenses") {
+        decreaseValue *= 100;
+      }
 
       consequences.push({ consequences: [{ impacted: impactedStat, value: increaseValue }, { impacted: decreasedStat, value: -decreaseValue }] });
     }
@@ -90,7 +117,7 @@ export class GameAlgorithm {
   private generateJobScenario(stats: Stats, events: any): { description: string; consequences: OptionNoText[]; extraField?: string; eventType?: string } {
     if (stats.income === 0) {
       const offer = { ...events.job_offer };
-      offer.consequences[0].consequences[0].value = stats.job_experience * 1000 + 1
+      offer.consequences[0].consequences[0].value = stats.job_experience * 2000 + 56000;
       return offer;
     }
     const rng = Math.random();
@@ -139,13 +166,13 @@ export class GameAlgorithm {
     const randomValue = Math.random() * totalWeight;
 
     console.log(stats)
-    if (randomValue < eventTypeWeights["random"] || stats.age % 3 != 0) {
+    if (stats.age % 3 != 0) {
       return { ...this.generateRandomScenario(stats), isCoreEvent: false, eventType: "random"};
     }
-    else if (randomValue < eventTypeWeights["random"] + eventTypeWeights["education"]) {
+    else if (randomValue <  eventTypeWeights["education"]) {
       return { ...this.generateEducationScenario(stats, coreEvents.education), isCoreEvent: true };
     }
-    else if (randomValue < eventTypeWeights["random"] + eventTypeWeights["education"] + eventTypeWeights["job"]) {
+    else if (randomValue < eventTypeWeights["education"] + eventTypeWeights["job"]) {
       return { ...this.generateJobScenario(stats, coreEvents.job), isCoreEvent: true };
     }
     else {
