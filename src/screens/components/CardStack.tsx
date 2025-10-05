@@ -2,7 +2,8 @@ import useCards from "../../hooks/useCards"
 import Card from "./Card";
 
 interface CardStackProps {
-    onProgressChange?: (percent: number, years: number) => void;
+  onProgressChange?: (percent: number, years: number) => void;
+  setScore: (score: number) => void
 }
 
 export default function CardStack({ onProgressChange }: CardStackProps) {
@@ -10,11 +11,12 @@ export default function CardStack({ onProgressChange }: CardStackProps) {
 
     onProgressChange && onProgressChange((currentAge / 65) * 100, currentAge);
 
-    return (
-        <Card
-            event={currentCard}
-            onCardAnswered={answerCard}
-            iconName="bag"
-        />
-    );
+  return (
+    <Card
+      event={currentCard}
+      onCardAnswered={answerCard}
+      iconName="bag"
+      setScore={setScore}
+    />
+  );
 }

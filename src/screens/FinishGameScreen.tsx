@@ -4,12 +4,10 @@ import Icon from "../components/Icon";
 import "./ModeSelectionScreen.css"; // reuse same styles for consistent design
 
 interface FinishGameScreenProps {
-  onRestart: () => void;
-  onExit: () => void;
   score: number;
 }
 
-export default function FinishGameScreen({ onRestart, onExit, score }: FinishGameScreenProps) {
+export default function FinishGameScreen({ score }: FinishGameScreenProps) {
   return (
     <div className="mode-selection-container">
       <div className="mode-selection-content">
@@ -21,7 +19,7 @@ export default function FinishGameScreen({ onRestart, onExit, score }: FinishGam
         </div>
 
         <div className="mode-selection-options">
-          <div
+          {/* <div
             className="mode-option"
             onClick={onRestart}
           >
@@ -32,20 +30,7 @@ export default function FinishGameScreen({ onRestart, onExit, score }: FinishGam
             <p className="mode-option-description">
               Rozpocznij nową rozgrywkę od początku
             </p>
-          </div>
-
-          <div
-            className="mode-option"
-            onClick={onExit}
-          >
-            <div className="mode-option-icon">
-              <Icon name="exit-outline" size={80} color="#007834" />
-            </div>
-            <h3 className="mode-option-title">Zakończ</h3>
-            <p className="mode-option-description">
-              Wróć do ekranu głównego
-            </p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

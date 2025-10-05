@@ -6,9 +6,10 @@ import useStats from "../../hooks/useStats"
 import QuickStats from "./QuickStats"
 
 interface Props {
-    event: Event;
-    onCardAnswered: (option: Option) => void;
-    iconName: string;
+  event: Event;
+  onCardAnswered: (option: Option) => void;
+  iconName: string;
+  setScore: (score: number) => void;
 }
 
 // Function to generate vibrant colors based on icon name
@@ -32,7 +33,9 @@ function generateVibrantColor(iconName: string): string {
 export default function Card({ event, onCardAnswered, iconName }: Props) {
 
 
-    return <div style={{ flex: 1, width: "70vw", background: '#fff', padding: "1vh 2.5vw" }} className="event-card" >
+    setScore(stats.health + stats.relations + stats.happiness + stats.money);
+
+    return <div style={{ flex: 1, width: "min(100%, 720px)", background: '#fff', padding: "0 32px" }} className="event-card" >
         {!event && <h2>Loading...</h2>
         }
         {
