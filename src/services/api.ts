@@ -65,6 +65,11 @@ export default class ApiService {
         };
     }
     static async generateSummary(stats: Stats, history: StateElement[]) : Promise<string> {
+
+        console.log(stats);
+        console.log("====");
+        console.log(history);
+
         const response = await fetch(`${API_URL}/generate-summary`, {
             method: "POST",
             headers: {
