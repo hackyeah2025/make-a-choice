@@ -165,6 +165,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
       avatar_variant: avatar.variant,
     };
     newStats.savings = newStats.savings + (newStats.income - newStats.expenses);
+    newStats.ZUS = newStats.ZUS + Math.round(newStats.income/10);
 
     // apply job_name change if the answered event was a job event
     if (currentCard.eventType === "job") {

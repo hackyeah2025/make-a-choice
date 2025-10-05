@@ -32,7 +32,7 @@ export class GameAlgorithm {
       "family": 1,
     }
 
-    if (stats.age == 15 || stats.age == 18) {
+    if (stats.age == 15 || (stats.age == 18 && stats.education == "high_school")) {
       return {
         "education": 1.0,
         "job": 0.0,
@@ -40,13 +40,22 @@ export class GameAlgorithm {
       }
     }
 
-    if (stats.income == 0 && stats.age == 21) {
+    if (stats.income == 0 && stats.age == 18 && stats.education == "job_school") {
       return {
         "education": 0.0,
         "job": 1.0,
         "family": 0.0,
       }
     }
+
+    if (stats.age == 21 && stats.education == "university") {
+      return {
+        "education": 0.0,
+        "job": 1.0,
+        "family": 0.0,
+      }
+    }
+  
 
     if (stats.income) {
       weights.job *= 5;
@@ -81,7 +90,7 @@ export class GameAlgorithm {
       const decreasedStat = otherStats[Math.floor(Math.random() * otherStats.length)];
 
       let increaseValue = Math.floor(Math.random() * 5) + 5;
-      let decreaseValue = Math.floor(Math.random() * 5) + 5;
+      let decreaseValue = Math.floor(Math.random() * 10) + 5;
       if (impactedStat === "savings") {
         increaseValue *= 1000;
       }
@@ -90,7 +99,7 @@ export class GameAlgorithm {
       }
 
       if (impactedStat === "expenses") {
-        increaseValue *= 500;
+        increaseValue *= 5000;
       }
       if (decreasedStat === "expenses") {
         decreaseValue *= 100;
@@ -117,7 +126,7 @@ export class GameAlgorithm {
   private generateJobScenario(stats: Stats, events: any): { description: string; consequences: OptionNoText[]; extraField?: string; eventType?: string } {
     if (stats.income === 0) {
       const offer = { ...events.job_offer };
-      offer.consequences[0].consequences[0].value = stats.job_experience * 2000 + 56000;
+      offer.consequences[0].consequences[0].value = stats.job_experience * 500 + 20000;
       return offer;
     }
     const rng = Math.random();
