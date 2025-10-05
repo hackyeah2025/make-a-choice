@@ -172,7 +172,7 @@
                 {
                     "consequences": [
                         {
-                            "impacted": "money",
+                            "impacted": "savings",
                             "value": 0
                         },
                         {
@@ -204,5 +204,142 @@
             ]
         }
     },
-    "family": {}
+    "family": {
+        "child_decision": {
+            "description": "Your partner asks you about having a child. What do you say?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "children",
+                            "value": 1
+                        },
+                        {
+                            "impacted": "relations",
+                            "value": 10
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": 5
+                        },
+                        {
+                            "impacted": "savings",
+                            "value": -5000
+                        }
+                    ]
+                },
+                {
+                    "consequences": [
+                        {
+                            "impacted": "relations",
+                            "value": -10
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": -5
+                        }
+                    ]
+                }
+            ]
+        },
+        "marriage_proposal": {
+            "description": "Your partner proposes marriage. How do you respond?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "relations",
+                            "value": 20
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": 15
+                        },
+                        {
+                            "impacted": "savings",
+                            "value": -10000
+                        }
+                    ]
+                },
+                {
+                    "consequences": [
+                        {
+                            "impacted": "relations",
+                            "value": -15
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": -10
+                        }
+                    ]
+                }
+            ]
+        },
+        "family_emergency": {
+            "description": "A family member has a medical emergency and needs financial help. Do you help?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "savings",
+                            "value": -15000
+                        },
+                        {
+                            "impacted": "relations",
+                            "value": 15
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": 5
+                        }
+                    ]
+                },
+                {
+                    "consequences": [
+                        {
+                            "impacted": "relations",
+                            "value": -20
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": -15
+                        }
+                    ]
+                }
+            ]
+        },
+        "family_reunion": {
+            "description": "Your family is organizing a reunion that requires travel. Do you attend?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "savings",
+                            "value": -3000
+                        },
+                        {
+                            "impacted": "relations",
+                            "value": 10
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": 10
+                        }
+                    ]
+                },
+                {
+                    "consequences": [
+                        {
+                            "impacted": "relations",
+                            "value": -5
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": -5
+                        }
+                    ]
+                }
+            ]
+        }
+    }
 }

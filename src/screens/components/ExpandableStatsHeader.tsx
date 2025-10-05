@@ -3,6 +3,7 @@ import useStats from "../../hooks/useStats";
 import useHistory from "../../hooks/useHistory";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, RadialBarChart, RadialBar, Legend, PieChart, Pie, Cell } from 'recharts';
 import { Stats, StatsToIcons } from "../../types/Stats";
+import ProgressIndicator from "./ProgressIndicator";
 
 // Progress Bar Component
 function ProgressBar({ label, value, max = 100, color = "#007834", icon }: {
@@ -11,6 +12,7 @@ function ProgressBar({ label, value, max = 100, color = "#007834", icon }: {
     max?: number;
     color?: string;
     icon?: string;
+    years?: number;
 }) {
     const percentage = Math.min((Number(value) / max) * 100, 100);
 
@@ -247,7 +249,15 @@ function Table({ entries }: { entries: [string, any][] }) {
 }
 
 // Avatar Component
-function Avatar() {
+function Avatar({ age, name }: { age: number, name?: string }) {
+    const getAvatarByAge = (age: number): string => {
+        if (age < 20) return "/adults/young.png";
+        if (age < 30) return "/adults/young-adult.png";
+        if (age < 50) return "/adults/medium-adult.png";
+        if (age < 60) return "/adults/old-adult.png";
+        return "/adults/senior.png";
+    };
+
     return (
         <div style={{
             display: "flex",
@@ -264,15 +274,20 @@ function Avatar() {
                     width: "120px",
                     height: "120px",
                     border: "4px solid #007834",
-                    boxShadow: "0 8px 32px rgba(0, 120, 52, 0.2)"
+                    boxShadow: "0 8px 32px rgba(0, 120, 52, 0.2)",
+                    overflow: "hidden"
                 }}
             >
-                {/**@ts-ignore */}
-                <ion-icon
-                    style={{ fontSize: "64px", color: "#007834" }}
-                    name="person-outline"
-                /**@ts-ignore */
-                ></ion-icon>
+                <img
+                    src={getAvatarByAge(age)}
+                    alt="Avatar"
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "50%"
+                    }}
+                />
             </div>
             <h2 style={{
                 color: "#007834",
@@ -282,13 +297,13 @@ function Avatar() {
                 textAlign: "center",
                 textShadow: "0 2px 4px rgba(0, 120, 52, 0.1)"
             }}>
-                Tomek Jabłkoński
+                {name || "Gracz"}
             </h2>
         </div>
     );
 }
 
-export default function ExpandableStatsHeader() {
+export default function ExpandableStatsHeader({ years, name }: { years?: number, name?: string }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const { stats } = useStats();
 
@@ -344,13 +359,12 @@ export default function ExpandableStatsHeader() {
                     background: "white",
                 }}
             >
-
                 <div style={{
-                    height: isExpanded ? "95vh" : "0vh",
+                    height: isExpanded ? "90vh" : "0vh",
                     transition: "height 0.3s",
                     width: "90%",
                     padding: "0 5%",
-                    paddingTop: "5%",
+                    paddingTop: "10vh",
                     overflowY: "auto",
                     background: "white"
                 }}>
@@ -363,7 +377,7 @@ export default function ExpandableStatsHeader() {
                     }}>
                         {/* Left Column - Core Stats */}
                         <div style={{ width: "100%" }}>
-                            <Avatar />
+                            <Avatar name={stats.name} age={Number(stats.age)} />
                             <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
                                 Główne Statystyki
                             </h3>
@@ -554,6 +568,7 @@ export default function ExpandableStatsHeader() {
 
                     }}
                 >
+                    <ProgressIndicator years={years} percent={years || 0 / 65} name={name} />
                     {isExpanded ? (
                         /**@ts-ignore */
                         <ion-icon name="chevron-up-outline"></ion-icon>

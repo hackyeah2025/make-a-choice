@@ -4,6 +4,7 @@ import CardStack from "./components/CardStack";
 import ExpandableStatsHeader from "./components/ExpandableStatsHeader";
 import ProgressIndicator from "./components/ProgressIndicator";
 import { Stats } from "./../types/Stats";
+import useStats from "../hooks/useStats";
 
 interface GameScreenProps {
   onGameFinished: () => void;
@@ -12,6 +13,7 @@ interface GameScreenProps {
 export default function GameScreen({ onGameFinished }: GameScreenProps) {
   const [percent, setPercent] = useState(0);
   const [years, setYears] = useState(0);
+  const stats = useStats().stats;
 
   const handleProgressUpdate = (newPercent: number, newYears: number) => {
     setPercent(newPercent);
@@ -32,8 +34,9 @@ export default function GameScreen({ onGameFinished }: GameScreenProps) {
         background: "#ebebeb",
       }}
     >
-      <ExpandableStatsHeader />
-      <CardStack onProgressChange={handleProgressUpdate}/>
+      <ExpandableStatsHeader years={years} name={stats.name} />
+      <CardStack onProgressChange={handleProgressUpdate} setScore={setScore} />
+
     </div>
   );
 }

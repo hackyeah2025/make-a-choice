@@ -38,7 +38,11 @@ export function inferFinancialSituation(stats: Stats): number {
     else if (income < 3500 && income > 0) score -= 15; // Low income
     else if (income <= 0) score -= 25; // No income
 
-    return Math.max(0, Math.min(100, score));
+    if (savings < 0){
+        return 0
+    }
+
+    return Math.floor(Math.max(0, Math.min(100, score)) / 2 + savings / 2);
 }
 
 export function applyInferences(stats: Stats): Stats {
