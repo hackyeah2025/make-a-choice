@@ -1,10 +1,11 @@
 // GameScreen.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CardStack from "./components/CardStack";
 import ExpandableStatsHeader from "./components/ExpandableStatsHeader";
 import ProgressIndicator from "./components/ProgressIndicator";
 import { Stats } from "./../types/Stats";
 import useStats from "../hooks/useStats";
+import { useNotification } from "../hooks/NotificationContext";
 
 interface GameScreenProps {
   onGameFinished: () => void;

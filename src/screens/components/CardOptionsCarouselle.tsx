@@ -3,6 +3,7 @@ import type React from "react";
 import { Option } from "../../types/Event";
 import { Stats } from "../../types/Stats";
 import GeneratedText from "../../components/GeneratedText";
+import { useNotification } from "../../hooks/NotificationContext";
 
 function getIcon(consequences: Option["consequences"]): string {
     const icons: Partial<Record<keyof Stats, [string, string]>> = {
@@ -37,6 +38,7 @@ export default function CardOptionCarouselle({ options, onOptionSelected }: { op
     const [animating, setAnimating] = useState(false);
     const [direction, setDirection] = useState<"next" | "prev" | null>(null);
     const [incomingIndex, setIncomingIndex] = useState<number | null>(null);
+    const { notify } = useNotification();
 
     const len = options.length;
 
@@ -56,6 +58,23 @@ export default function CardOptionCarouselle({ options, onOptionSelected }: { op
 
     const selectCurrent = useCallback(() => {
         if (len === 0) return;
+        const consequences = options[selectedIndex]?.consequences?.filter(c => ["health", "relations", "happiness", "money", "income", "expenses", "savings", "ZUS", "job_experience", "children"].includes(c.impacted) && +c.value !== 0) ?? [];
+        const data = {
+            health: ['więcej punktów zdrowia', 'mniej punktów zdrowia'],
+            relations: ['więcej punktów relacji', 'mniej punktów relacji'],
+            happiness: ['więcej punktów szczęścia', 'mniej punktów szczęścia'],
+            money: ['więcej punktów pieniędzy', 'mniej punktów pieniędzy'],
+            income: ['więcej dochodu', 'mniej dochodu'],
+            expenses: ['mniej wydatków', 'więcej wydatków'],
+            savings: ['więcej oszczędności', 'mniej oszczędności'],
+            ZUS: ['więcej składki ZUS', 'mniej składki ZUS'],
+            job_experience: ['więcej doświadczenia zawodowego', 'mniej doświadczenia zawodowego'],
+            children: ['więcej dzieci', 'mniej dzieci'],
+        };
+        consequences.forEach(c => {
+            const status = c.impacted === "expenses" ? (+c.value < 0 ? 0 : 1) : (+c.value > 0 ? 0 : 1);
+            notify(`${+c.value > 0 ? '+' : ''}${c.value} ${data[c.impacted as keyof typeof data][status]}`, status === 0 ? "success" : "error");
+        });
         onOptionSelected(options[selectedIndex]);
     }, [len, onOptionSelected, options, selectedIndex]);
 

@@ -10,6 +10,7 @@ import FinishGameScreen from "./screens/FinishGameScreen";
 import { Stats } from "./types/Stats";
 import { initialStats } from "./Storage/StatsStorage";
 import useStats from "./hooks/useStats";
+import { NotificationProvider, useNotification } from "./hooks/NotificationContext";
 
 type AppScreen = "mode-selection" | "initial-form" | "game" | "final";
 
@@ -34,18 +35,20 @@ function App() {
   };
 
   return (
-    <StatsProvider>
-      <HistoryProvider>
-        <InnerApp
-          currentScreen={currentScreen}
-          setCurrentScreen={setCurrentScreen}
-          onStartGame={handleStartGame}
-          onShowForm={handleShowForm}
-          onFormComplete={handleFormComplete}
-          onGameFinished={handleGameFinished}
-        />
-      </HistoryProvider>
-    </StatsProvider>
+    <NotificationProvider>
+      <StatsProvider>
+        <HistoryProvider>
+          <InnerApp
+            currentScreen={currentScreen}
+            setCurrentScreen={setCurrentScreen}
+            onStartGame={handleStartGame}
+            onShowForm={handleShowForm}
+            onFormComplete={handleFormComplete}
+            onGameFinished={handleGameFinished}
+          />
+        </HistoryProvider>
+      </StatsProvider>
+    </NotificationProvider>
   );
 }
 
