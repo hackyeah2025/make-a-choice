@@ -83,34 +83,11 @@ function Table({ entries }: { entries: [string, any][] }) {
 }
 
 export default function ExpandableStatsHeader() {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const { stats } = useStats();
+    const [isExpanded, setIsExpanded] = useState(false);
+    const { stats } = useStats();
 
-  return (
-    <div
-      style={{
-        height: "100vh",
-        overflow: "hidden",
-        width: "100vw",
-        backdropFilter: `blur(${isExpanded ? 5 : 0}px)`,
-        position: "absolute",
-        top: 0,
-        transition: "backdrop-filter 0.3s",
-        zIndex: 1000,
-        pointerEvents: "none",
-      }}
-    >
-      <div
-        className="expandable-stats-header"
-        style={{
-          height: isExpanded ? "80vh" : "10vh",
-          transition: "height 0.3s",
-          position: "relative",
-          pointerEvents: "all",
-        }}
-      >
-        <div style={{ display: "flex", height: "100%", width: "100%", flexDirection: "column-reverse" }}>
-          <div
+    return (
+        <div
             style={{
                 height: "100vh",
                 overflow: "hidden",
@@ -120,6 +97,7 @@ export default function ExpandableStatsHeader() {
                 top: 0,
                 transition: "backdrop-filter 0.3s",
                 zIndex: 1000,
+                pointerEvents: "none",
             }}
         >
             <div
@@ -128,6 +106,7 @@ export default function ExpandableStatsHeader() {
                     height: isExpanded ? "80vh" : "10vh",
                     transition: "height 0.3s",
                     position: "relative",
+                    pointerEvents: "all",
                 }}
             >
                 <div style={{ display: "flex", height: "100%", width: "100%", flexDirection: "column-reverse" }}>
