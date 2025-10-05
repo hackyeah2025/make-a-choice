@@ -124,17 +124,17 @@ export class GameAlgorithm {
 
 
       if (impactedStat === "savings") {
-        increaseValue *= 1000;
+        increaseValue *= 1000 * 2;
       }
       if (decreasedStat === "savings") {
-        decreaseValue *= 1000;
+        decreaseValue *= 1000 * 2;
       }
 
       if (impactedStat === "expenses") {
-        increaseValue *= 5000;
+        increaseValue *= 5000 * 2;
       }
       if (decreasedStat === "expenses") {
-        decreaseValue *= 100;
+        decreaseValue *= 100 * 2;
       }
 
       consequences.push({ consequences: [{ impacted: impactedStat, value: increaseValue }, { impacted: decreasedStat, value: -decreaseValue }] });
@@ -158,7 +158,7 @@ export class GameAlgorithm {
   private generateJobScenario(stats: Stats, events: any): { description: string; consequences: OptionNoText[]; extraField?: string; eventType?: string } {
     if (stats.income === 0) {
       const offer = { ...events.job_offer };
-      offer.consequences[0].consequences[0].value = stats.job_experience * 500 + 20000;
+      offer.consequences[0].consequences[0].value = stats.job_experience * 500 + 42000;
       return offer;
     }
     const rng = Math.random();

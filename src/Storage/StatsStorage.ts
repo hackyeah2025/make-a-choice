@@ -48,8 +48,8 @@ export const initialStats: Stats = {
     priorities: [],
 
     income: 0,
-    expenses: 18000,
-    savings: 110000,
+    expenses: 36000,
+    savings: 150000,
     ZUS: 0,
 
     education: "primary_school",

@@ -36,7 +36,7 @@
                         },
                         {
                             "impacted": "savings",
-                            "value": -20000
+                            "value": -40000
                         },
                         {
                             "impacted": "job_experience",
@@ -56,7 +56,7 @@
                     "consequences": [
                         {
                             "impacted": "savings",
-                            "value": -5000
+                            "value": -10000
                         },
                         {
                             "impacted": "job_experience",
@@ -224,7 +224,7 @@
                         },
                         {
                             "impacted": "savings",
-                            "value": -5000
+                            "value": -10000
                         }
                     ]
                 },
@@ -257,7 +257,7 @@
                         },
                         {
                             "impacted": "savings",
-                            "value": -10000
+                            "value": -20000
                         }
                     ]
                 },
@@ -282,7 +282,7 @@
                     "consequences": [
                         {
                             "impacted": "savings",
-                            "value": -15000
+                            "value": -30000
                         },
                         {
                             "impacted": "relations",
@@ -315,7 +315,7 @@
                     "consequences": [
                         {
                             "impacted": "savings",
-                            "value": -3000
+                            "value": -6000
                         },
                         {
                             "impacted": "relations",
