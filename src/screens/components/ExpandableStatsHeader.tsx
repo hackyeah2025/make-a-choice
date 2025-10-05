@@ -248,7 +248,15 @@ function Table({ entries }: { entries: [string, any][] }) {
 }
 
 // Avatar Component
-function Avatar() {
+function Avatar({ age }: { age: number }) {
+    const getAvatarByAge = (age: number): string => {
+        if (age < 20) return "/avatars/young.png";
+        if (age < 30) return "/avatars/young-adult.png";
+        if (age < 50) return "/avatars/medium-adult.png";
+        if (age < 60) return "/avatars/old-adult.png";
+        return "/avatars/senior.png";
+    };
+
     return (
         <div style={{
             display: "flex",
@@ -265,15 +273,20 @@ function Avatar() {
                     width: "120px",
                     height: "120px",
                     border: "4px solid #007834",
-                    boxShadow: "0 8px 32px rgba(0, 120, 52, 0.2)"
+                    boxShadow: "0 8px 32px rgba(0, 120, 52, 0.2)",
+                    overflow: "hidden"
                 }}
             >
-                {/**@ts-ignore */}
-                <ion-icon
-                    style={{ fontSize: "64px", color: "#007834" }}
-                    name="person-outline"
-                /**@ts-ignore */
-                ></ion-icon>
+                <img
+                    src={getAvatarByAge(age)}
+                    alt="Avatar"
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "50%"
+                    }}
+                />
             </div>
             <h2 style={{
                 color: "#007834",
@@ -364,7 +377,7 @@ export default function ExpandableStatsHeader({ years }: { years?: number }) {
                     }}>
                         {/* Left Column - Core Stats */}
                         <div style={{ width: "100%" }}>
-                            <Avatar />
+                            <Avatar age={Number(stats.age)} />
                             <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
                                 Główne Statystyki
                             </h3>
