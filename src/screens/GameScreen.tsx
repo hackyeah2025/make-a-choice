@@ -3,13 +3,13 @@ import { useState } from "react";
 import CardStack from "./components/CardStack";
 import ExpandableStatsHeader from "./components/ExpandableStatsHeader";
 import ProgressIndicator from "./components/ProgressIndicator";
+import { Stats } from "./../types/Stats";
 
 interface GameScreenProps {
-  setScore: (score: number) => void;
   onGameFinished: () => void;
 }
 
-export default function GameScreen({ setScore, onGameFinished }: GameScreenProps) {
+export default function GameScreen({ onGameFinished }: GameScreenProps) {
   const [percent, setPercent] = useState(0);
   const [years, setYears] = useState(0);
 
@@ -33,7 +33,7 @@ export default function GameScreen({ setScore, onGameFinished }: GameScreenProps
       }}
     >
       <ExpandableStatsHeader />
-      <CardStack onProgressChange={handleProgressUpdate} setScore={setScore} />
+      <CardStack onProgressChange={handleProgressUpdate}/>
     </div>
   );
 }

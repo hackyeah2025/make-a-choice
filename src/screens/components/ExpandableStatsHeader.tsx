@@ -179,13 +179,14 @@ function ProgressOverTime() {
         );
     }
 
-    const progressData = history.slice(-10).map((item, index) => ({
-        turn: index + 1,
+    const progressData = history.slice(-10).map((item, index, arr) => ({
+        turn: history.length - arr.length + index + 1,
         health: Number(item.stats.health),
         relations: Number(item.stats.relations),
         happiness: Number(item.stats.happiness),
         money: Number(item.stats.money),
     }));
+
 
     return (
         <div style={{ height: "200px", width: "100%" }}>
