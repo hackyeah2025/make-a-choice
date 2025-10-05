@@ -3,6 +3,8 @@ import React from "react";
 import Icon from "../components/Icon";
 import "./ModeSelectionScreen.css"; // reuse same styles for consistent design
 import { Stats } from "./../types/Stats";
+import StatsDisplay from "./components/StatsDisplay";
+import useStats from "../hooks/useStats";
 
 interface FinishGameScreenProps {
   score: number;
@@ -10,6 +12,7 @@ interface FinishGameScreenProps {
 }
 
 export default function FinishGameScreen({ stats, score }: FinishGameScreenProps) {
+
   return (
     <div className="mode-selection-container">
       <div className="mode-selection-content">
@@ -19,6 +22,8 @@ export default function FinishGameScreen({ stats, score }: FinishGameScreenProps
           <h2>Twój wynik:</h2>
           <p className="score-value">{score}</p>
         </div>
+
+        <StatsDisplay stats={stats} />
 
         <div className="mode-selection-options">
           {/* <div
