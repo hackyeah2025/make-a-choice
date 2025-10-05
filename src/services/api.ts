@@ -3,7 +3,7 @@ import { Stats } from "../types/Stats";
 import { StateElement } from "../types/History";
 
 
-const API_URL = "http://localhost:8000";
+const API_URL = "https://frog01-20192.wykr.es";
 
 export interface EventResponse {
     title: string;
