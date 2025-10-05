@@ -9,13 +9,18 @@ const GeneratedText = ({
   wordDelay?: number;
   [key: string]: any;
 }) => {
+  const [counter, setCounter] = React.useState(0);
+
+  React.useEffect(() => {
+    setCounter((prev) => prev + 1);
+  }, [children]);
+
   return (
-    <>
+    <span key={counter}>
       {children.split(" ").map((word, index) => {
         return (
-          <>
+          <span key={counter.toString() + index.toString()}>
             <span
-              key={index}
               style={{
                 display: "inline-block",
                 opacity: 0,
@@ -27,10 +32,10 @@ const GeneratedText = ({
               {word}
             </span>
             {" "}
-          </>
+          </span>
         );
       })}
-    </>
+    </span>
   );
 };
 

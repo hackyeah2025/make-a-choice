@@ -1,6 +1,34 @@
 import { useEffect, useState, useCallback } from "react";
 import type React from "react";
 import { Option } from "../../types/Event";
+import { Stats } from "../../types/Stats";
+import GeneratedText from "../../components/GeneratedText";
+
+function getIcon(consequences: Option["consequences"]): string {
+    const icons: Partial<Record<keyof Stats, [string, string]>> = {
+        health: ['shield-half-outline', 'pulse-outline'],
+        relations: ['heart-half-outline', 'water-outline'],
+        happiness: ['happy-outline', 'sad-outline'],
+        money: ['cash-outline', 'wallet-outline'],
+        income: ['trending-up-outline', 'trending-down-outline'],
+        expenses: ['trending-down-outline', 'trending-up-outline'],
+        savings: ['wallet-outline', 'cash-outline'],
+        ZUS: ['business-outline', 'business-outline'],
+        job_experience: ['briefcase-outline', 'briefcase-outline'],
+        children: ['accessibility-outline', 'balloon-outline'],
+    }
+
+    for (const consequence of consequences) {
+        if (typeof consequence.value !== "number") continue;
+        if (consequence.impacted in icons) {
+            const icon = icons[consequence.impacted]?.[consequence.value > 0 ? 0 : 1];
+
+            if (icon) return icon;
+        }
+    }
+
+    return "information-outline";
+}
 
 export default function CardOptionCarouselle({ options, onOptionSelected }: { options: Option[], onOptionSelected: (option: Option) => void }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
@@ -77,30 +105,46 @@ export default function CardOptionCarouselle({ options, onOptionSelected }: { op
         <div className="event-card--option-carouselle">
             <div className="carousel-viewport" onClick={handleViewportClick}>
                 {!animating && (
-                    <div className="carousel-item current cursor-pointer">
-                        {currentText}
+                    <div className="carousel-item current">
+                        {/** @ts-ignore */}
+                        <ion-icon style={{ fontSize: 100 }}  name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
+                        <p style={{ fontSize: 13 }}><GeneratedText>{currentText}</GeneratedText></p>
                     </div>
                 )}
                 {animating && direction === "next" && (
                     <>
-                        <div className="carousel-item exit exit-next cursor-pointer">
-                            {currentText}
+                        <div className="carousel-item exit exit-next">
+                            {/** @ts-ignore */}
+                            <ion-icon style={{ fontSize: 100 }}  name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
+                            <p style={{ fontSize: 13 }}><GeneratedText>{currentText}</GeneratedText></p>
                         </div>
-                        <div className="carousel-item enter enter-next cursor-pointer" onAnimationEnd={handleAnimationEnd}>
-                            {incomingText}
+                        <div className="carousel-item enter enter-next" onAnimationEnd={handleAnimationEnd}>
+                            {/* {incomingText} */}
                         </div>
                     </>
                 )}
                 {animating && direction === "prev" && (
                     <>
-                        <div className="carousel-item exit exit-prev cursor-pointer">
-                            {currentText}
+                        <div className="carousel-item exit exit-prev">
+                            {/** @ts-ignore */}
+                            <ion-icon style={{ fontSize: 100 }} name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
+                            <p style={{ fontSize: 13 }}><GeneratedText>{currentText}</GeneratedText></p>
                         </div>
-                        <div className="carousel-item enter enter-prev cursor-pointer" onAnimationEnd={handleAnimationEnd}>
-                            {incomingText}
+                        <div className="carousel-item enter enter-prev" onAnimationEnd={handleAnimationEnd}>
+                            {/* {incomingText} */}
                         </div>
                     </>
                 )}
+            </div>
+            <div className="carousel-controls">
+                <button onClick={goPrev} disabled={animating}>
+                    {/** @ts-ignore */}
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </button>
+                <button onClick={goNext} disabled={animating}>
+                    {/** @ts-ignore */}
+                    <ion-icon  name="chevron-forward-outline"></ion-icon>
+                </button>
             </div>
         </div>
     );
