@@ -38,7 +38,7 @@ export function generateAvatar(age: number, options?: { stage: "children" | "adu
 
 const STATS_KEY = "stats";
 
-const initialStats: Stats = {
+export const initialStats: Stats = {
     name: "Player",
     age: 20,
     health: 50,

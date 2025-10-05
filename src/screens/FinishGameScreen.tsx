@@ -2,12 +2,20 @@
 import React from "react";
 import Icon from "../components/Icon";
 import "./ModeSelectionScreen.css"; // reuse same styles for consistent design
+import { Stats } from "./../types/Stats";
+import { StateElement } from "../types/History";
+import ApiService from "../services/api";
 
 interface FinishGameScreenProps {
   score: number;
+  stats: Stats;
+  history: StateElement[];
 }
 
-export default function FinishGameScreen({ score }: FinishGameScreenProps) {
+export default function FinishGameScreen({ stats, score, history }: FinishGameScreenProps) {
+
+  ApiService.generateSummary(stats, history);
+
   return (
     <div className="mode-selection-container">
       <div className="mode-selection-content">

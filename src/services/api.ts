@@ -1,5 +1,6 @@
 import { OptionNoText, Event } from "../types/Event";
 import { Stats } from "../types/Stats";
+import { StateElement } from "../types/History";
 
 
 const API_URL = "http://localhost:8000";
@@ -62,5 +63,19 @@ export default class ApiService {
             })),
             extraField: data.extra_field
         };
+    }
+    static async generateSummary(stats: Stats, history: StateElement[]) : Promise<string> {
+        const response = await fetch(`${API_URL}/generate-summary`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json', // Tell server it's JSON
+            },
+            body: JSON.stringify({
+                stats: stats,
+                history: history
+            })
+        });
+        const data = await response.json() as string;
+        return data;
     }
 }

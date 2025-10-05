@@ -5,12 +5,12 @@ import GeneratedText from "../../components/GeneratedText"
 import Loading from "../../components/Loading"
 import useStats from "../../hooks/useStats"
 import QuickStats from "./QuickStats"
+import { Stats } from "./../../types/Stats"
 
 interface Props {
     event: Event;
     onCardAnswered: (option: Option) => void;
     iconName: string;
-    setScore: (score: number) => void;
 }
 
 // Function to generate vibrant colors based on icon name
@@ -31,10 +31,8 @@ function generateVibrantColor(iconName: string): string {
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
-export default function Card({ event, onCardAnswered, iconName, setScore }: Props) {
+export default function Card({ event, onCardAnswered, iconName }: Props) {
     const { stats } = useStats();
-
-    setScore(stats.health + stats.relations + stats.happiness + stats.money);
 
     return <div style={{ flex: 1, width: "70vw", background: '#fff', padding: "0 2.5vw" }} className="event-card" >
         {!event && <Loading message="Generowanie scenariusza..." />
