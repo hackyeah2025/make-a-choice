@@ -12,12 +12,22 @@ type UseCardsProps = {
     cardsQueueSize: number;
 };
 
+export interface StatChange {
+    stat: string;
+    icon: string;
+    oldValue: number | string;
+    newValue: number | string;
+    change?: number;
+    isStringChange?: boolean;
+}
+
 export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const { stats, setStats } = useStats();
     const { history, addToHistory } = useHistory();
 
     const [cardsQueue, setCardsQueue] = useState<Event[]>([]);
     const [isLoadingCard, setIsLoadingCard] = useState(false);
+    const [lastStatChanges, setLastStatChanges] = useState<StatChange[]>([]);
 
     // prevent concurrent fetchNewCard calls
     const isFetchingRef = useRef(false);
@@ -174,6 +184,133 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
 
         setStats(newStats);
 
+        // Calculate stat changes for the modal
+        const statChanges: StatChange[] = [
+            // Core stats (always show if changed)
+            {
+                stat: 'health',
+                icon: 'heart-outline',
+                oldValue: baseStats.health,
+                newValue: newStats.health,
+                change: newStats.health - baseStats.health
+            },
+            {
+                stat: 'relations',
+                icon: 'people-outline',
+                oldValue: baseStats.relations,
+                newValue: newStats.relations,
+                change: newStats.relations - baseStats.relations
+            },
+            {
+                stat: 'happiness',
+                icon: 'happy-outline',
+                oldValue: baseStats.happiness,
+                newValue: newStats.happiness,
+                change: newStats.happiness - baseStats.happiness
+            },
+            {
+                stat: 'money',
+                icon: 'cash-outline',
+                oldValue: baseStats.money,
+                newValue: newStats.money,
+                change: newStats.money - baseStats.money
+            },
+            // Financial stats
+            {
+                stat: 'income',
+                icon: 'trending-up-outline',
+                oldValue: baseStats.income,
+                newValue: newStats.income,
+                change: newStats.income - baseStats.income
+            },
+            {
+                stat: 'expenses',
+                icon: 'trending-down-outline',
+                oldValue: baseStats.expenses,
+                newValue: newStats.expenses,
+                change: newStats.expenses - baseStats.expenses
+            },
+            {
+                stat: 'savings',
+                icon: 'wallet-outline',
+                oldValue: baseStats.savings,
+                newValue: newStats.savings,
+                change: newStats.savings - baseStats.savings
+            },
+            // Career & Education
+            {
+                stat: 'job_experience',
+                icon: 'briefcase-outline',
+                oldValue: baseStats.job_experience,
+                newValue: newStats.job_experience,
+                change: newStats.job_experience - baseStats.job_experience
+            },
+            // Personal life
+            {
+                stat: 'children',
+                icon: 'people-circle-outline',
+                oldValue: baseStats.children,
+                newValue: newStats.children,
+                change: newStats.children - baseStats.children
+            }
+        ];
+
+        // Add string-based changes
+        const stringChanges: StatChange[] = [];
+
+        if (baseStats.education !== newStats.education) {
+            stringChanges.push({
+                stat: 'education',
+                icon: 'school-outline',
+                oldValue: baseStats.education,
+                newValue: newStats.education,
+                isStringChange: true
+            });
+        }
+
+        if (baseStats.job !== newStats.job) {
+            stringChanges.push({
+                stat: 'job',
+                icon: 'laptop-outline',
+                oldValue: baseStats.job,
+                newValue: newStats.job,
+                isStringChange: true
+            });
+        }
+
+        if (baseStats.job_name !== newStats.job_name && newStats.job_name) {
+            stringChanges.push({
+                stat: 'job_name',
+                icon: 'id-card-outline',
+                oldValue: baseStats.job_name || 'Brak',
+                newValue: newStats.job_name,
+                isStringChange: true
+            });
+        }
+
+        if (baseStats.relationship !== newStats.relationship) {
+            stringChanges.push({
+                stat: 'relationship',
+                icon: 'heart-half-outline',
+                oldValue: baseStats.relationship,
+                newValue: newStats.relationship,
+                isStringChange: true
+            });
+        }
+
+        if (baseStats.has_serious_health_issues !== newStats.has_serious_health_issues) {
+            stringChanges.push({
+                stat: 'health_issues',
+                icon: 'medkit-outline',
+                oldValue: baseStats.has_serious_health_issues ? 'Tak' : 'Nie',
+                newValue: newStats.has_serious_health_issues ? 'Tak' : 'Nie',
+                isStringChange: true
+            });
+        }
+
+        const allChanges = [...statChanges, ...stringChanges];
+        setLastStatChanges(allChanges);
+
         // fetch the next card using the updated stats snapshot to keep the queue consistent
         // (this avoids generating new events based on stale stats)
         await fetchNewCard(newStats);
@@ -184,5 +321,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
         currentAge: stats.age,
         answerCard,
         isLoadingCard,
+        lastStatChanges,
+        clearStatChanges: () => setLastStatChanges([]),
     };
 }
