@@ -45,7 +45,7 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
         </div>
 
         <div className="mode-selection-score">
-          <h2>Podsumowanie - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
+          <h2>Podsumowanie poniżej - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
           {loading ? (
             <p className="score-value">Ładowanie...</p>
           ) : error ? (
