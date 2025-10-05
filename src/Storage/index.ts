@@ -2,3 +2,4 @@
 export { LocalStorageManager } from "./LocalStorageManager";
 export { StatsStorage, statsStorage } from "./StatsStorage";
 export { inferJobFromIncome, inferFinancialSituation, applyInferences } from "./StatsInference";
+

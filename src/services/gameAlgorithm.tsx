@@ -89,8 +89,40 @@ export class GameAlgorithm {
       let otherStats = this.impacts.filter(s => s !== impactedStat);
       const decreasedStat = otherStats[Math.floor(Math.random() * otherStats.length)];
 
-      let increaseValue = Math.floor(Math.random() * 5) + 5;
+      let increaseValue = Math.floor(Math.random() * 7) + 5;
       let decreaseValue = Math.floor(Math.random() * 10) + 5;
+
+
+
+      // lineary increase the decreaseValue based on how low the stats are
+      // set decreasedStat to minimal stat
+      const statValues = [stats.happiness, stats.health, stats.relations];
+      const minStat = Math.min(...statValues);
+
+      if (minStat < 50) {
+        decreaseValue = Math.round(decreaseValue * 1.2)
+      }
+      if (minStat < 30) {
+        decreaseValue = Math.round(decreaseValue * 1.5)
+      }
+      if (minStat < 20) {
+        decreaseValue = Math.round(decreaseValue * 2)
+      }
+      if (minStat < 10) {
+        decreaseValue = Math.round(decreaseValue * 3)
+      }
+
+      // if (stats.health < 20 || stats.relations || stats.happiness) {
+      //   decreaseValue = Math.round(decreaseValue * 1.5)
+      // }
+
+      // if (stats.health < 10 || stats.relations < 10 || stats.happiness < 10) {
+      //   decreaseValue = Math.round(decreaseValue * 3)
+      // }
+
+
+
+
       if (impactedStat === "savings") {
         increaseValue *= 1000;
       }

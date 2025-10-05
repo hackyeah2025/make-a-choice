@@ -14,59 +14,22 @@ export function inferFinancialSituation(stats: Stats): number {
     const expenses = Number(stats.expenses);
     const savings = Number(stats.savings);
 
-    if (savings < 0) {
-        return 0;
+    if (savings < -100000) {
+        return -1;
     }
 
-    const monthsOfExpenses = expenses > 0 ? savings / expenses : savings > 0 ? 999 : 0;
+    const score = ((savings + 20000) / 120000) * 100;
 
-    let score = 0;
-
-    if (monthsOfExpenses >= 24) score = 90;
-    else if (monthsOfExpenses >= 12) score = 80;
-    else if (monthsOfExpenses >= 6) score = 70;
-    else if (monthsOfExpenses >= 3) score = 60;
-    else if (monthsOfExpenses >= 1) score = 50;
-    else if (savings > 0) score = 30;
-    else score = 10;
-
-    if (income > 0) {
-        const savingsRate = (income - expenses) / income;
-
-        if (savingsRate > 0.3) score += 10;
-        else if (savingsRate > 0.1) score += 5;
-        else if (savingsRate > 0) score += 2;
-
-        else if (savingsRate < -0.2) {
-            if (monthsOfExpenses >= 12) score -= 5;
-            else if (monthsOfExpenses >= 6) score -= 10;
-            else score -= 20;
-        }
-        else if (savingsRate < 0) {
-            if (monthsOfExpenses >= 6) score -= 2;
-            else score -= 10;
-        }
-    } else {
-        if (monthsOfExpenses >= 12) score -= 5;
-        else if (monthsOfExpenses >= 6) score -= 10;
-        else score -= 20;
-    }
-
-    if (income > 15000) score += 5;
-    else if (income > 7000) score += 2;
-    else if (income < 3500 && income > 0) {
-        if (monthsOfExpenses >= 12) score -= 2;
-        else score -= 5;
-    }
-
-    return Math.max(0, Math.min(100, score));
+    return Math.round(Math.max(0, Math.min(100, score)));
 }
 
 export function applyInferences(stats: Stats): Stats {
     const inferredJob = inferJobFromIncome(stats.income);
+    const inferredMoney = inferFinancialSituation(stats);
 
     return {
         ...stats,
+        money: inferredMoney,
         job: inferredJob,
     };
 }

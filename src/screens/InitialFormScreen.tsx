@@ -76,17 +76,17 @@ export default function InitialFormScreen({ onComplete }: { onComplete?: () => v
             },
             {
                 key: "ZUS",
-                label: "Składka ZUS (miesięcznie)",
+                label: "Zgromadzone środki na ZUS",
                 type: "select",
                 options: [
-                    { value: 0, label: "Nie płacę ZUS" },
-                    { value: 350, label: "Do 500 PLN" },
-                    { value: 650, label: "500 - 800 PLN" },
-                    { value: 950, label: "800 - 1 100 PLN" },
-                    { value: 1300, label: "1 100 - 1 500 PLN" },
-                    { value: 1750, label: "1 500 - 2 000 PLN" },
-                    { value: 2500, label: "Powyżej 2 000 PLN" },
-                ],
+                    { value: 0, label: "Brak środków" },
+                    { value: 5000, label: "Do 10 000 PLN" },
+                    { value: 25000, label: "10 000 – 50 000 PLN" },
+                    { value: 80000, label: "50 000 – 100 000 PLN" },
+                    { value: 100000, label: "100 000 – 200 000 PLN" },
+                    { value: 250000, label: "200 000 – 300 000 PLN" },
+                    { value: 400000, label: "Powyżej 300 000 PLN" }
+                ]
             },
 
             { key: "has_serious_health_issues", label: "Czy masz poważne problemy zdrowotne?", type: "boolean" },
