@@ -12,9 +12,9 @@ export const initialStats: Stats = {
     money: 50,
     priorities: [],
 
-    income: 18000,
+    income: 0,
     expenses: 18000,
-    savings: 40000,
+    savings: 110000,
     ZUS: 0,
 
     education: "primary_school",
