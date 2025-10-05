@@ -3,6 +3,7 @@ import { Event, Option } from "../../types/Event"
 import CardOptionCarouselle from "./CardOptionsCarouselle"
 import GeneratedText from "../../components/GeneratedText"
 import useStats from "../../hooks/useStats"
+import QuickStats from "./QuickStats"
 
 interface Props {
   event: Event;
@@ -29,10 +30,8 @@ function generateVibrantColor(iconName: string): string {
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
-export default function Card({ event, onCardAnswered, iconName, setScore }: Props,) {
-    const iconColor = generateVibrantColor(event?.title + "a");
-    const iconColorAlt = generateVibrantColor(event?.title + "abc");
-    const { stats } = useStats();
+export default function Card({ event, onCardAnswered, iconName }: Props) {
+
 
     setScore(stats.health + stats.relations + stats.happiness + stats.money);
 
@@ -40,7 +39,7 @@ export default function Card({ event, onCardAnswered, iconName, setScore }: Prop
         {!event && <h2>Loading...</h2>
         }
         {
-            event && <><div style={{
+            event && <div style={{ height: "100%", display: "flex", justifyContent: "space-between", flexDirection: "column", alignItems: "center" }}><div style={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -71,49 +70,8 @@ export default function Card({ event, onCardAnswered, iconName, setScore }: Prop
 
                 <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} />
 
-                <div style={{ display: 'flex', gap: 32, color: "#333", marginTop: 12 }}>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}>
-                        {/** @ts-ignore */}
-                        <ion-icon style={{ fontSize: 64 }} name="heart-outline"></ion-icon>
-                        <p><GeneratedText>{stats.health.toString()}</GeneratedText></p>
-                    </div>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}>
-                        {/** @ts-ignore */}
-                        <ion-icon style={{ fontSize: 64 }} name="people-outline"></ion-icon>
-                        <p><GeneratedText>{stats.relations.toString()}</GeneratedText></p>
-                    </div>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}>
-                        {/** @ts-ignore */}
-                        <ion-icon style={{ fontSize: 64 }} name="happy-outline"></ion-icon>
-                        <p><GeneratedText>{stats.happiness.toString()}</GeneratedText></p>
-                    </div>
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}>
-                        {/** @ts-ignore */}
-                        <ion-icon style={{ fontSize: 64 }} name="cash-outline"></ion-icon>
-                        <p><GeneratedText>{stats.money.toString()}</GeneratedText></p>
-                    </div>
-                </div>
-            </>
+                <QuickStats />
+            </div>
         }
     </div >
 }
