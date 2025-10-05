@@ -1,8 +1,9 @@
 // GameScreen.tsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CardStack from "./components/CardStack";
 import ExpandableStatsHeader from "./components/ExpandableStatsHeader";
 import ProgressIndicator from "./components/ProgressIndicator";
+import InstructionsModal from "./components/InstructionsModal";
 import { Stats } from "./../types/Stats";
 import useStats from "../hooks/useStats";
 
@@ -13,6 +14,7 @@ interface GameScreenProps {
 export default function GameScreen({ onGameFinished }: GameScreenProps) {
   const [percent, setPercent] = useState(0);
   const [years, setYears] = useState(0);
+  const [showInstructions, setShowInstructions] = useState(true);
   const stats = useStats().stats;
 
   const handleProgressUpdate = (newPercent: number, newYears: number) => {
@@ -23,6 +25,26 @@ export default function GameScreen({ onGameFinished }: GameScreenProps) {
       onGameFinished(); // Trigger when the game is complete
     }
   };
+
+  const handleCloseInstructions = () => {
+    setShowInstructions(false);
+  };
+
+  const handleOpenInstructions = () => {
+    setShowInstructions(true);
+  };
+
+  // Add keyboard shortcut to open instructions (H key)
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key.toLowerCase() === 'h' && !showInstructions) {
+        setShowInstructions(true);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, [showInstructions]);
 
   return (
     <div style={{
@@ -43,6 +65,21 @@ export default function GameScreen({ onGameFinished }: GameScreenProps) {
         <ExpandableStatsHeader years={years} name={stats.name} />
         <CardStack onProgressChange={handleProgressUpdate} />
 
+        <InstructionsModal
+          isOpen={showInstructions}
+          onClose={handleCloseInstructions}
+        />
+
+        {/* Help button */}
+        {!showInstructions && (
+          <button
+            className="help-button"
+            onClick={handleOpenInstructions}
+            title="Pomoc (klawisz H)"
+          >
+            ?
+          </button>
+        )}
       </div>
     </div>
   );
