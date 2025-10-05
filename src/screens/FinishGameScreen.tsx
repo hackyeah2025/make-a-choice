@@ -1,5 +1,5 @@
 // FinishGameScreen.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "../components/Icon";
 import "./ModeSelectionScreen.css"; // reuse same styles for consistent design
 import { Stats } from "./../types/Stats";
@@ -13,8 +13,26 @@ interface FinishGameScreenProps {
 }
 
 export default function FinishGameScreen({ stats, score, history }: FinishGameScreenProps) {
+  const [summary, setSummary] = useState<string>(""); // state to store summary
+  const [loading, setLoading] = useState<boolean>(true); // optional: for a loading indicator
+  const [error, setError] = useState<string | null>(null); // optional: for error handling
 
-  ApiService.generateSummary(stats, history);
+  useEffect(() => {
+    const fetchSummary = async () => {
+      try {
+        const result = await ApiService.generateSummary(stats, history);
+        console.log(result)
+        setSummary(result);
+      } catch (err) {
+        console.error("Error generating summary:", err);
+        setError("Nie udało się wygenerować podsumowania.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSummary();
+  }, [stats, history]);
 
   return (
     <div className="mode-selection-container">
@@ -26,11 +44,20 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
           <p className="score-value">{score}</p>
         </div>
 
+        <div className="mode-selection-score">
+          <h2>Podsumowanie</h2>
+          {loading ? (
+            <p className="score-value">Ładowanie...</p>
+          ) : error ? (
+            <p className="score-value error">{error}</p>
+          ) : (
+            <p className="score-value">{summary}</p>
+          )}
+        </div>
+
         <div className="mode-selection-options">
-          {/* <div
-            className="mode-option"
-            onClick={onRestart}
-          >
+          {/* Example restart button */}
+          {/* <div className="mode-option" onClick={onRestart}>
             <div className="mode-option-icon">
               <Icon name="refresh-circle-outline" size={80} color="#007834" />
             </div>
@@ -44,4 +71,3 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
     </div>
   );
 }
-
