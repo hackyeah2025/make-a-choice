@@ -4,6 +4,8 @@ export type Event = {
     title: string;
     text: string;
     options: Option[];
+    extraField: string;
+    eventType?: string;
 };
 
 export type OptionNoText = {

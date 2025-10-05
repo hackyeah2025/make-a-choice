@@ -25,10 +25,10 @@ export class GameAlgorithm {
 
   private getEventTypeWeights(stats: Stats): Record<string, number> {
     let weights = {
-      random: 1,
-      education: 1,
-      job: 1,
-      family: 1,
+      "random": 1,
+      "education": 1,
+      "job": 1,
+      "family": 1,
     }
     if (stats.age > 45) {
       weights.family = 0.4;
@@ -69,7 +69,7 @@ export class GameAlgorithm {
     };
   }
 
-  private generateEducationScenario(stats: Stats): { description: string; consequences: OptionNoText[] } {
+  private generateEducationScenario(stats: Stats): { description: string; consequences: OptionNoText[]; extraField?: string; eventType?: string } {
     return {
       description: 'You graduated high school! Do you want to continue your education?',
       consequences: [{
@@ -92,15 +92,17 @@ export class GameAlgorithm {
     };
   }
 
-  private generateJobScenario(stats: Stats): { description: string; consequences: OptionNoText[] } {
+  private generateJobScenario(stats: Stats): { description: string; consequences: OptionNoText[]; extraField?: string; eventType?: string } {
     return {
       description: 'You got a new job offer! Do you accept it?',
       consequences: [{ consequences: [
       ] }],
+      extraField: "job title",
+      eventType: "job"
     };
   }
 
-  private generateFamilyScenario(stats: Stats): { description: string; consequences: OptionNoText[] } {
+  private generateFamilyScenario(stats: Stats): { description: string; consequences: OptionNoText[]; extraField?: string; eventType?: string } {
     return {
       description: 'Your partner asks you about having a child. What do you say?',
       consequences: [{
@@ -121,7 +123,7 @@ export class GameAlgorithm {
 
 
 
-  public generateScenario(stats: Stats): { description: string; consequences: OptionNoText[]; isCoreEvent: boolean } {
+  public generateScenario(stats: Stats): { description: string; consequences: OptionNoText[]; extraField?: string; isCoreEvent: boolean; eventType?: string} {
     // Weighted random selection of event type
     const eventTypeWeights = this.getEventTypeWeights(stats);
 
@@ -129,7 +131,7 @@ export class GameAlgorithm {
     const randomValue = Math.random() * totalWeight;
 
     if (randomValue < eventTypeWeights["random"]) {
-      return { ...this.generateRandomScenario(stats), isCoreEvent: false };
+      return { ...this.generateRandomScenario(stats), isCoreEvent: false, eventType: "random"};
     }
     else if (randomValue < eventTypeWeights["random"] + eventTypeWeights["education"]) {
       return { ...this.generateEducationScenario(stats), isCoreEvent: true };

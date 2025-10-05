@@ -33,16 +33,18 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const fetchNewCard = async () => {
         setIsLoadingCard(true);
 
-        const { description, consequences, isCoreEvent } = await gameAlgorithm.generateScenario(stats);
+        // {title, question, options} = await getRegularAction('job/school', [], stats);
+        const { description, consequences, isCoreEvent, extraField, eventType } = await gameAlgorithm.generateScenario(stats);
 
         // if core event generateCoreEvent
         let event: Event;
         if (isCoreEvent) {
-            event = await ApiService.generateCoreEvent(description, consequences, stats);
+            event = await ApiService.generateCoreEvent(description, consequences, stats, extraField);
         } else {
             event = await ApiService.generateEvent(description, consequences, stats);
         }
-
+        event.eventType = eventType;
+        
 
         setCardsQueue((prev) => [...prev, event]);
 
@@ -58,7 +60,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
             choice: option
         });
 
-        setStats({
+        let newStats = {
             ...stats,
             age: (stats.age as number) + 1,
             ...option.consequences.reduce((acc, curr) => {
@@ -81,7 +83,13 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
                 
                 return acc;
             }, {} as Record<string, number | string>)
-        })
+        }
+
+        if (cardsQueue[0].eventType === "job") {
+            newStats.job_name = cardsQueue[0].extraField;
+        }
+
+        setStats(newStats)
         fetchNewCard();
     }
 
