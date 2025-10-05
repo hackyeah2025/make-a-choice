@@ -49,7 +49,7 @@ export const initialStats: Stats = {
 
     income: 0,
     expenses: 36000,
-    savings: 150000,
+    savings: 200000,
     ZUS: 0,
 
     education: "primary_school",
