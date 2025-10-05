@@ -2,7 +2,6 @@
 import { useState } from "react";
 import CardStack from "./components/CardStack";
 import ExpandableStatsHeader from "./components/ExpandableStatsHeader";
-import ProgressIndicator from "./components/ProgressIndicator";
 
 interface GameScreenProps {
   setScore: (score: number) => void;

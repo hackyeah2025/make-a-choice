@@ -109,8 +109,8 @@ export default function CardOptionCarouselle({ options, onOptionSelected }: { op
                 {!animating && (
                     <div className="carousel-item current">
                         {/** @ts-ignore */}
-                        <ion-icon style={{ fontSize: 100 }} name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
-                        <p style={{ fontSize: 13 }}><GeneratedText>{currentText}</GeneratedText></p>
+                        <ion-icon style={{ fontSize: 150 }} name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
+                        <p style={{ fontSize: 18 }}><GeneratedText>{currentText}</GeneratedText></p>
                     </div>
                 )}
                 {animating && direction === "next" && (

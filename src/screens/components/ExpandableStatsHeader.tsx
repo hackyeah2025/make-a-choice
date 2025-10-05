@@ -3,6 +3,7 @@ import useStats from "../../hooks/useStats";
 import useHistory from "../../hooks/useHistory";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, RadialBarChart, RadialBar, Legend, PieChart, Pie, Cell } from 'recharts';
 import { Stats, StatsToIcons } from "../../types/Stats";
+import ProgressIndicator from "./ProgressIndicator";
 
 // Progress Bar Component
 function ProgressBar({ label, value, max = 100, color = "#007834", icon }: {
@@ -11,6 +12,7 @@ function ProgressBar({ label, value, max = 100, color = "#007834", icon }: {
     max?: number;
     color?: string;
     icon?: string;
+    years?: number;
 }) {
     const percentage = Math.min((Number(value) / max) * 100, 100);
 
@@ -287,7 +289,7 @@ function Avatar() {
     );
 }
 
-export default function ExpandableStatsHeader() {
+export default function ExpandableStatsHeader({ years }: { years?: number }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const { stats } = useStats();
 
@@ -553,6 +555,7 @@ export default function ExpandableStatsHeader() {
 
                     }}
                 >
+                    <ProgressIndicator years={years} percent={years || 0 / 65} />
                     {isExpanded ? (
                         /**@ts-ignore */
                         <ion-icon name="chevron-up-outline"></ion-icon>
