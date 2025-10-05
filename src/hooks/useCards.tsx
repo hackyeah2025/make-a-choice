@@ -20,6 +20,11 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
 
     const [cardsQueue, setCardsQueue] = useState<Event[]>([]);
 
+    //LOG
+    useEffect(() => {
+        console.log("Cards Queue:", cardsQueue);
+    }, [cardsQueue]);
+
     useEffect(() => {
         // Initial fill of the cards queue
         const initializeQueue = async () => {
@@ -31,6 +36,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
     }, []); // Empty dependency array to run only once on mount
 
     const fetchNewCard = async () => {
+        if (cardsQueue.length >= cardsQueueSize) return;
         setIsLoadingCard(true);
 
         // {title, question, options} = await getRegularAction('job/school', [], stats);
@@ -44,7 +50,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
             event = await ApiService.generateEvent(description, consequences, stats);
         }
         event.eventType = eventType;
-        
+
 
         setCardsQueue((prev) => [...prev, event]);
 
@@ -68,8 +74,8 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
                     acc["children"] = curr.value as number;
                 }
 
-                else if (typeof stats[curr.impacted] === "number") {
-                    if (curr.impacted in ["health", "relations", "happiness", "money"]) {
+                else if (typeof stats[curr.impacted] == "number") {
+                    if (["health", "relations", "happiness", "money"].includes(curr.impacted)) {
                         acc[curr.impacted] = Math.max(0, Math.min(100, (stats[curr.impacted] as number) + (curr.value as number)));
                     }
                     else {
@@ -80,7 +86,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
                 else if (typeof stats[curr.impacted] === "string") {
                     acc[curr.impacted] = curr.value;
                 }
-                
+
                 return acc;
             }, {} as Record<string, number | string>)
         }
