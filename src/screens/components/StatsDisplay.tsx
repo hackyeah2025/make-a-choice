@@ -394,13 +394,13 @@ export default function StatsDisplay({ stats }: { stats: Stats }) {
                 marginBottom: "30px"
             }}>
                 <StatCard
-                    title="Dochód miesięczny"
+                    title="Przychód roczny"
                     value={`${Number(stats.income).toLocaleString()} zł`}
                     icon={StatsToIcons.income}
                     color="#007834"
                 />
                 <StatCard
-                    title="Wydatki miesięczne"
+                    title="Wydatki roczne"
                     value={`${Number(stats.expenses).toLocaleString()} zł`}
                     icon={StatsToIcons.expenses}
                     color="#dc3545"
@@ -412,7 +412,7 @@ export default function StatsDisplay({ stats }: { stats: Stats }) {
                     color="#007834"
                 />
                 <StatCard
-                    title="ZUS miesięcznie"
+                    title="Oszczędności na ZUS"
                     value={`${Number(stats.ZUS).toLocaleString()} zł`}
                     icon={StatsToIcons.ZUS}
                     color="#ffc107"

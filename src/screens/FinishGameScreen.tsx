@@ -42,25 +42,42 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
         <div className="mode-selection-content">
           <h1 className="mode-selection-title">Gra zakończona!</h1>
 
-          <div className="mode-selection-score">
-            <h2>Twój wynik:</h2>
-            <p className="score-value">{score}</p>
-          </div>
+        <div className="mode-selection-score">
+          <h2>Twój wynik:</h2>
+          <p className="score-value">{score}</p>
+        </div>
 
-          <StatsDisplay stats={stats} />
+        <div className="mode-selection-score">
+          <h2>
+          Powód porażki: {
+            (() => {
+              const entries = Object.entries(stats ?? {});
+              if (entries.length === 0) return 'brak danych';
 
-          <div className="mode-selection-score">
-            <h2>Podsumowanie poniżej - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
-            {loading ? (
-              <p className="score-value">Ładowanie...</p>
-            ) : error ? (
-              <p className="score-value error">{error}</p>
-            ) : (
-              <p className="score-value">{summary}</p>
-            )}
-          </div>
+              const [minKey, minValue] = entries.reduce(
+                (minPair, curr) => curr[1] < minPair[1] ? curr : minPair
+              );
+              return `${minKey}`;
+            })()
+          }
+        </h2>
+
+
+          <p className="score-value">{score}</p>
+        </div>
+
+        <div className="mode-selection-score">
+          <h2>Podsumowanie poniżej. Aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
+          {loading ? (
+            <p className="score-value">Ładowanie...</p>
+          ) : error ? (
+            <p className="score-value error">{error}</p>
+          ) : (
+            <p className="score-value">{summary}</p>
+          )}
         </div>
       </div>
+    </div>
     </div>
   );
 }
