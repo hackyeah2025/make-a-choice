@@ -79,7 +79,7 @@ export default class ApiService {
                 is_retired: is_retired
             })
         });
-        const data = await response.json() as string;
-        return data;
+        const data = await response.json() as { summary: string };
+        return data.summary;
     }
 }

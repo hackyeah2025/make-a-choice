@@ -23,7 +23,7 @@ export class GameAlgorithm {
     "evening",
   ];
 
-  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "health", "savings", "relations"];
+  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "health", "savings", "relations", "expenses"];
 
   private getEventTypeWeights(stats: Stats): Record<string, number> {
     let weights =  {
@@ -89,6 +89,12 @@ export class GameAlgorithm {
         decreaseValue *= 1000;
       }
 
+      if (impactedStat === "expenses") {
+        increaseValue *= 500;
+      }
+      if (decreasedStat === "expenses") {
+        decreaseValue *= 100;
+      }
 
       consequences.push({ consequences: [{ impacted: impactedStat, value: increaseValue }, { impacted: decreasedStat, value: -decreaseValue }] });
     }
