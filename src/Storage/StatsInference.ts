@@ -14,11 +14,11 @@ export function inferFinancialSituation(stats: Stats): number {
     const expenses = Number(stats.expenses);
     const savings = Number(stats.savings);
 
-    if (savings < -100000) {
+    if (savings < -200000) {
         return -1;
     }
 
-    const score = ((savings + 100000) / 200000) * 100;
+    const score = ((savings + 200000) / 400000) * 100;
 
     return Math.round(Math.max(0, Math.min(100, score)));
 }
