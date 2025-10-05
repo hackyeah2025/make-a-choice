@@ -457,13 +457,13 @@ export default function ExpandableStatsHeader({ years, name }: { years?: number,
                         marginBottom: "30px"
                     }}>
                         <StatCard
-                            title="Dochód miesięczny"
+                            title="Rrzychód roczny"
                             value={`${Number(stats.income).toLocaleString()} zł`}
                             icon={StatsToIcons.income}
                             color="#007834"
                         />
                         <StatCard
-                            title="Wydatki miesięczne"
+                            title="Wydatki roczne"
                             value={`${Number(stats.expenses).toLocaleString()} zł`}
                             icon={StatsToIcons.expenses}
                             color="#dc3545"

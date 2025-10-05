@@ -5,16 +5,16 @@ const STATS_KEY = "stats";
 
 export const initialStats: Stats = {
     name: "Player",
-    age: 20,
+    age: 15,
     health: 50,
     relations: 50,
     happiness: 50,
     money: 50,
     priorities: [],
 
-    income: 0,
-    expenses: 0,
-    savings: 0,
+    income: 18000,
+    expenses: 18000,
+    savings: 40000,
     ZUS: 0,
 
     education: "primary_school",
