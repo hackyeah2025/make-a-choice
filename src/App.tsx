@@ -3,6 +3,7 @@ import { HistoryProvider } from "./hooks/useHistory";
 import { StatsProvider } from "./hooks/useStats";
 import useHistory from "./hooks/useHistory";
 import "./App.css";
+import StartScreen from "./screens/StartScreen";
 import GameScreen from "./screens/GameScreen";
 import InitialFormScreen from "./screens/InitialFormScreen";
 import ModeSelectionScreen from "./screens/ModeSelectionScreen";
@@ -12,10 +13,14 @@ import { initialStats } from "./Storage/StatsStorage";
 import useStats from "./hooks/useStats";
 import { NotificationProvider, useNotification } from "./hooks/NotificationContext";
 
-type AppScreen = "mode-selection" | "initial-form" | "game" | "final";
+type AppScreen = "start" | "mode-selection" | "initial-form" | "game" | "final";
 
 function App() {
-  const [currentScreen, setCurrentScreen] = useState<AppScreen>("mode-selection");
+  const [currentScreen, setCurrentScreen] = useState<AppScreen>("start");
+
+  const handleStartToModeSelection = () => {
+    setCurrentScreen("mode-selection");
+  };
 
   const handleStartGame = () => {
     setCurrentScreen("game");
@@ -35,26 +40,26 @@ function App() {
   };
 
   return (
-    // <NotificationProvider>
-      <StatsProvider>
-        <HistoryProvider>
-          <InnerApp
-            currentScreen={currentScreen}
-            setCurrentScreen={setCurrentScreen}
-            onStartGame={handleStartGame}
-            onShowForm={handleShowForm}
-            onFormComplete={handleFormComplete}
-            onGameFinished={handleGameFinished}
-          />
-        </HistoryProvider>
-      </StatsProvider>
-    // </NotificationProvider>
+    <StatsProvider>
+      <HistoryProvider>
+        <InnerApp
+          currentScreen={currentScreen}
+          setCurrentScreen={setCurrentScreen}
+          onStartToModeSelection={handleStartToModeSelection}
+          onStartGame={handleStartGame}
+          onShowForm={handleShowForm}
+          onFormComplete={handleFormComplete}
+          onGameFinished={handleGameFinished}
+        />
+      </HistoryProvider>
+    </StatsProvider>
   );
 }
 
 function InnerApp({
   currentScreen,
   setCurrentScreen,
+  onStartToModeSelection,
   onStartGame,
   onShowForm,
   onFormComplete,
@@ -62,6 +67,7 @@ function InnerApp({
 }: {
   currentScreen: AppScreen;
   setCurrentScreen: React.Dispatch<React.SetStateAction<AppScreen>>;
+  onStartToModeSelection: () => void;
   onStartGame: () => void;
   onShowForm: () => void;
   onFormComplete: () => void;
@@ -84,6 +90,9 @@ function InnerApp({
 
   return (
     <div className="App">
+      {currentScreen === "start" && (
+        <StartScreen onNext={onStartToModeSelection} />
+      )}
       {currentScreen === "mode-selection" && (
         <ModeSelectionScreen
           onStartGame={onStartGame}

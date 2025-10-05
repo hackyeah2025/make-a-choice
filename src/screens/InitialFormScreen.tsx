@@ -164,7 +164,7 @@ export default function InitialFormScreen({ onComplete }: { onComplete?: () => v
     }
 
     return (
-        <div className="initial-form-container">
+        <div className="initial-form-container" style={{ backgroundImage: 'url("background.png")', backgroundSize: "cover", backgroundPosition: "-1900px 0px" }}>
             <div className="initial-form-card">
                 <div className="initial-form-header">
                     <span className="initial-form-step">Krok {step + 1} z {total}</span>
