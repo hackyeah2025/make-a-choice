@@ -43,7 +43,7 @@ function App() {
           {currentScreen === "initial-form" && (
             <InitialFormScreen onComplete={handleFormComplete} />
           )}
-          {currentScreen === "game" && (<GameScreen setScore={setScore} onGameFinished={handleGameFinished}/>)}
+          {currentScreen === "game" && (<GameScreen setScore={setScore} onGameFinished={handleGameFinished} />)}
           {currentScreen === "final" && (
             <FinishGameScreen
               score={score}
