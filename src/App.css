@@ -220,7 +220,8 @@
 }
 
 .expandable-stats-header--content {
-  width: 100%;
+  width: 90%;
+  padding: 0 5%;
 }
 
 @media (max-width: 768px) {
@@ -243,6 +244,7 @@
     width: 100vw;
     max-width: 100vw;
     overflow: auto;
+    padding: 0;
   }
 }
 
