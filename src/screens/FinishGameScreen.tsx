@@ -45,7 +45,7 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
         </div>
 
         <div className="mode-selection-score">
-          <h2>Podsumowanie</h2>
+          <h2>Podsumowanie - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
           {loading ? (
             <p className="score-value">Ładowanie...</p>
           ) : error ? (
@@ -53,19 +53,6 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
           ) : (
             <p className="score-value">{summary}</p>
           )}
-        </div>
-
-        <div className="mode-selection-options">
-          {/* Example restart button */}
-          {/* <div className="mode-option" onClick={onRestart}>
-            <div className="mode-option-icon">
-              <Icon name="refresh-circle-outline" size={80} color="#007834" />
-            </div>
-            <h3 className="mode-option-title">Zagraj ponownie</h3>
-            <p className="mode-option-description">
-              Rozpocznij nową rozgrywkę od początku
-            </p>
-          </div> */}
         </div>
       </div>
     </div>
