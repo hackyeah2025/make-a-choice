@@ -78,5 +78,6 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
         </div>
       </div>
     </div>
+    </div>
   );
 }
