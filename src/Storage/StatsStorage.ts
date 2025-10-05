@@ -3,13 +3,13 @@ import { LocalStorageManager } from "./LocalStorageManager";
 
 const STATS_KEY = "stats";
 
-const initialStats: Stats = {
+export const initialStats: Stats = {
     name: "Player",
     age: 20,
-    health: 50,
-    relations: 50,
-    happiness: 50,
-    money: 50,
+    health: 5,
+    relations: 5,
+    happiness: 5,
+    money: 5,
     priorities: [],
 
     income: 0,
