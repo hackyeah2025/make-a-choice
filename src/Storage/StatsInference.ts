@@ -42,7 +42,7 @@ export function inferFinancialSituation(stats: Stats): number {
         return 0
     }
 
-    return Math.max(0, Math.min(100, score)) / 2 + savings / 2;
+    return Math.floor(Math.max(0, Math.min(100, score)) / 2 + savings / 2);
 }
 
 export function applyInferences(stats: Stats): Stats {
