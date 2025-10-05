@@ -128,7 +128,7 @@ export default function InitialFormScreen({ onComplete }: { onComplete?: () => v
         const newStats = { ...(stats as Stats), [key]: next } as Stats;
         const avatar = generateAvatar(newStats?.age ?? 20);
         const newStatsWithAvatar = { ...newStats, avatar_life_stage: avatar.stage, avatar_sex: avatar.sex, avatar_variant: avatar.variant } as Stats;
-        setStats(newStats);
+        setStats(newStatsWithAvatar);
     }
 
     function handleNext() {

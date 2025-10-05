@@ -250,15 +250,15 @@ function Table({ entries }: { entries: [string, any][] }) {
 
 // Avatar Component
 function Avatar({ age, name, stage, sex, variant }: { age: number, name?: string, stage: string, sex: string, variant: number }) {
-    const getAvatarByAge = (age: number): string => {
-        if (age < 20) return "/adults/young.png";
-        if (age < 30) return "/adults/young-adult.png";
-        if (age < 50) return "/adults/medium-adult.png";
-        if (age < 60) return "/adults/old-adult.png";
-        return "/adults/senior.png";
-    };
+    // const getAvatarByAge = (age: number): string => {
+    //     if (age < 20) return "/adults/young.png";
+    //     if (age < 30) return "/adults/young-adult.png";
+    //     if (age < 50) return "/adults/medium-adult.png";
+    //     if (age < 60) return "/adults/old-adult.png";
+    //     return "/adults/senior.png";
+    // };
 
-    const avatarPath = `/${stage}/${sex === "male" ? "m" : "f"}${variant}.png`;
+    const avatarPath = `/${stage}/${sex === "male" ? "m" : "w"}${variant}.png`;
 
     return (
         <div style={{

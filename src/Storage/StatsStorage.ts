@@ -1,7 +1,7 @@
 import { Stats } from "../types/Stats";
 import { LocalStorageManager } from "./LocalStorageManager";
 
-export function generateAvatar(age: number, options?: { stage: "children" | "adults" | "seniors"; sex: "male" | "female"; variant: number }) {
+export function generateAvatar(age: number, options?: { stage: "children" | "adults" | "seniors"; sex: "male" | "female"; variant: number }): { stage: "children" | "adults" | "seniors"; sex: "male" | "female"; variant: number } {
     const data = {
         children: {
             male: 6,
@@ -62,7 +62,7 @@ export const initialStats: Stats = {
     relationship: "single",
     children: 0,
 
-    avatar_life_stage: "adults",
+    avatar_life_stage: "children",
     avatar_sex: "male",
     avatar_variant: 1
 };
