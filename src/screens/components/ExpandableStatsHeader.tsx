@@ -356,12 +356,13 @@ export default function ExpandableStatsHeader() {
                         {/* Header Section */}
                         <div style={{
                             display: "grid",
-                            gridTemplateColumns: "1fr 300px 1fr",
+                            gridTemplateColumns: "1fr 1fr",
                             gap: "20px",
                             marginBottom: "30px"
                         }}>
                             {/* Left Column - Core Stats */}
-                            <div>
+                            <div style={{ width: "100%" }}>
+                                <Avatar />
                                 <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
                                     Główne Statystyki
                                 </h3>
@@ -391,13 +392,8 @@ export default function ExpandableStatsHeader() {
                                 />
                             </div>
 
-                            {/* Center Column - Avatar */}
-                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                <Avatar />
-                            </div>
-
                             {/* Right Column - Personal Info */}
-                            <div>
+                            <div style={{ width: "100%" }}>
                                 <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
                                     Informacje Osobiste
                                 </h3>

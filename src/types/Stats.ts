@@ -43,5 +43,5 @@ export const StatsToIcons = {
     job: "laptop",
     has_serious_health_issues: "medkit",
     relationship: "heart-half",
-    children: "baby"
+    children: "happy-outline"
 }
