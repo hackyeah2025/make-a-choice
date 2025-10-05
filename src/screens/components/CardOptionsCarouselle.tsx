@@ -18,6 +18,8 @@ function getIcon(consequences: Option["consequences"]): string {
         children: ['accessibility-outline', 'balloon-outline'],
     }
 
+    if (!consequences) return "information-outline";
+
     for (const consequence of consequences) {
         if (typeof consequence.value !== "number") continue;
         if (consequence.impacted in icons) {
@@ -107,15 +109,15 @@ export default function CardOptionCarouselle({ options, onOptionSelected }: { op
                 {!animating && (
                     <div className="carousel-item current">
                         {/** @ts-ignore */}
-                        <ion-icon style={{ fontSize: 100 }}  name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
-                        <p style={{ fontSize: 13 }}><GeneratedText>{currentText}</GeneratedText></p>
+                        <ion-icon style={{ fontSize: 150 }} name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
+                        <p style={{ fontSize: 18 }}><GeneratedText>{currentText}</GeneratedText></p>
                     </div>
                 )}
                 {animating && direction === "next" && (
                     <>
                         <div className="carousel-item exit exit-next">
                             {/** @ts-ignore */}
-                            <ion-icon style={{ fontSize: 100 }}  name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
+                            <ion-icon style={{ fontSize: 100 }} name={getIcon(options[selectedIndex]?.consequences)}></ion-icon>
                             <p style={{ fontSize: 13 }}><GeneratedText>{currentText}</GeneratedText></p>
                         </div>
                         <div className="carousel-item enter enter-next" onAnimationEnd={handleAnimationEnd}>
@@ -143,7 +145,7 @@ export default function CardOptionCarouselle({ options, onOptionSelected }: { op
                 </button>
                 <button onClick={goNext} disabled={animating}>
                     {/** @ts-ignore */}
-                    <ion-icon  name="chevron-forward-outline"></ion-icon>
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
                 </button>
             </div>
         </div>

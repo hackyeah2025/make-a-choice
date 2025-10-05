@@ -3,6 +3,7 @@ import useStats from "../../hooks/useStats";
 import useHistory from "../../hooks/useHistory";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, RadialBarChart, RadialBar, Legend, PieChart, Pie, Cell } from 'recharts';
 import { Stats, StatsToIcons } from "../../types/Stats";
+import ProgressIndicator from "./ProgressIndicator";
 
 // Progress Bar Component
 function ProgressBar({ label, value, max = 100, color = "#007834", icon }: {
@@ -11,6 +12,7 @@ function ProgressBar({ label, value, max = 100, color = "#007834", icon }: {
     max?: number;
     color?: string;
     icon?: string;
+    years?: number;
 }) {
     const percentage = Math.min((Number(value) / max) * 100, 100);
 
@@ -246,7 +248,15 @@ function Table({ entries }: { entries: [string, any][] }) {
 }
 
 // Avatar Component
-function Avatar() {
+function Avatar({ age, name }: { age: number, name?: string }) {
+    const getAvatarByAge = (age: number): string => {
+        if (age < 20) return "/avatars/young.png";
+        if (age < 30) return "/avatars/young-adult.png";
+        if (age < 50) return "/avatars/medium-adult.png";
+        if (age < 60) return "/avatars/old-adult.png";
+        return "/avatars/senior.png";
+    };
+
     return (
         <div style={{
             display: "flex",
@@ -263,15 +273,20 @@ function Avatar() {
                     width: "120px",
                     height: "120px",
                     border: "4px solid #007834",
-                    boxShadow: "0 8px 32px rgba(0, 120, 52, 0.2)"
+                    boxShadow: "0 8px 32px rgba(0, 120, 52, 0.2)",
+                    overflow: "hidden"
                 }}
             >
-                {/**@ts-ignore */}
-                <ion-icon
-                    style={{ fontSize: "64px", color: "#007834" }}
-                    name="person-outline"
-                /**@ts-ignore */
-                ></ion-icon>
+                <img
+                    src={getAvatarByAge(age)}
+                    alt="Avatar"
+                    style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        borderRadius: "50%"
+                    }}
+                />
             </div>
             <h2 style={{
                 color: "#007834",
@@ -281,13 +296,13 @@ function Avatar() {
                 textAlign: "center",
                 textShadow: "0 2px 4px rgba(0, 120, 52, 0.1)"
             }}>
-                Tomek Jabłkoński
+                {name || "Gracz"}
             </h2>
         </div>
     );
 }
 
-export default function ExpandableStatsHeader() {
+export default function ExpandableStatsHeader({ years, name }: { years?: number, name?: string }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const { stats } = useStats();
 
@@ -338,216 +353,221 @@ export default function ExpandableStatsHeader() {
             <div
                 className="expandable-stats-header"
                 style={{
-                    height: isExpanded ? "95vh" : "10vh",
-                    transition: "height 0.3s",
                     position: "relative",
                     pointerEvents: "all",
-                    background: isExpanded ? "white" : "transparent",
+                    background: "white",
                 }}
             >
-                {isExpanded && (
+                <div style={{
+                    height: isExpanded ? "90vh" : "0vh",
+                    transition: "height 0.3s",
+                    width: "90%",
+                    padding: "0 5%",
+                    paddingTop: "10vh",
+                    overflowY: "auto",
+                    background: "white"
+                }}>
+                    {/* Header Section */}
                     <div style={{
-                        height: "calc(95vh - 60px)",
-                        width: "100%",
-                        padding: "20px",
-                        overflowY: "auto",
-                        background: "white"
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr",
+                        gap: "20px",
+                        marginBottom: "30px"
                     }}>
-                        {/* Header Section */}
-                        <div style={{
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: "20px",
-                            marginBottom: "30px"
-                        }}>
-                            {/* Left Column - Core Stats */}
-                            <div style={{ width: "100%" }}>
-                                <Avatar />
-                                <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
-                                    Główne Statystyki
-                                </h3>
-                                <ProgressBar
-                                    label="Zdrowie"
-                                    value={Number(stats.health)}
+                        {/* Left Column - Core Stats */}
+                        <div style={{ width: "100%" }}>
+                            <Avatar name={stats.name} age={Number(stats.age)} />
+                            <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
+                                Główne Statystyki
+                            </h3>
+                            <ProgressBar
+                                label="Zdrowie"
+                                value={Number(stats.health)}
+                                color="#007834"
+                                icon={StatsToIcons.health}
+                            />
+                            <ProgressBar
+                                label="Relacje"
+                                value={Number(stats.relations)}
+                                color="#005a28"
+                                icon={StatsToIcons.relations}
+                            />
+                            <ProgressBar
+                                label="Szczęście"
+                                value={Number(stats.happiness)}
+                                color="#20c997"
+                                icon={StatsToIcons.happiness}
+                            />
+                            <ProgressBar
+                                label="Pieniądze"
+                                value={Number(stats.money)}
+                                color="#6f42c1"
+                                icon={StatsToIcons.money}
+                            />
+                        </div>
+
+                        {/* Right Column - Personal Info */}
+                        <div style={{ width: "100%" }}>
+                            <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
+                                Informacje Osobiste
+                            </h3>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                                <StatCard
+                                    title="Wiek"
+                                    value={Number(stats.age)}
+                                    icon={StatsToIcons.age}
                                     color="#007834"
-                                    icon={StatsToIcons.health}
                                 />
-                                <ProgressBar
-                                    label="Relacje"
-                                    value={Number(stats.relations)}
+                                <StatCard
+                                    title="Dzieci"
+                                    value={Number(stats.children)}
+                                    icon={StatsToIcons.children}
                                     color="#005a28"
-                                    icon={StatsToIcons.relations}
                                 />
-                                <ProgressBar
-                                    label="Szczęście"
-                                    value={Number(stats.happiness)}
+                                <StatCard
+                                    title="Edukacja"
+                                    value={formatEducation(stats.education)}
+                                    icon={StatsToIcons.education}
                                     color="#20c997"
-                                    icon={StatsToIcons.happiness}
                                 />
-                                <ProgressBar
-                                    label="Pieniądze"
-                                    value={Number(stats.money)}
-                                    color="#6f42c1"
-                                    icon={StatsToIcons.money}
-                                />
-                            </div>
-
-                            {/* Right Column - Personal Info */}
-                            <div style={{ width: "100%" }}>
-                                <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
-                                    Informacje Osobiste
-                                </h3>
-                                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                                    <StatCard
-                                        title="Wiek"
-                                        value={Number(stats.age)}
-                                        icon={StatsToIcons.age}
-                                        color="#007834"
-                                    />
-                                    <StatCard
-                                        title="Dzieci"
-                                        value={Number(stats.children)}
-                                        icon={StatsToIcons.children}
-                                        color="#005a28"
-                                    />
-                                    <StatCard
-                                        title="Edukacja"
-                                        value={formatEducation(stats.education)}
-                                        icon={StatsToIcons.education}
-                                        color="#20c997"
-                                    />
-                                    <StatCard
-                                        title="Doświadczenie"
-                                        value={`${Number(stats.job_experience)} lat`}
-                                        icon={StatsToIcons.job_experience}
-                                        color="#6f42c1"
-                                    />
-                                </div>
-                                <div style={{ marginTop: "12px" }}>
-                                    <StatCard
-                                        title="Status związku"
-                                        value={formatRelationship(stats.relationship)}
-                                        icon={StatsToIcons.relationship}
-                                        color="#007834"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Financial Section */}
-                        <div style={{
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                            gap: "12px",
-                            marginBottom: "30px"
-                        }}>
-                            <StatCard
-                                title="Dochód miesięczny"
-                                value={`${Number(stats.income).toLocaleString()} zł`}
-                                icon={StatsToIcons.income}
-                                color="#007834"
-                            />
-                            <StatCard
-                                title="Wydatki miesięczne"
-                                value={`${Number(stats.expenses).toLocaleString()} zł`}
-                                icon={StatsToIcons.expenses}
-                                color="#dc3545"
-                            />
-                            <StatCard
-                                title="Oszczędności"
-                                value={`${Number(stats.savings).toLocaleString()} zł`}
-                                icon={StatsToIcons.savings}
-                                color="#007834"
-                            />
-                            <StatCard
-                                title="ZUS miesięcznie"
-                                value={`${Number(stats.ZUS).toLocaleString()} zł`}
-                                icon={StatsToIcons.ZUS}
-                                color="#ffc107"
-                            />
-                        </div>
-
-                        {/* Job Section */}
-                        <div style={{ marginBottom: "30px" }}>
-                            <div style={{
-                                display: "grid",
-                                gridTemplateColumns: "1fr 2fr",
-                                gap: "12px"
-                            }}>
                                 <StatCard
-                                    title="Typ pracy"
-                                    value={formatJob(stats.job)}
-                                    icon={StatsToIcons.job}
+                                    title="Doświadczenie"
+                                    value={`${Number(stats.job_experience)} lat`}
+                                    icon={StatsToIcons.job_experience}
+                                    color="#6f42c1"
+                                />
+                            </div>
+                            <div style={{ marginTop: "12px" }}>
+                                <StatCard
+                                    title="Status związku"
+                                    value={formatRelationship(stats.relationship)}
+                                    icon={StatsToIcons.relationship}
                                     color="#007834"
                                 />
-                                <StatCard
-                                    title="Stanowisko"
-                                    value={String(stats.job_name) || "Brak"}
-                                    color="#005a28"
-                                    subtitle={stats.has_serious_health_issues ? "⚠️ Problemy zdrowotne" : "✅ Zdrowy"}
-                                />
-                            </div>
-                        </div>
-
-                        {/* Charts Section */}
-                        <div style={{
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr 1fr",
-                            gap: "20px",
-                            marginBottom: "20px"
-                        }}>
-                            <div style={{
-                                background: "white",
-                                borderRadius: "15px",
-                                padding: "16px",
-                                border: "2px solid #007834",
-                                boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)"
-                            }}>
-                                <FinancialOverview stats={stats} />
-                            </div>
-
-                            <div style={{
-                                background: "white",
-                                borderRadius: "15px",
-                                padding: "16px",
-                                border: "2px solid #007834",
-                                boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)"
-                            }}>
-                                <LifeBalance stats={stats} />
-                            </div>
-
-                            <div style={{
-                                background: "white",
-                                borderRadius: "15px",
-                                padding: "16px",
-                                border: "2px solid #007834",
-                                boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)"
-                            }}>
-                                <ProgressOverTime />
                             </div>
                         </div>
                     </div>
-                )}
+
+                    {/* Financial Section */}
+                    <div style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                        gap: "12px",
+                        marginBottom: "30px"
+                    }}>
+                        <StatCard
+                            title="Dochód miesięczny"
+                            value={`${Number(stats.income).toLocaleString()} zł`}
+                            icon={StatsToIcons.income}
+                            color="#007834"
+                        />
+                        <StatCard
+                            title="Wydatki miesięczne"
+                            value={`${Number(stats.expenses).toLocaleString()} zł`}
+                            icon={StatsToIcons.expenses}
+                            color="#dc3545"
+                        />
+                        <StatCard
+                            title="Oszczędności"
+                            value={`${Number(stats.savings).toLocaleString()} zł`}
+                            icon={StatsToIcons.savings}
+                            color="#007834"
+                        />
+                        <StatCard
+                            title="ZUS miesięcznie"
+                            value={`${Number(stats.ZUS).toLocaleString()} zł`}
+                            icon={StatsToIcons.ZUS}
+                            color="#ffc107"
+                        />
+                    </div>
+
+                    {/* Job Section */}
+                    <div style={{ marginBottom: "30px" }}>
+                        <div style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 2fr",
+                            gap: "12px"
+                        }}>
+                            <StatCard
+                                title="Typ pracy"
+                                value={formatJob(stats.job)}
+                                icon={StatsToIcons.job}
+                                color="#007834"
+                            />
+                            <StatCard
+                                title="Stanowisko"
+                                value={String(stats.job_name) || "Brak"}
+                                color="#005a28"
+                                subtitle={stats.has_serious_health_issues ? "⚠️ Problemy zdrowotne" : "✅ Zdrowy"}
+                            />
+                        </div>
+                    </div>
+
+                    {/* Charts Section */}
+                    <div style={{
+                        display: "grid",
+                        gridTemplateColumns: "1fr 1fr 1fr",
+                        gap: "20px",
+                        marginBottom: "20px"
+                    }}>
+                        <div style={{
+                            background: "white",
+                            borderRadius: "15px",
+                            padding: "16px",
+                            border: "2px solid #007834",
+                            boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)"
+                        }}>
+                            <FinancialOverview stats={stats} />
+                        </div>
+
+                        <div style={{
+                            height: "250px",
+                            background: "white",
+                            borderRadius: "15px",
+                            padding: "16px",
+                            border: "2px solid #007834",
+                            boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)"
+                        }}>
+                            <LifeBalance stats={stats} />
+                        </div>
+
+                        <div style={{
+                            background: "white",
+                            borderRadius: "15px",
+                            padding: "16px",
+                            border: "2px solid #007834",
+                            fontSize: "0px 0px 20px 20px",
+                            boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)"
+                        }}>
+                            <ProgressOverTime />
+                        </div>
+                    </div>
+                </div>
+
 
                 <div
                     className="expandable-stats-header--toggle"
                     onClick={() => setIsExpanded(!isExpanded)}
                     style={{
                         position: "absolute",
-                        bottom: "16px",
+
                         left: "50%",
+                        width: "75vw",
                         transform: "translateX(-50%)",
-                        background: "white",
-                        borderRadius: "20px",
-                        padding: "8px 16px",
+                        background: "#007834",
+                        borderRadius: "0px 0px 20px 20px",
+                        padding: "8px 0px",
                         border: "2px solid #007834",
                         cursor: "pointer",
-                        color: "#007834",
+                        color: "white",
                         fontSize: "20px",
+                        textAlign: "center",
+                        top: 0,
                         transition: "all 0.3s ease",
-                        boxShadow: "0 4px 16px rgba(0, 120, 52, 0.2)"
+
                     }}
                 >
+                    <ProgressIndicator years={years} percent={years || 0 / 65} name={name} />
                     {isExpanded ? (
                         /**@ts-ignore */
                         <ion-icon name="chevron-up-outline"></ion-icon>

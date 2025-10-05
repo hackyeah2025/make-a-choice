@@ -13,8 +13,8 @@
   justify-content: center;
   gap: 5vh;
   height: 80vh;
-  margin-top: 10vh;
   width: 100vw;
+
   background-color: white;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .expandable-stats-header {
-  height: 10vh;
+  height: 2vh;
   width: 75vw;
   margin: auto;
   background-color: #007834;
@@ -107,7 +107,6 @@
 
 .expandable-stats-header--toggle {
   position: absolute;
-  bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
   color: white;
@@ -116,7 +115,7 @@
 }
 
 .progress-indicator--progress {
-  background-color: #007834;
+  background-color: #ffffff;
   height: 2vh;
   border-radius: 0px 10px 10px 0px;
 }
@@ -125,18 +124,16 @@
   height: 2vh;
   width: 75%;
   overflow: hidden;
-  background-color: rgba(0, 120, 52, 0.1);
   border-radius: 10px;
   margin: auto;
   margin-top: 1vh;
+  background-color: #065e2c;
 }
 
 .progress-indicator {
-  height: 8vh;
-  background-color: white;
+
   border: 2px solid #007834;
-  padding: 1vh;
-  border-radius: 25px 25px 0px 0px;
+
   margin: auto;
   max-width: 50vw;
   min-width: 300px;
@@ -144,7 +141,7 @@
 
 .progress-indicator--header {
   text-align: center;
-  color: #007834;
+  color: white;
   font-size: 2.5vh;
   font-weight: 600;
 }
@@ -157,7 +154,7 @@
 /* Carousel Animations */
 .carousel-viewport {
   position: relative;
-  width: min(200px, 100%);
+  width: 40%;
   aspect-ratio: 1;
   display: flex;
   align-items: center;
@@ -178,7 +175,7 @@
   border: 2px solid #007834;
   backdrop-filter: blur(6px);
   text-align: center;
-  font-size: 18px;
+  font-size: 24px !important;
   font-weight: 600;
   color: #007834;
   box-shadow: rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px;
@@ -188,12 +185,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 75%;
   height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   pointer-events: none;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .carousel-controls button {

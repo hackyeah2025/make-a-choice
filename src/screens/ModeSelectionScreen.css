@@ -55,6 +55,12 @@
     box-shadow: 0 16px 48px rgba(0, 120, 52, 0.2);
 }
 
+.mode-option:hover>.mode-option-icon *,
+.mode-option:hover .mode-option-title,
+.mode-option:hover .mode-option-description {
+    color: white !important;
+}
+
 .mode-option-icon {
     margin-bottom: 24px;
     display: flex;
@@ -67,12 +73,12 @@
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 16px;
-    color: white;
+    color: #007834;
 }
 
 .mode-option-description {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: #007834;
     line-height: 1.5;
     margin: 0;
 }
