@@ -6,7 +6,7 @@ interface CardStackProps {
 }
 
 export default function CardStack({ onProgressChange }: CardStackProps) {
-    const { currentCard, currentAge, answerCard, isLoadingCard } = useCards({ cardsQueueSize: 5 });
+  const { currentCard, currentAge, answerCard, isLoadingCard } = useCards({ cardsQueueSize: 1 });
 
     onProgressChange && onProgressChange((currentAge / 65) * 100, currentAge);
 
