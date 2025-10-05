@@ -23,7 +23,7 @@ export class GameAlgorithm {
     "evening",
   ];
 
-  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "health", "money", "relations"];
+  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "health", "savings", "relations"];
 
   private getEventTypeWeights(stats: Stats): Record<string, number> {
     return {
