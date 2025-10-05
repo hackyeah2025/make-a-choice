@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Event } from "../types/Event";
 import { Option } from "../types/Event";
 import useStats from "./useStats";
@@ -16,44 +16,17 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const { stats, setStats } = useStats();
     const { history, addToHistory } = useHistory();
 
-    const [cardsQueue, setCardsQueue] = useState<Event[]>([
-        {
-            title: "Mysterious box",
-            text: 'You find a mysterious box on the ground. What do you do?',
-            options: [
-                {
-                    text: 'Open it', consequences: [{
-                        impacted: 'happiness',
-                        value: 10
-                    }]
-                },
-                {
-                    text: 'Leave it alone', consequences: [{
-                        impacted: 'happiness',
-                        value: -5
-                    }]
-                }
-            ]
-        },
-        {
-            title: "Mysterious box 2",
-            text: 'You find a mysterious box on the ground. What do you do?',
-            options: [
-                {
-                    text: 'Open it', consequences: [{
-                        impacted: 'happiness',
-                        value: 10
-                    }]
-                },
-                {
-                    text: 'Leave it alone', consequences: [{
-                        impacted: 'happiness',
-                        value: -5
-                    }]
-                }
-            ]
-        }
-    ]);
+    const [cardsQueue, setCardsQueue] = useState<Event[]>([]);
+
+    useEffect(() => {
+        // Initial fill of the cards queue
+        const initializeQueue = async () => {
+            for (let i = 0; i < cardsQueueSize; i++) {
+                await fetchNewCard();
+            }
+        };
+        initializeQueue();
+    }, []); // Empty dependency array to run only once on mount
 
     const fetchNewCard = async () => {
         setIsLoadingCard(true);
@@ -72,8 +45,6 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
 
         setCardsQueue((prev) => [...prev, event]);
 
-        // TODO: Implement fetching a new card
-        // If last card is core, don't fetch. Once it gets answered, fetch again up to a limit
         setIsLoadingCard(false)
     };
 

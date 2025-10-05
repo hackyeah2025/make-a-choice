@@ -10,7 +10,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 5vh;
   height: 80vh;
   margin-top: 10vh;
   width: 100vw;
@@ -19,6 +20,7 @@
 
 .event-card--content {
   text-align: center;
+  font-size: 1.2rem;
 }
 
 .event-card--icon {
@@ -42,14 +44,13 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  overflow: hidden;
 }
 
 .option-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 80%;
+  width: 90%;
   position: relative;
 }
 
@@ -151,12 +152,11 @@
 /* Carousel Animations */
 .carousel-viewport {
   position: relative;
-  width: 60%;
+  width: 100%;
   min-height: 64px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .carousel-item {
