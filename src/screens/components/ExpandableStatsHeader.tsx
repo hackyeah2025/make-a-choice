@@ -28,11 +28,9 @@ export default function ExpandableStatsHeader({ years, name }: { years?: number,
                     background: "white",
                 }}
             >
-                <div style={{
+                <div className="expandable-stats-header--content" style={{
                     height: isExpanded ? "90vh" : "0vh",
                     transition: "height 0.3s",
-                    width: "90%",
-                    padding: "0 5%",
                     paddingTop: "10vh",
                     overflowY: "auto",
                     background: "white"
@@ -46,7 +44,6 @@ export default function ExpandableStatsHeader({ years, name }: { years?: number,
                     style={{
                         position: "absolute",
                         left: "50%",
-                        width: "75vw",
                         transform: "translateX(-50%)",
                         background: "#007834",
                         borderRadius: "0px 0px 20px 20px",

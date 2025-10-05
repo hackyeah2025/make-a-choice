@@ -34,7 +34,7 @@ function generateVibrantColor(iconName: string): string {
 export default function Card({ event, onCardAnswered, iconName }: Props) {
     const { stats } = useStats();
 
-    return <div style={{ flex: 1, width: "70vw", background: '#fff', padding: "0 2.5vw", paddingTop: 95 }} className="event-card" >
+    return <div style={{ flex: 1, background: '#fff', paddingTop: 95 }} className="event-card" >
         {!event && <Loading message="Generowanie scenariusza..." />
         }
         {
