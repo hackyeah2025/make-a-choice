@@ -70,7 +70,10 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
             ...stats,
             age: (stats.age as number) + 1,
             ...option.consequences.reduce((acc, curr) => {
-                if (curr.impacted === "children") {
+                if (curr.impacted === "income") {
+                    acc["income"] = curr.value as number;
+                }
+                else if (curr.impacted === "children") {
                     acc["children"] = curr.value as number;
                 }
 

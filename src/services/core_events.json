@@ -1,0 +1,208 @@
+{
+    "education": {
+        "high_school": {
+            "description": "You are going to high school! Do you want to study in vocational school or general high school?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "education",
+                            "value": "high_school"
+                        }
+                    ]
+                },
+                {
+                    "consequences": [
+                        {
+                            "impacted": "education",
+                            "value": "job_school"
+                        },
+                        {
+                            "impacted": "job_experience",
+                            "value": 10
+                        }
+                    ]
+                }
+            ]
+        },
+        "university": {
+            "description": "You graduated high school! Do you want to continue your education?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "education",
+                            "value": "university"
+                        },
+                        {
+                            "impacted": "savings",
+                            "value": -20000
+                        },
+                        {
+                            "impacted": "job_experience",
+                            "value": 20
+                        }
+                    ]
+                },
+                {
+                    "consequences": []
+                }
+            ]
+        },
+        "course": {
+            "description": "Do you want to do course / tutorial to become better at your job?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "savings",
+                            "value": -5000
+                        },
+                        {
+                            "impacted": "job_experience",
+                            "value": 15
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": -5
+                        }
+                    ]
+                },
+                {
+                    "consequences": []
+                }
+            ]
+        }
+    },
+    "job": {
+        "job_offer": {
+            "description": "You got a new job offer! Do you accept it?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "income",
+                            "value": 0
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": 5
+                        },
+                        {
+                            "impacted": "health",
+                            "value": -5
+                        }
+                    ]
+                },
+                {
+                    "consequences": [
+                        {
+                            "impacted": "happiness",
+                            "value": -5
+                        }
+                    ]
+                }
+            ],
+            "extraField": "job title",
+            "eventType": "job"
+        },
+        "promotion": {
+            "description": "Your boss offers you a promotion with a salary increase. Do you accept it?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "income",
+                            "value": 0
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": 10
+                        },
+                        {
+                            "impacted": "health",
+                            "value": -5
+                        },
+                        {
+                            "impacted": "job_experience",
+                            "value": 10
+                        }
+                    ]
+                },
+                {
+                    "consequences": [
+                        {
+                            "impacted": "happiness",
+                            "value": -5
+                        }
+                    ]
+                }
+            ],
+            "extraField": "new job title",
+            "eventType": "job"
+        },
+        "layoff": {
+            "description": "You have been laid off from your job. How do you want to proceed?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "income",
+                            "value": 0
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": -15
+                        },
+                        {
+                            "impacted": "job_name",
+                            "value": ""
+                        },
+                        {
+                            "impacted": "job",
+                            "value": "unemployed"
+                        }
+                    ]
+                }
+            ]
+        },
+        "overwork": {
+            "description": "Your boss asks you to work overtime this weekend. Do you agree?",
+            "consequences": [
+                {
+                    "consequences": [
+                        {
+                            "impacted": "money",
+                            "value": 0
+                        },
+                        {
+                            "impacted": "happiness",
+                            "value": -10
+                        },
+                        {
+                            "impacted": "health",
+                            "value": -5
+                        },
+                        {
+                            "impacted": "relations",
+                            "value": -5
+                        },
+                        {
+                            "impacted": "job_experience",
+                            "value": 5
+                        }
+                    ]
+                },
+                {
+                    "consequences": [
+                        {
+                            "impacted": "happiness",
+                            "value": 5
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "family": {}
+}
