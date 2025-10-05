@@ -250,11 +250,11 @@ function Table({ entries }: { entries: [string, any][] }) {
 // Avatar Component
 function Avatar({ age, name }: { age: number, name?: string }) {
     const getAvatarByAge = (age: number): string => {
-        if (age < 20) return "/avatars/young.png";
-        if (age < 30) return "/avatars/young-adult.png";
-        if (age < 50) return "/avatars/medium-adult.png";
-        if (age < 60) return "/avatars/old-adult.png";
-        return "/avatars/senior.png";
+        if (age < 20) return "/adults/young.png";
+        if (age < 30) return "/adults/young-adult.png";
+        if (age < 50) return "/adults/medium-adult.png";
+        if (age < 60) return "/adults/old-adult.png";
+        return "/adults/senior.png";
     };
 
     return (
