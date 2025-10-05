@@ -55,8 +55,8 @@ export default function InitialFormScreen({ onComplete }: { onComplete?: () => v
             { key: "job_name", label: "Jaki jest Twój zawód / stanowisko? (jeśli dotyczy)", type: "text", placeholder: "Np. Programista" },
             { key: "job_experience", label: "Ile masz lat doświadczenia zawodowego?", type: "number", min: 0, max: 100 },
 
-            { key: "income", label: "Miesięczny dochód (PLN)", type: "number", min: 0, max: 1_000_000 },
-            { key: "expenses", label: "Miesięczne wydatki (PLN)", type: "number", min: 0, max: 1_000_000 },
+            { key: "income", label: "Roczny przychód (PLN)", type: "number", min: 0, max: 1_000_000 },
+            { key: "expenses", label: "Roczne wydatki (PLN)", type: "number", min: 0, max: 1_000_000 },
             {
                 key: "savings",
                 label: "Oszczędności",

@@ -148,11 +148,12 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
       {}
     );
 
-    const newStats = {
+    let newStats = {
       ...baseStats,
       age: (baseStats.age as number) + 1,
       ...consequencePatch,
     };
+    newStats.savings = newStats.savings + (newStats.income - newStats.expenses);
 
     // apply job_name change if the answered event was a job event
     if (currentCard.eventType === "job") {

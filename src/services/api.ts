@@ -65,6 +65,9 @@ export default class ApiService {
         };
     }
     static async generateSummary(stats: Stats, history: StateElement[]) : Promise<string> {
+
+        const is_retired = stats.age >= 65
+
         const response = await fetch(`${API_URL}/generate-summary`, {
             method: "POST",
             headers: {
@@ -72,7 +75,8 @@ export default class ApiService {
             },
             body: JSON.stringify({
                 stats: stats,
-                history: history
+                history: history,
+                is_retired: is_retired
             })
         });
         const data = await response.json() as string;
