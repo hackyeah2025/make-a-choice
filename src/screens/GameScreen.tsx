@@ -1,12 +1,23 @@
+// GameScreen.tsx
+import { useState } from "react";
 import CardStack from "./components/CardStack";
 import ExpandableStatsHeader from "./components/ExpandableStatsHeader";
 import ProgressIndicator from "./components/ProgressIndicator";
 
 export default function GameScreen() {
+  const [percent, setPercent] = useState(0);
+  const [years, setYears] = useState(0);
 
-    return <div style={{ backgroundColor: "white" }}>
-        <ExpandableStatsHeader />
-        <CardStack />
-        <ProgressIndicator percent={25} years={3}/>
+  const handleProgressUpdate = (newPercent: number, newYears: number) => {
+    setPercent(newPercent);
+    setYears(newYears);
+  };
+
+  return (
+    <div style={{ backgroundColor: "white" }}>
+      <ExpandableStatsHeader />
+      <CardStack onProgressChange={handleProgressUpdate} />
+      <ProgressIndicator percent={percent} years={years} />
     </div>
+  );
 }

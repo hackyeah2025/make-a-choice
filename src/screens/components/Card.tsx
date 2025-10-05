@@ -8,10 +8,10 @@ function toHSLA(hsl: string, alpha: number): string {
     return hsl.replace("hsl(", "hsla(").replace(")", `, ${alpha})`)
 }
 
-type Props = {
-    event?: Event
-    onCardAnswered: (option: Option) => void
-    iconName: string
+interface Props {
+  event: Event;
+  onCardAnswered: (option: Option) => void;
+  iconName: string;
 }
 
 // Function to generate vibrant colors based on icon name

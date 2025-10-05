@@ -88,6 +88,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
 
     return {
         currentCard: cardsQueue[0],
+        currentAge: stats.age,
         answerCard,
         isLoadingCard
     };
