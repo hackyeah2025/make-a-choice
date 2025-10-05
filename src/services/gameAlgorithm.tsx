@@ -1,6 +1,12 @@
 import { OptionNoText } from "../types/Event";
 import { Stats } from "../types/Stats";
 
+const educationWeights = {
+  "primary_school": 0.5,
+  "job_school": 1.0,
+  "high_school": 1.0,
+  "university": 1.5,
+}
 export class GameAlgorithm {
   private events: string[] = [
     "home",
@@ -18,12 +24,27 @@ export class GameAlgorithm {
   private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "health", "money", "relations"];
 
   private getEventTypeWeights(stats: Stats): Record<string, number> {
-    return {
-      "random": 1,
-      "education": 1,
-      "job": 1,
-      "family": 1,
+    let weights = {
+      random: 1,
+      education: 1,
+      job: 1,
+      family: 1,
     }
+    if (stats.age > 45) {
+      weights.family = 0.4;
+    }
+
+    if (stats.age < 30) {
+      weights.education = 0.25;
+    }
+
+    if (stats.job_experience > 50) {
+      weights.job = 0.5;
+    }
+
+    weights.education = educationWeights[stats.education];
+
+    return weights;
   }
 
   private generateRandomScenario(stats: Stats): { description: string; consequences: OptionNoText[] } {

@@ -68,7 +68,12 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
                 }
 
                 else if (typeof stats[curr.impacted] === "number") {
-                    acc[curr.impacted] = (stats[curr.impacted] as number) + (curr.value as number);
+                    if (curr.impacted in ["health", "relations", "happiness", "money"]) {
+                        acc[curr.impacted] = Math.max(0, Math.min(100, (stats[curr.impacted] as number) + (curr.value as number)));
+                    }
+                    else {
+                        acc[curr.impacted] = (stats[curr.impacted] as number) + (curr.value as number);
+                    }
                 }
 
                 else if (typeof stats[curr.impacted] === "string") {
