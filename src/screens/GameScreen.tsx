@@ -4,9 +4,15 @@ import ProgressIndicator from "./components/ProgressIndicator";
 
 export default function GameScreen() {
 
-    return <div style={{ backgroundColor: "white" }}>
+    return <div style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        minHeight: "100vh",
+        background: "#ebebeb",
+    }}>
         <ExpandableStatsHeader />
         <CardStack />
-        <ProgressIndicator />
+        {/* <ProgressIndicator /> */}
     </div>
 }
