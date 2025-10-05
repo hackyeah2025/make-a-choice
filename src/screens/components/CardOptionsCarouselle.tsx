@@ -70,7 +70,7 @@ export default function CardOptionCarouselle({ options, onOptionSelected }: { op
     };
 
     // Render helpers
-    const currentText = len ? options[selectedIndex].text : "";
+    const currentText = len ? options[selectedIndex]?.text : "";
     const incomingText = incomingIndex != null ? options[incomingIndex].text : "";
 
     return (
