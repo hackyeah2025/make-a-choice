@@ -49,15 +49,16 @@ export default function FinishGameScreen({ stats, score, history }: FinishGameSc
 
           <StatsDisplay stats={stats} />
 
-        <div className="mode-selection-score">
-          <h2>Podsumowanie poniżej - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
-          {loading ? (
-            <p className="score-value">Ładowanie...</p>
-          ) : error ? (
-            <p className="score-value error">{error}</p>
-          ) : (
-            <p className="score-value">{summary}</p>
-          )}
+          <div className="mode-selection-score">
+            <h2>Podsumowanie poniżej - aby zagrać jeszcze raz należy odświeżyć stronę, ale zachęcamy do przeczytania podsumowania :)</h2>
+            {loading ? (
+              <p className="score-value">Ładowanie...</p>
+            ) : error ? (
+              <p className="score-value error">{error}</p>
+            ) : (
+              <p className="score-value">{summary}</p>
+            )}
+          </div>
         </div>
       </div>
     </div>
