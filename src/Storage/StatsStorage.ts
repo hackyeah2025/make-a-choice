@@ -17,7 +17,7 @@ export function generateAvatar(age: number, options?: { stage: "children" | "adu
         }
     }
 
-    const currentStage = age < 18 ? "children" : age < 55 ? "adults" : "seniors";
+    const currentStage = age < 18 ? "children" : age < 40 ? "adults" : "seniors";
 
     if (!options) {
         const sex = Math.random() < 0.5 ? "male" : "female";
