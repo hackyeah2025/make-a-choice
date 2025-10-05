@@ -14,35 +14,52 @@ export function inferFinancialSituation(stats: Stats): number {
     const expenses = Number(stats.expenses);
     const savings = Number(stats.savings);
 
-    // Base score from income vs expenses ratio
-    let score = 50;
+    if (savings < 0) {
+        return 0;
+    }
+
+    const monthsOfExpenses = expenses > 0 ? savings / expenses : savings > 0 ? 999 : 0;
+    
+    let score = 0;
+    
+    if (monthsOfExpenses >= 24) score = 90;
+    else if (monthsOfExpenses >= 12) score = 80;
+    else if (monthsOfExpenses >= 6) score = 70;
+    else if (monthsOfExpenses >= 3) score = 60;
+    else if (monthsOfExpenses >= 1) score = 50;
+    else if (savings > 0) score = 30;
+    else score = 10;
 
     if (income > 0) {
         const savingsRate = (income - expenses) / income;
-        if (savingsRate > 0.3) score += 30; // Saving 30%+ is excellent
-        else if (savingsRate > 0.1) score += 15; // Saving 10-30% is good
-        else if (savingsRate > 0) score += 5; // Any savings is positive
-        else if (savingsRate < -0.2) score -= 30; // Spending 20% more than income is bad
-        else if (savingsRate < 0) score -= 15; // Any deficit is concerning
+        
+        if (savingsRate > 0.3) score += 10;
+        else if (savingsRate > 0.1) score += 5;
+        else if (savingsRate > 0) score += 2;
+        
+        else if (savingsRate < -0.2) {
+            if (monthsOfExpenses >= 12) score -= 5;
+            else if (monthsOfExpenses >= 6) score -= 10;
+            else score -= 20;
+        }
+        else if (savingsRate < 0) {
+            if (monthsOfExpenses >= 6) score -= 2;
+            else score -= 10;
+        }
+    } else {
+        if (monthsOfExpenses >= 12) score -= 5;
+        else if (monthsOfExpenses >= 6) score -= 10;
+        else score -= 20;
     }
 
-    // Adjust based on absolute savings amount
-    if (savings > 100000) score += 20; // Substantial emergency fund
-    else if (savings > 50000) score += 10; // Good emergency fund
-    else if (savings > 20000) score += 5; // Some emergency fund
-    else if (savings < 5000) score -= 10; // Very little savings
-
-    // Adjust based on income level
-    if (income > 15000) score += 15; // High income
-    else if (income > 7000) score += 5; // Good income
-    else if (income < 3500 && income > 0) score -= 15; // Low income
-    else if (income <= 0) score -= 25; // No income
-
-    if (savings < 0){
-        return 0
+    if (income > 15000) score += 5;
+    else if (income > 7000) score += 2;
+    else if (income < 3500 && income > 0) {
+        if (monthsOfExpenses >= 12) score -= 2;
+        else score -= 5;
     }
 
-    return Math.floor(Math.max(0, Math.min(100, score)) / 2 + savings / 2);
+    return Math.max(0, Math.min(100, score));
 }
 
 export function applyInferences(stats: Stats): Stats {
