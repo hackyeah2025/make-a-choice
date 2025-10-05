@@ -9,7 +9,7 @@ function toHSLA(hsl: string, alpha: number): string {
 }
 
 type Props = {
-    event: Event
+    event?: Event
     onCardAnswered: (option: Option) => void
     iconName: string
 }
@@ -33,43 +33,45 @@ function generateVibrantColor(iconName: string): string {
 }
 
 export default function Card({ event, onCardAnswered, iconName }: Props) {
-    const iconColor = generateVibrantColor(event.title);
-    const iconColorAlt = generateVibrantColor(event.title + "abc");
+    const iconColor = generateVibrantColor(event?.title + "a");
+    const iconColorAlt = generateVibrantColor(event?.title + "abc");
 
-    useEffect(() => {
-        document.body.style.background = `white`;
-    }, [event])
-
-    return <div className="event-card" style={{}}>
-        <div style={{
-            textAlign: "center",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "2.1rem",
-            borderRadius: "25px",
-            // boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)",
-            padding: "2rem",
-            paddingLeft: "2.5rem",
-            paddingRight: "2.5rem",
-            backgroundColor: "white",
-            // border: "2px solid #007834",
-            color: "#007834",
-            boxShadow: "rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px",
-        }}>
-            <div style={{
+    return <div className="event-card" >
+        {!event && <h2>Loading...</h2>
+        }
+        {
+            event && <><div style={{
+                textAlign: "center",
                 display: "flex",
                 flexDirection: "column",
-                gap: "1.3rem",
+                alignItems: "center",
+                justifyContent: "center",
+
+                borderRadius: "25px",
+                width: "60%",
+                // boxShadow: "0 4px 16px rgba(0, 120, 52, 0.1)",
+                padding: "2rem",
+                paddingLeft: "2.5rem",
+                paddingRight: "2.5rem",
+                backgroundColor: "white",
+                // border: "2px solid #007834",
+                color: "#007834",
+                boxShadow: "rgba(14, 63, 126, 0.06) 0px 0px 0px 1px, rgba(42, 51, 70, 0.03) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 2px 2px -1px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.03) 0px 5px 5px -2.5px, rgba(42, 51, 70, 0.03) 0px 10px 10px -5px, rgba(42, 51, 70, 0.03) 0px 24px 24px -8px",
             }}>
-                <h2 style={{ color: "#222", margin: 0 }}><GeneratedText wordDelay={0.3}>{event.title}</GeneratedText></h2>
-                <div className="event-card--content" style={{ color: "#333" }}>
-                    <GeneratedText>{event.text}</GeneratedText>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "1.3rem",
+                }}>
+                    <h2 style={{ color: "#222", margin: 0 }}>{event.title}</h2>
+                    <div className="event-card--content" style={{ color: "#333" }}>
+                        {event.text}
+                    </div>
                 </div>
+
             </div>
 
-            <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} />
-        </div>
+                <CardOptionCarouselle options={event.options} onOptionSelected={onCardAnswered} /></>
+        }
     </div >
 }
