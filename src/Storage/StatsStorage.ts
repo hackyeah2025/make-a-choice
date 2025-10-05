@@ -44,7 +44,7 @@ export const initialStats: Stats = {
     health: 50,
     relations: 50,
     happiness: 50,
-    money: 100,
+    money: 50,
     priorities: [],
 
     income: 0,
