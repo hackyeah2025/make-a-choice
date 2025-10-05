@@ -507,6 +507,7 @@ export default function ExpandableStatsHeader() {
                         </div>
 
                         <div style={{
+                            height: "250px",
                             background: "white",
                             borderRadius: "15px",
                             padding: "16px",

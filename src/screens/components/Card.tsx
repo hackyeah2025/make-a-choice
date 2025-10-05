@@ -29,8 +29,6 @@ function generateVibrantColor(iconName: string): string {
 }
 
 export default function Card({ event, onCardAnswered, iconName }: Props) {
-    const iconColor = generateVibrantColor(event?.title + "a");
-    const iconColorAlt = generateVibrantColor(event?.title + "abc");
     const { stats } = useStats();
 
     return <div style={{ flex: 1, width: "70vw", background: '#fff', padding: "1vh 2.5vw" }} className="event-card" >
