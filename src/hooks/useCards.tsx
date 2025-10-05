@@ -33,7 +33,6 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
     const fetchNewCard = async () => {
         setIsLoadingCard(true);
 
-        // {title, question, options} = await getRegularAction('job/school', [], stats);
         const { description, consequences, isCoreEvent } = await gameAlgorithm.generateScenario(stats);
 
         // if core event generateCoreEvent
