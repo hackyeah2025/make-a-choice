@@ -30,8 +30,8 @@ function generateVibrantColor(iconName: string): string {
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 
-export default function Card({ event, onCardAnswered, iconName }: Props) {
-
+export default function Card({ event, onCardAnswered, iconName, setScore }: Props) {
+    const { stats } = useStats();
 
     setScore(stats.health + stats.relations + stats.happiness + stats.money);
 
