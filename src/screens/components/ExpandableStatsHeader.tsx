@@ -68,7 +68,7 @@ function GenderIcon() {
 
 function Table({ entries }: { entries: [string, any][] }) {
     return (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", color: "white", padding: "25px 50px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", color: "white", padding: "25px 0" }}>
             {entries.map(([key, value], index) => (
                 <div key={index} style={{ display: "contents" }}>
                     <div style={{ padding: "8px", borderBottom: index < entries.length - 1 ? "2px solid white" : "none", display: "flex", alignItems: "center", justifyContent: "center" }}>{key}</div>
@@ -109,7 +109,7 @@ export default function ExpandableStatsHeader() {
                     pointerEvents: "all",
                 }}
             >
-                <div style={{ display: "flex", height: "100%", width: "100%", flexDirection: "column-reverse" }}>
+                <div style={{ display: "flex", height: "80vh", width: "100%", position: "absolute", bottom: 32 }}>
                     <div
                         style={{
                             display: "grid",
