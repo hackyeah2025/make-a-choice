@@ -14,19 +14,20 @@ interface FinishGameScreenProps {
 export default function FinishGameScreen({ stats, score }: FinishGameScreenProps) {
 
   return (
-    <div className="mode-selection-container">
-      <div className="mode-selection-content">
-        <h1 className="mode-selection-title">Gra zakończona!</h1>
+    <div style={{ overflowY: "scroll", height: "100vh", overflowX: "hidden" }}>
+      <div className="mode-selection-container">
+        <div className="mode-selection-content">
+          <h1 className="mode-selection-title">Gra zakończona!</h1>
 
-        <div className="mode-selection-score">
-          <h2>Twój wynik:</h2>
-          <p className="score-value">{score}</p>
-        </div>
+          <div className="mode-selection-score">
+            <h2>Twój wynik:</h2>
+            <p className="score-value">{score}</p>
+          </div>
 
-        <StatsDisplay stats={stats} />
+          <StatsDisplay stats={stats} />
 
-        <div className="mode-selection-options">
-          {/* <div
+          <div className="mode-selection-options">
+            {/* <div
             className="mode-option"
             onClick={onRestart}
           >
@@ -38,6 +39,7 @@ export default function FinishGameScreen({ stats, score }: FinishGameScreenProps
               Rozpocznij nową rozgrywkę od początku
             </p>
           </div> */}
+          </div>
         </div>
       </div>
     </div>
