@@ -77,26 +77,26 @@ export default function CardOptionCarouselle({ options, onOptionSelected }: { op
         <div className="event-card--option-carouselle">
             <div className="carousel-viewport" onClick={handleViewportClick}>
                 {!animating && (
-                    <div className="carousel-item current">
+                    <div className="carousel-item current cursor-pointer">
                         {currentText}
                     </div>
                 )}
                 {animating && direction === "next" && (
                     <>
-                        <div className="carousel-item exit exit-next">
+                        <div className="carousel-item exit exit-next cursor-pointer">
                             {currentText}
                         </div>
-                        <div className="carousel-item enter enter-next" onAnimationEnd={handleAnimationEnd}>
+                        <div className="carousel-item enter enter-next cursor-pointer" onAnimationEnd={handleAnimationEnd}>
                             {incomingText}
                         </div>
                     </>
                 )}
                 {animating && direction === "prev" && (
                     <>
-                        <div className="carousel-item exit exit-prev">
+                        <div className="carousel-item exit exit-prev cursor-pointer">
                             {currentText}
                         </div>
-                        <div className="carousel-item enter enter-prev" onAnimationEnd={handleAnimationEnd}>
+                        <div className="carousel-item enter enter-prev cursor-pointer" onAnimationEnd={handleAnimationEnd}>
                             {incomingText}
                         </div>
                     </>

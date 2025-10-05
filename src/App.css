@@ -18,6 +18,10 @@
   background-color: white;
 }
 
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
 .event-card--content {
   text-align: center;
   font-size: 1.2rem;

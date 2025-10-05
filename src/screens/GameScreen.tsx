@@ -7,6 +7,6 @@ export default function GameScreen() {
     return <div style={{ backgroundColor: "white" }}>
         <ExpandableStatsHeader />
         <CardStack />
-        <ProgressIndicator />
+        <ProgressIndicator percent={25} years={3}/>
     </div>
 }
