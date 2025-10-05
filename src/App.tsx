@@ -35,7 +35,7 @@ function App() {
   };
 
   return (
-    <NotificationProvider>
+    // <NotificationProvider>
       <StatsProvider>
         <HistoryProvider>
           <InnerApp
@@ -48,7 +48,7 @@ function App() {
           />
         </HistoryProvider>
       </StatsProvider>
-    </NotificationProvider>
+    // </NotificationProvider>
   );
 }
 
