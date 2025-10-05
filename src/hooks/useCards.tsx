@@ -6,6 +6,8 @@ import useStats from "./useStats";
 import useHistory from "./useHistory";
 import gameAlgorithm from "../services/gameAlgorithm";
 import ApiService from "../services/api";
+import { Stats } from "../types/Stats";
+import { start } from "repl";
 
 type UseCardsProps = {
     cardsQueueSize: number
@@ -32,7 +34,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
         setIsLoadingCard(true);
 
         // {title, question, options} = await getRegularAction('job/school', [], stats);
-        const { description, consequences, isCoreEvent } = await gameAlgorithm.generateScenario();
+        const { description, consequences, isCoreEvent } = await gameAlgorithm.generateScenario(stats);
 
         // if core event generateCoreEvent
         let event: Event;
@@ -61,13 +63,21 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
             ...stats,
             age: (stats.age as number) + 1,
             ...option.consequences.reduce((acc, curr) => {
-                if (typeof stats[curr.impacted] === "number") {
-                    acc[curr.impacted] = (stats[curr.impacted] as number) + curr.value;
+                if (curr.impacted === "children") {
+                    acc["children"] = curr.value as number;
                 }
-                return acc;
-            }, {} as Record<string, number>)
-        })
 
+                else if (typeof stats[curr.impacted] === "number") {
+                    acc[curr.impacted] = (stats[curr.impacted] as number) + (curr.value as number);
+                }
+
+                else if (typeof stats[curr.impacted] === "string") {
+                    acc[curr.impacted] = curr.value;
+                }
+                
+                return acc;
+            }, {} as Record<string, number | string>)
+        })
         fetchNewCard();
     }
 

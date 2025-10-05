@@ -1,4 +1,5 @@
 import { OptionNoText } from "../types/Event";
+import { Stats } from "../types/Stats";
 
 export class GameAlgorithm {
   private events: string[] = [
@@ -14,72 +15,112 @@ export class GameAlgorithm {
     "evening",
   ];
 
-  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "relations", "money"
-];
+  private impacts: Array<OptionNoText["consequences"][number]["impacted"]> = ["happiness", "health", "money", "relations"];
 
-  public generateEvent(): string {
-    const index = Math.floor(Math.random() * this.events.length);
-    return this.events[index];
+  private getEventTypeWeights(stats: Stats): Record<string, number> {
+    return {
+      "random": 1,
+      "education": 1,
+      "job": 1,
+      "family": 1,
+    }
   }
 
-    public generateConsequences(
-        outerLength: number = 3,
-        innerLength: number = 3
-    ): OptionNoText[] {
-        const consequences: OptionNoText[] = [];
+  private generateRandomScenario(stats: Stats): { description: string; consequences: OptionNoText[] } {
+    // random event type that increases one stat and decreases another
 
-        for (let i = 0; i < outerLength; i++) {
-            const innerList: OptionNoText = {
-              consequences: []
-            };
+    let consequences = [];
+    const event = this.events[Math.floor(Math.random() * this.events.length)];
 
-            for (let j = 0; j < innerLength; j++) {
-            const impacted = this.impacts[Math.floor(Math.random() * this.impacts.length)];
+    for (let i = 0; i < 3; i++) {
+      const impactedStat = this.impacts[Math.floor(Math.random() * this.impacts.length)];
+      let otherStats = this.impacts.filter(s => s !== impactedStat);
+      const decreasedStat = otherStats[Math.floor(Math.random() * otherStats.length)];
 
-            let value = 0;
-            while (value === 0) {
-                value = Math.floor(Math.random() * 21) - 10;
-            }
+      const increaseValue = Math.floor(Math.random() * 21) + 10;
+      const decreaseValue = Math.floor(Math.random() * 21) + 10;
 
-            innerList.consequences.push({
-                impacted,
-                value,
-            });
-            }
-
-            consequences.push(innerList);
-        }
-
-        return consequences;
+      consequences.push({ consequences: [{ impacted: impactedStat, value: increaseValue }, { impacted: decreasedStat, value: -decreaseValue }] });
     }
-
-  public generateScenario() : { description: string; consequences: OptionNoText[]; isCoreEvent: boolean } {
-    if (Math.random() < .5) {
-      return {
-        description: "Generate event about finding new job opportunity. Describe the job. One consequence coresponds to accepting the job, second to rejecting it. Display the exact salary (value of impacted money, given in PLN per month (brutto, don't write about netto or any bonuses), so if consequence for money is 10 write 10 PLN per month) in the description.",
-        consequences: [
-          {
-            consequences: [
-                {
-                    impacted: 'money',
-                    value: 20
-                },
-            ]
-
-          },
-        {
-            consequences: []
-        }],
-        isCoreEvent: true
-      };
-    } else {
     return {
-      description: this.generateEvent(),
-      consequences: this.generateConsequences(),
-      isCoreEvent: false
+      description: event,
+      consequences: consequences,
     };
   }
-}}
+
+  private generateEducationScenario(stats: Stats): { description: string; consequences: OptionNoText[] } {
+    return {
+      description: 'You graduated high school! Do you want to continue your education?',
+      consequences: [{
+        consequences: [
+          {
+            impacted: 'education',
+            value: 'university'
+          },
+          {
+            impacted: 'money',
+            value: -20
+          }
+        ],
+      },
+      {
+        consequences: [
+        ]
+      }
+    ],
+    };
+  }
+
+  private generateJobScenario(stats: Stats): { description: string; consequences: OptionNoText[] } {
+    return {
+      description: 'You got a new job offer! Do you accept it?',
+      consequences: [{ consequences: [
+      ] }],
+    };
+  }
+
+  private generateFamilyScenario(stats: Stats): { description: string; consequences: OptionNoText[] } {
+    return {
+      description: 'Your partner asks you about having a child. What do you say?',
+      consequences: [{
+        consequences: [
+          { impacted: 'children', value: 1 },
+          { impacted: 'relations', value: 10 },
+          { impacted: 'happiness', value: 5 }
+        ]
+      },
+      {
+        consequences: [
+          { impacted: 'relations', value: -10 }
+        ]
+      }
+    ],
+    };
+  }
+
+
+
+  public generateScenario(stats: Stats): { description: string; consequences: OptionNoText[]; isCoreEvent: boolean } {
+    // Weighted random selection of event type
+    const eventTypeWeights = this.getEventTypeWeights(stats);
+
+    const totalWeight = Object.values(eventTypeWeights).reduce((a, b) => a + b, 0);
+    const randomValue = Math.random() * totalWeight;
+
+    if (randomValue < eventTypeWeights["random"]) {
+      return { ...this.generateRandomScenario(stats), isCoreEvent: false };
+    }
+    else if (randomValue < eventTypeWeights["random"] + eventTypeWeights["education"]) {
+      return { ...this.generateEducationScenario(stats), isCoreEvent: true };
+    }
+    else if (randomValue < eventTypeWeights["random"] + eventTypeWeights["education"] + eventTypeWeights["job"]) {
+      return { ...this.generateJobScenario(stats), isCoreEvent: true };
+    }
+    else {
+      return { ...this.generateFamilyScenario(stats), isCoreEvent: true };
+    }
+  }
+}
 
 const gameAlgorithm = new GameAlgorithm();
 export default gameAlgorithm;

@@ -25,23 +25,7 @@ export default class ApiService {
                 stats: stats
             })
         });
-        console.log(
-            JSON.stringify({
-                category: category,
-                options: options,
-                stats: stats
-            })
-        )
         const data = await response.json() as EventResponse;
-        // console.log(data.options)
-        console.log({
-            title: data.title,
-            text: data.text,
-            options: data.options.map((optionText, idx) => ({
-                text: optionText,
-                consequences: options[idx]?.consequences ?? []
-            }))
-        })
         return {
             title: data.title,
             text: data.text,

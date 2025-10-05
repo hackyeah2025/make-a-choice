@@ -1,10 +1,19 @@
-import React from 'react'
-import "./GeneratedText.css"
+import React from "react";
+import "./GeneratedText.css";
 
 const GeneratedText = ({ children, wordDelay = 0.1 }: { children: string, wordDelay?: number, [key: string]: any }) => {
   return (
     <>{children.split(" ").map((word, index) => {
 
+const GeneratedText = ({
+  children,
+  wordDelay = 0.1,
+}: {
+  children: string;
+  wordDelay?: number;
+  [key: string]: any;
+}) => {
+  const [counter, setCounter] = React.useState(0);
 
       return (
         <>
@@ -22,4 +31,4 @@ const GeneratedText = ({ children, wordDelay = 0.1 }: { children: string, wordDe
   )
 }
 
-export default GeneratedText
+export default GeneratedText;
