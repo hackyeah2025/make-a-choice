@@ -19,9 +19,9 @@ export function inferFinancialSituation(stats: Stats): number {
     }
 
     const monthsOfExpenses = expenses > 0 ? savings / expenses : savings > 0 ? 999 : 0;
-    
+
     let score = 0;
-    
+
     if (monthsOfExpenses >= 24) score = 90;
     else if (monthsOfExpenses >= 12) score = 80;
     else if (monthsOfExpenses >= 6) score = 70;
@@ -32,11 +32,11 @@ export function inferFinancialSituation(stats: Stats): number {
 
     if (income > 0) {
         const savingsRate = (income - expenses) / income;
-        
+
         if (savingsRate > 0.3) score += 10;
         else if (savingsRate > 0.1) score += 5;
         else if (savingsRate > 0) score += 2;
-        
+
         else if (savingsRate < -0.2) {
             if (monthsOfExpenses >= 12) score -= 5;
             else if (monthsOfExpenses >= 6) score -= 10;
@@ -64,11 +64,9 @@ export function inferFinancialSituation(stats: Stats): number {
 
 export function applyInferences(stats: Stats): Stats {
     const inferredJob = inferJobFromIncome(stats.income);
-    const inferredMoney = inferFinancialSituation(stats);
 
     return {
         ...stats,
         job: inferredJob,
-        money: inferredMoney,
     };
 }
