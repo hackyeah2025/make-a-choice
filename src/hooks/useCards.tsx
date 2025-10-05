@@ -57,7 +57,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
         setIsLoadingCard(false)
     };
 
-    const answerCard = (option: Option) => {
+    const answerCard = async (option: Option) => {
         setCardsQueue((prev) => prev.slice(1));
         // TODO: Here handle the answer logic, update stats, etc.
         addToHistory({
@@ -99,7 +99,7 @@ export default function useCards({ cardsQueueSize }: UseCardsProps) {
         }
 
         setStats(newStats)
-        fetchNewCard();
+        await fetchNewCard();
     }
 
     return {
