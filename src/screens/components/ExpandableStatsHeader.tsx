@@ -248,7 +248,7 @@ function Table({ entries }: { entries: [string, any][] }) {
 }
 
 // Avatar Component
-function Avatar({ age, name }: { age: number, name?: string }) {
+function Avatar({ age, name, stage, sex, variant }: { age: number, name?: string, stage: string, sex: string, variant: number }) {
     const getAvatarByAge = (age: number): string => {
         if (age < 20) return "/adults/young.png";
         if (age < 30) return "/adults/young-adult.png";
@@ -256,6 +256,8 @@ function Avatar({ age, name }: { age: number, name?: string }) {
         if (age < 60) return "/adults/old-adult.png";
         return "/adults/senior.png";
     };
+
+    const avatarPath = `/${stage}/${sex === "male" ? "m" : "f"}${variant}.png`;
 
     return (
         <div style={{
@@ -278,7 +280,7 @@ function Avatar({ age, name }: { age: number, name?: string }) {
                 }}
             >
                 <img
-                    src={getAvatarByAge(age)}
+                    src={avatarPath}
                     alt="Avatar"
                     style={{
                         width: "100%",
@@ -376,7 +378,7 @@ export default function ExpandableStatsHeader({ years, name }: { years?: number,
                     }}>
                         {/* Left Column - Core Stats */}
                         <div style={{ width: "100%" }}>
-                            <Avatar name={stats.name} age={Number(stats.age)} />
+                            <Avatar name={stats.name} age={Number(stats.age)} stage={stats.avatar_life_stage} sex={stats.avatar_sex} variant={stats.avatar_variant} />
                             <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
                                 Główne Statystyki
                             </h3>

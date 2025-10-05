@@ -26,6 +26,10 @@ export interface Stats {
 
     relationship: "single" | "in_a_relationship" | "married" | "divorced"
     children: number // 0 - 10
+
+    avatar_life_stage: "children" | "adults" | "seniors"
+    avatar_sex: "male" | "female"
+    avatar_variant: number
 }
 
 export const StatsToIcons = {
