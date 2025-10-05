@@ -248,7 +248,7 @@ function Table({ entries }: { entries: [string, any][] }) {
 }
 
 // Avatar Component
-function Avatar({ age }: { age: number }) {
+function Avatar({ age, name }: { age: number, name?: string }) {
     const getAvatarByAge = (age: number): string => {
         if (age < 20) return "/avatars/young.png";
         if (age < 30) return "/avatars/young-adult.png";
@@ -296,13 +296,13 @@ function Avatar({ age }: { age: number }) {
                 textAlign: "center",
                 textShadow: "0 2px 4px rgba(0, 120, 52, 0.1)"
             }}>
-                Tomek Jabłkoński
+                {name || "Gracz"}
             </h2>
         </div>
     );
 }
 
-export default function ExpandableStatsHeader({ years }: { years?: number }) {
+export default function ExpandableStatsHeader({ years, name }: { years?: number, name?: string }) {
     const [isExpanded, setIsExpanded] = useState(false);
     const { stats } = useStats();
 
@@ -376,7 +376,7 @@ export default function ExpandableStatsHeader({ years }: { years?: number }) {
                     }}>
                         {/* Left Column - Core Stats */}
                         <div style={{ width: "100%" }}>
-                            <Avatar age={Number(stats.age)} />
+                            <Avatar name={stats.name} age={Number(stats.age)} />
                             <h3 style={{ color: "#007834", marginBottom: "20px", fontSize: "18px", fontWeight: "600" }}>
                                 Główne Statystyki
                             </h3>
@@ -567,7 +567,7 @@ export default function ExpandableStatsHeader({ years }: { years?: number }) {
 
                     }}
                 >
-                    <ProgressIndicator years={years} percent={years || 0 / 65} />
+                    <ProgressIndicator years={years} percent={years || 0 / 65} name={name} />
                     {isExpanded ? (
                         /**@ts-ignore */
                         <ion-icon name="chevron-up-outline"></ion-icon>
